@@ -6,6 +6,6 @@ const schema = new Schema({
     CreatedBy: { type: String, required: true },
     CreatedDate: { type: Date, default: Date.now },
     Description: { type: String, required: true },
-    IsActive: { type: boolean, default: true,required:true },
+    IsActive: { type: Boolean, default: true,required:true },
 });
 module.exports = mongoose.model('Roles', schema);
