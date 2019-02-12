@@ -4,6 +4,8 @@ import { UserDetailComponent } from './component/user/user-detail/user-detail.co
 import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { UpdateUserComponent } from './component/user/update-user/update-user.component';
 import { TicketCreationFormComponent } from './component/shared/ticket-creation-form/ticket-creation-form.component';
+import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update/role-create-update.component';
+
 
 
 
@@ -12,8 +14,8 @@ const routes: Routes = [
   { path: 'home', component: UserDetailComponent },
   { path: 'create', component: AddUserComponent },
   { path: 'update/:id', component: UpdateUserComponent },
-  { path: 'ticket', component: TicketCreationFormComponent }
-
+  { path: 'ticket', component: TicketCreationFormComponent },
+  { path: 'role', component: RoleCreateUpdateComponent },
 ];
 
 
