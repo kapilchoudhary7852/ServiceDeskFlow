@@ -11,6 +11,7 @@ import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdateUserComponent } from './component/user/update-user/update-user.component';
 import { DatePipe } from '@angular/common';
+import { TicketCreationFormComponent } from './component/shared/ticket-creation-form/ticket-creation-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DatePipe } from '@angular/common';
     FooterComponent,
     UserDetailComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    TicketCreationFormComponent
   ],
   imports: [
     BrowserModule,
