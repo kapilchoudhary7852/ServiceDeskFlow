@@ -1,0 +1,17 @@
+<section class="content"  >
+   <div>
+        <dl *ngFor="let user of users"  >
+                <dd>{{user.name}}</dd>
+                <dd>Email : {{user.email}}</dd>
+                <dd>DOB : {{user.dob | date: "dd/MM/yyyy"}}</dd>
+                <div class="button-group">
+                     <button id="updateButton" routerLink="/update/{{user._id}}"> Update</button>
+                     <button id="deleteButton" (click)="deleteUser(user._id)" > Delete</button>
+                </div>
+            </dl>
+   </div>
+</section>
+
+
+
+

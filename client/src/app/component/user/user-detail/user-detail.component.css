@@ -1,0 +1,58 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  color: rgb(6, 148, 148);
+}
+
+.content>div {
+  margin-left: 20px;
+  display: grid;
+  padding: 20px;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-column-gap: 80px;
+
+}
+
+dl {
+  display: flex;
+  flex-flow: column;
+  padding: 15px 0px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  align-items: center;
+
+}
+
+dd {
+  margin-inline-start: 0%;
+  margin-bottom: 5px;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#deleteButton {
+  background: rgb(255, 71, 71);
+  color: white;
+  border: none;
+  width: 40%;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+#updateButton {
+  background: rgb(40, 179, 40);
+  color: white;
+  border: none;
+  width: 40%;
+  padding: 4px;
+  border-radius: 5px;
+}
+button:hover {
+  cursor: pointer;
+}
