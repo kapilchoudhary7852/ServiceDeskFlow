@@ -10,7 +10,7 @@ module.exports = {
 };
 
 async function getAll() {
-    return await Roles.find({});
+    return await Roles.find({ IsActive : true });
 }
 
 async function getById(id) {

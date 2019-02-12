@@ -10,7 +10,7 @@ module.exports = {
 };
 
 async function getAll() {
-    return await ServicePriority.find({});
+    return await ServicePriority.find({ IsActive : true });
 }
 
 async function getById(id) {
