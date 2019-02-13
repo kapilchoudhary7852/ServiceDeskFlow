@@ -10,7 +10,7 @@ module.exports = {
 };
 
 async function getAll() {
-    return await ServiceStatus.find({});
+    return await ServiceStatus.find({ IsActive : true });
 }
 
 async function getById(id) {

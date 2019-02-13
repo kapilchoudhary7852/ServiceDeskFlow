@@ -19,28 +19,23 @@ async function getById(id) {
 
 async function create(userParam) {
     // validate
-    if (await User.findOne( { "email" : { $regex : new RegExp(userParam.email, "i") } } )    ) {
-        throw 'Email "' + userParam.email + '" is already taken';
+    if (await User.findOne( { "UserId" : userParam.UserId } )    ) {
+        throw 'UserId "' + userParam.UserId + '" is already Exit';
     }
-
     const user = new User(userParam);
     await user.save();
 }
 
 async function update(id, userParam) {
     const user = await User.findById(id);
-
     // validate
     if (!user) throw 'User not found';
-    if (user.email !== userParam.email && await User.findOne({ email: userParam.email })) {
-        throw 'Email "' + userParam.email + '" is already taken';
+    if (user.UserId !== userParam.UserId && await User.findOne({ UserId: userParam.UserId })) {
+        throw 'UserId "' + userParam.UserId + '" is already exist';
     }
-
     Object.assign(user, userParam);
-
     await user.save();
 }
-
 async function _delete(id) {
     await User.findByIdAndRemove(id);
 }
