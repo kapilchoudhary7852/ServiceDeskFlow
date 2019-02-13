@@ -22,7 +22,7 @@ async function create(serviceDeskParam) {
     if (await ServiceDesk.findOne( { "Name" : serviceDeskParam.Name})) {
         throw 'Service Desk name "' + serviceDeskParam.Name + '" is already exist';
     }
-    const serviceDesk = new ServiceDesc(serviceDeskParam);
+    const serviceDesk = new ServiceDesk(serviceDeskParam);
     await serviceDesk.save();
 }
 
@@ -38,5 +38,5 @@ async function update(id, serviceDeskParam) {
 }
 
 async function _delete(id) {
-    await serviceDesk.findByIdAndRemove(id);
+    await ServiceDesk.findByIdAndRemove(id);
 }

@@ -12,9 +12,10 @@ router.delete('/delete/:id', _delete);
 module.exports = router;
 
 function create(req, res, next) {
+    
     serviceRequestService.create(req.body)
         .then(serviceRequest => res.json(serviceRequest))
-        .catch(err => next(err));
+        .catch(err => next(err,));
 }
 
 function getAll(req, res, next) {
@@ -36,7 +37,8 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
+    console.log('req.params.id:-'+req.params.id)
     serviceRequestService.delete(req.params.id)
         .then(() => res.json({}))
-        .catch(err => next(err));
+        .catch(err => next(err,console.log('err:-' + err)));
 }

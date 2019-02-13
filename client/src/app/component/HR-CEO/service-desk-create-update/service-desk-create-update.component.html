@@ -1,0 +1,61 @@
+<div class="content">  <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+
+  <h4>Service Desk</h4>
+
+    <div class="form-group">
+      <label>Service Name</label>
+      <input type="text" formControlName="Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+      <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+        <div *ngIf="f.Name.errors.required">Service Name is required</div>
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <label>Description</label>
+      <input type="text" formControlName="Description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" />
+      <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+        <div *ngIf="f.Description.errors.required">Service Name is required</div>
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <label>Service Manager</label>
+      <select (change)="getSelected($event.target.value,1)" >
+        <option [value]="user._id" *ngFor="let user of users"> {{user.Fname}}</option>
+      </select>
+     </div>
+
+     <div class="form-group">
+      <label>Primary Authority/IRA</label>
+      <select (change)="getSelected($event.target.value,2)" >
+        <option [value]="user._id" *ngFor="let user of users"> {{user.Fname}}</option>
+      </select>
+     </div>
+    
+     <div class="form-group">
+      <label>Secondary Authority</label>
+      <select (change)="getSelected($event.target.value,3)" >
+        <option [value]="user._id" *ngFor="let user of users"> {{user.Fname}}</option>
+      </select>
+     </div>
+
+    <div class="form-group">
+      <label>Assigned Reminder</label>
+      <input type="number" formControlName="AssignedReminder" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.AssignedReminder.errors }" />
+      <div *ngIf="submitted && f.AssignedReminder.errors" class="invalid-feedback">
+        <div *ngIf="f.dob.errors.required">Assigned Reminder is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Isactive</label>
+      <input formControlName="IsActive"  type="checkbox" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.IsActive.errors }" />
+      <div *ngIf="submitted && f.IsActive.errors" class="invalid-feedback">
+        <div *ngIf="f.IsActive.errors.required">Email is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn">Add</button><br><button class="btn">Reset</button>
+    </div>
+  </form>
+</div>

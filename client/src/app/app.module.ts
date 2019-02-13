@@ -13,7 +13,8 @@ import { UpdateUserComponent } from './component/user/update-user/update-user.co
 import { DatePipe } from '@angular/common';
 import { TicketCreationFormComponent } from './component/shared/ticket-creation-form/ticket-creation-form.component';
 import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update/role-create-update.component';
-
+import { ServiceDeskCreateUpdateComponent } from './component/HR-CEO/service-desk-create-update/service-desk-create-update.component';
+import { ServicedescService } from './service/servicedesc.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update
     AddUserComponent,
     UpdateUserComponent,
     TicketCreationFormComponent,
-    RoleCreateUpdateComponent
+    RoleCreateUpdateComponent,
+    ServiceDeskCreateUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [UserService, DatePipe],
+  providers: [UserService, DatePipe,ServicedescService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

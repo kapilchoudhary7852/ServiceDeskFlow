@@ -21,11 +21,10 @@ export class UpdateUserComponent implements OnInit {
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.userService.getUser(this.userId).subscribe(result => {
-      const dob = this.datePipe.transform(result.dob, 'yyyy-MM-dd');
       this.updateForm = this.formBuilder.group({
-        email: [result.email, [Validators.required, Validators.email]],
-        name: [result.name, [Validators.required]],
-        dob: [dob, Validators.required]
+        Fname: [result.Fname, [Validators.required]],
+        Lane: [result.Lname, [Validators.required]],
+        RoleId: [result.RoleId, Validators.required]
       });
     });
   }

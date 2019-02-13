@@ -18,8 +18,8 @@ async function getById(id) {
 }
 
 async function create(serviceRequestParam) {
-    const serviceRequest = new ServiceRequest(serviceRequestParam);
-    await serviceRequest.save();
+   const serviceRequest = new ServiceRequest(serviceRequestParam);
+   await serviceRequest.save();
 }
 
 async function update(id, serviceRequestParam) {
@@ -31,5 +31,5 @@ async function update(id, serviceRequestParam) {
 }
 
 async function _delete(id) {
-    await serviceRequest.findByIdAndRemove(id);
+    await ServiceRequest.findByIdAndRemove(id);
 }
