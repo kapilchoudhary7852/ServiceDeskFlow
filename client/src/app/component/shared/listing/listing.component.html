@@ -1,0 +1,38 @@
+<table>
+  <th>
+    <tr>
+        <td>#</td>
+
+      <td>Service Desk</td>
+      <td>Issue Title</td>
+      <td>Notify To</td>
+      <td>Assigner</td>
+      <td>Status</td>
+
+      <td>Ticket Date</td>
+      <td>Resolve Date</td>
+      <td>Resolve Duration</td>
+      <td>Action</td>
+
+    </tr>
+    <tr *ngFor="let ticket of tickets ; let i = index">
+        <td>{{ i }}</td>
+        <td>{{ ticket.ServiceDeskId  }}</td>
+        <td>{{ ticket.IssueTitle }}</td>
+        <td>{{ ticket.NotifyTo }}</td>
+
+        <td>{{ ticket.CreatedBy }}</td>
+        <td>{{ ticket.Status  }}</td>
+
+        <td>{{ ticket.CreatedDate }}</td>
+        <td>{{ ticket.ResolveDate }}</td>
+        <td>{{ ticket.Duration }}</td>
+
+
+        <td><button type="button" (click)='editTicket(i)'>Edit</button> <button type="button" (click)='deactivateRole(i)'>Deactivate</button></td>
+  
+      </tr>
+  </th>
+
+ 
+</table>

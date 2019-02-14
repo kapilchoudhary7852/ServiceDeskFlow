@@ -26,7 +26,7 @@ export class TicketService {
 
   }
 
-  getUsers(): Observable<Ticket[]> {
+  getTickets(): Observable<Ticket[]> {
     const url: string = this.apiUrl + 'get/all';
     return this.http.get<Ticket[]>(url)
       .pipe(catchError(this.handleError));

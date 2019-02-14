@@ -15,6 +15,7 @@ import { TicketCreationFormComponent } from './component/shared/ticket-creation-
 import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update/role-create-update.component';
 import { ServiceDeskCreateUpdateComponent } from './component/HR-CEO/service-desk-create-update/service-desk-create-update.component';
 import { ServicedescService } from './service/servicedesc.service';
+import { ListingComponent } from './component/shared/listing/listing.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { ServicedescService } from './service/servicedesc.service';
     UpdateUserComponent,
     TicketCreationFormComponent,
     RoleCreateUpdateComponent,
-    ServiceDeskCreateUpdateComponent
+    ServiceDeskCreateUpdateComponent,
+    ListingComponent
   ],
   imports: [
     BrowserModule,
