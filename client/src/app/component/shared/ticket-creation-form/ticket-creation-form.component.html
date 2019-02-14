@@ -7,7 +7,7 @@
 
 <div class="from-group">
   <label>Service Desk</label>
-  <select formControlName="serviceDesk" name="serviceDesk" id="" class="form-control">
+  <select formControlName="ServiceDeskId" name="ServiceDeskId" id="" class="form-control">
   <option selected >Select</option>
   <option *ngFor="let desk of serviceDeskOptions ">{{desk}}</option>
   </select>
@@ -17,7 +17,7 @@
   
   <label>Priority</label>
   
-  <select  formControlName="priority" id="" class="form-control">
+  <select  formControlName="PriorityId" id="" class="form-control">
   <option selected >Select</option>
   <option *ngFor="let priority of priorityOptions">{{priority}}</option>
   </select>
@@ -25,14 +25,30 @@
 
   <div class="form-group">
     <label>Issue Title</label>
-    <input formControlName="issueTitle" name="issue" type="text" class="form-control" >
+    <input formControlName="IssueTitle" name="IssueTitle" type="text" class="form-control" >
   </div>
 
   <div class="form-group">
-    <label>Description</label>
-    <input formControlName="description" name="issue" type="text" class="form-control" >
+    <label>Comment</label>
+    <input formControlName="Comment" name="Comment" type="text" class="form-control" >
   </div>
 
-  <button class="btn btn-primary" type="submit"> Submit</button>
+  <div class="form-group">
+    <label>Status</label>
+    <input formControlName="Status" name="Status" type="text" class="form-control" >
+  </div>
+
+
+  <div class="form-group">
+    <label>Notify To</label>
+    <input formControlName="NotifyTo" name="NotifyTo" type="text" class="form-control" >
+  </div>
+  
+  <div class="form-group">
+    <label>Description</label>
+    <input formControlName="CreatedBy" name="CreatedBy" type="text" class="form-control" >
+  </div>
+
+  <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
 
 </form>
