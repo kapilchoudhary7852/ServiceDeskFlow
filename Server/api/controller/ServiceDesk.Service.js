@@ -22,7 +22,13 @@ async function create(serviceDeskParam) {
     if (await ServiceDesk.findOne( { "Name" : serviceDeskParam.Name})) {
         throw 'Service Desk name "' + serviceDeskParam.Name + '" is already exist';
     }
-    const serviceDesk = new ServiceDesk(serviceDeskParam);
+    const serviceDesk = new ServiceDesk({
+        Name:  serviceDeskParam.Name,
+        AssignedReminder: serviceDeskParam.AssignedReminder,
+        CreatedBy:  serviceDeskParam.CreatedBy,
+        Description:  serviceDeskParam.Description,
+        IsActive:  serviceDeskParam.IsActive,
+    });
     await serviceDesk.save();
 }
 

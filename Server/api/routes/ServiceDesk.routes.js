@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const serviceDeskService = require('../controller/ServiceDesk.Service');
-
 // user routes
 router.post('/create', create);
 router.get('/get/all', getAll);
@@ -10,7 +9,6 @@ router.put('/update/:id', update);
 router.delete('/delete/:id', _delete);
 
 module.exports = router;
-
 function create(req, res, next) {
     serviceDeskService.create(req.body)
         .then(serviceDesc => res.json(serviceDesc))
