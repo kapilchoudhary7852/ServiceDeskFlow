@@ -18,10 +18,10 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
  
   submitted = false;
   createForm: FormGroup;
-  users :  User[];
-  userAccess :  UserAccess[];
-  servicedesks :  ServiceDesk[];
-  servicedesk: ServiceDesk= <ServiceDesk>{};
+  users :  User[]=[];
+  userAccess :  UserAccess[]=[];
+  servicedesks :  ServiceDesk[]=[];
+  servicedesk: ServiceDesk ;
   dropdownList = [];
   selectedItemManager : User[]=[];
   selectedItemIRA : User[]=[];
@@ -36,6 +36,16 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
   isEdit : boolean = false;
   constructor(private formBuilder: FormBuilder,private UserAccessService: UserAccessService,private UserService: UserService, private serviceDescService: ServicedescService, private route: Router) { }
   ngOnInit() {
+    this.createForm = this.formBuilder.group({
+      Name: ['', [Validators.required]],
+      AssignedReminder: ['', [Validators.required]],
+      CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+      selectedManager: ['',[Validators.required]],
+      selectedIRA: ['',[Validators.required]],
+      selectedSecondary: ['',[Validators.required]],
+      Description: ['NoNeed'],
+      IsActive: ['true'],
+    });
     this.dropdownSettings = {
       singleSelection: false,
       idField: '_id',
@@ -84,16 +94,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
     }
    }
       });
-    this.createForm = this.formBuilder.group({
-      Name: ['', [Validators.required]],
-      AssignedReminder: ['', [Validators.required]],
-      CreatedBy: ['5c63a65dda007e1474b2b5cc'],
-      selectedManager: ['',[Validators.required]],
-      selectedIRA: ['',[Validators.required]],
-      selectedSecondary: ['',[Validators.required]],
-      Description: ['NoNeed'],
-      IsActive: ['true'],
-    });
+
   }
   get f() { return this.createForm.controls; }
   onItemSelect(item: any,val : any) {
@@ -134,25 +135,24 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
     if(val==0){
        data.IsActive=false;
        this.serviceDescService.updateServiceDesk(this._id, data).subscribe(res => {
-        this.getServiceDesks();
+        location.reload();
       });
     }
     else{
       this.createForm = this.formBuilder.group({
         Name: ['', [Validators.required]],
-        AssignedReminder: [, [Validators.required]],
+        AssignedReminder: ['', [Validators.required]],
         CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+        selectedManager: ['',[Validators.required]],
+        selectedIRA: ['',[Validators.required]],
+        selectedSecondary: ['',[Validators.required]],
         Description: ['NoNeed'],
-        selectedManager: [],
-        selectedIRA: [],
-        selectedSecondary: [],
-        IsActive: ['']
-       });
+        IsActive: ['true'],
+      });
       this.getUsers();
       this.serviceDescService.getServiceDesk(data._id).subscribe(data=>{
         this.servicedesk = data;
       });
-      console.log(this.servicedesk)
       this.UserAccessService.getUserAccessByServiceDeskId(data._id).subscribe(data=>{
       this.userAccess = data;
       this.selectedItemManager =[];
@@ -177,17 +177,16 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
             this.selectedItemSecondary.push(us);
             }
        }
-       
       });
       this.createForm.patchValue({
-        'Name': this.servicedesk.Name,
-        'AssignedReminder': this.servicedesk.AssignedReminder,
-        'CreatedBy': '5c63a65dda007e1474b2b5cc',
-        'Description': 'NoNeed',
-        'selectedManager': this.selectedItemManager,
-        'selectedIRA': this.selectedItemIRA,
-        'selectedSecondary': this.selectedItemSecondary,
-        'IsActive':  this.servicedesk.IsActive,
+        Name: this.servicedesk.Name,
+        AssignedReminder: this.servicedesk.AssignedReminder,
+        CreatedBy: '5c63a65dda007e1474b2b5cc',
+        Description: 'NoNeed',
+        selectedManager: this.selectedItemManager,
+        selectedIRA: this.selectedItemIRA,
+        selectedSecondary: this.selectedItemSecondary,
+        IsActive:  this.servicedesk.IsActive,
       });  
     }
   }
@@ -199,20 +198,16 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       console.log(this.createForm.value);
       this.CreatedBy = '5c63a65dda007e1474b2b5cc';
       this.Description = 'NoNeed';
-      // if(this._id == null){
-      // this.serviceDescService.createServiceDesk(this.createForm.value).subscribe(res => {
-      //   this.getUsers();
-      //  this.getServiceDesks();
-      //  this.route.navigateByUrl('/servicedesk');
-      //  });
-      // }
-      // else{
-      //   this.serviceDescService.updateServiceDesk(this._id, this.createForm.value).subscribe(res => {
-      //     this.getUsers();
-      //     this.getServiceDesks();
-      //     this.route.navigateByUrl('/servicedesk');
-      //   });
-      //  }
+      if(this._id == null){
+      this.serviceDescService.createServiceDesk(this.createForm.value).subscribe(res => {
+        location.reload();
+       });
+      }
+      else{
+        this.serviceDescService.updateServiceDesk(this._id, this.createForm.value).subscribe(res => {
+          location.reload();
+        });
+       }
       
     }
   }

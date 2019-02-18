@@ -47,7 +47,7 @@ async function update(id, serviceDeskParam) {
     }
     Object.assign(serviceDesk, serviceDeskParam);
     let Sdata = await serviceDesk.save();
-    if(Sdata._id != null)
+    if(Sdata._id != null && serviceDeskParam.IsActive == true)
       { 
          UserAccess.deleteMultiple(Sdata._id); 
          await UserAccess.create(serviceDeskParam.selectedManager,Sdata._id);
