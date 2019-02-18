@@ -12,9 +12,9 @@ import { ListingComponent } from './component/shared/listing/listing.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: ServiceDeskCreateUpdateComponent },
-  // { path: 'create', component: AddUserComponent },
-  // { path: 'update/:id', component: UpdateUserComponent },
+  { path: 'home', component: UserDetailComponent },
+   { path: 'user/create', component: AddUserComponent },
+  { path: 'update/:id', component: UpdateUserComponent },
   { path: 'ticket', component: TicketCreationFormComponent },
   { path: 'role', component: RoleCreateUpdateComponent },
   { path: 'servicedesk', component: ServiceDeskCreateUpdateComponent },

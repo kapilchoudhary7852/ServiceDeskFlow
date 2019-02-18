@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../service/user.service';
 import { DatePipe } from '@angular/common';
-
+import { RolesEnum } from '../../../Common/Enum/RolesEnum';
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
@@ -14,16 +14,23 @@ export class UpdateUserComponent implements OnInit {
   updateForm: FormGroup;
   submitted: Boolean = false;
   userId: string = null;
+  roles: {id: number; name: string}[] = [];
   constructor(private formBuilder: FormBuilder, private router: Router,
     private route: ActivatedRoute, private datePipe: DatePipe, private userService: UserService) {
   }
 
   ngOnInit() {
+    for(var n in RolesEnum) {
+      if (typeof RolesEnum[n] === 'number') {
+          this.roles.push({id: <any>RolesEnum[n], name: n});
+        }
+    }
     this.userId = this.route.snapshot.paramMap.get('id');
     this.userService.getUser(this.userId).subscribe(result => {
       this.updateForm = this.formBuilder.group({
+        UserId: [result.UserId, [Validators.required]],
         Fname: [result.Fname, [Validators.required]],
-        Lane: [result.Lname, [Validators.required]],
+        Lname: [result.Lname, [Validators.required]],
         RoleId: [result.RoleId, Validators.required]
       });
     });
@@ -37,7 +44,6 @@ export class UpdateUserComponent implements OnInit {
       return;
     } else {
       console.log(this.updateForm.value);
-      console.log(this.updateForm.controls['dob'].value);
       this.userService.updateUser(this.userId, this.updateForm.value).subscribe(res => {
         this.router.navigateByUrl('/home');
       });

@@ -1,6 +1,6 @@
 const db = require('_helpers/db');
 const ServiceDesk = db.ServiceDesk;
-
+const UserAccess = require('../controller/UserAccess.Service')
 module.exports = {
     getAll,
     getById,
@@ -10,7 +10,7 @@ module.exports = {
 };
 
 async function getAll() {
-    return await ServiceDesk.find({ IsActive : true });
+    return await ServiceDesk.find({ });
 }
 
 async function getById(id) {
@@ -29,7 +29,13 @@ async function create(serviceDeskParam) {
         Description:  serviceDeskParam.Description,
         IsActive:  serviceDeskParam.IsActive,
     });
-    await serviceDesk.save();
+    let Sdata = await serviceDesk.save();
+    if(Sdata._id != null)
+      { 
+        await UserAccess.create(serviceDeskParam.selectedManager,Sdata._id);
+        await UserAccess.create(serviceDeskParam.selectedIRA,Sdata._id);
+        await UserAccess.create(serviceDeskParam.selectedSecondary,Sdata._id);
+      }
 }
 
 async function update(id, serviceDeskParam) {
@@ -40,7 +46,14 @@ async function update(id, serviceDeskParam) {
         throw 'Priority name "' + serviceDescParam.Name + '" is already exist';
     }
     Object.assign(serviceDesk, serviceDeskParam);
-    await serviceDesk.save();
+    let Sdata = await serviceDesk.save();
+    if(Sdata._id != null)
+      { 
+         UserAccess.deleteMultiple(Sdata._id); 
+         await UserAccess.create(serviceDeskParam.selectedManager,Sdata._id);
+         await UserAccess.create(serviceDeskParam.selectedIRA,Sdata._id);
+         await UserAccess.create(serviceDeskParam.selectedSecondary,Sdata._id);
+    }
 }
 
 async function _delete(id) {

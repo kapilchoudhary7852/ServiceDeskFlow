@@ -1,43 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { User } from '../model/user';
+import { UserAccess } from '../model/UserAccess';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private apiUrl = 'api/users/';
-
+export class UserAccessService {
+  private apiUrl = 'api/useraccess/';
   constructor(private http: HttpClient) { }
 
-  createUser(body: any) {
+  createUserAccess(body: any) {
     const url: string = this.apiUrl + 'create';
     return this.http.post(url, body).pipe(catchError(this.handleError));
   }
 
-  deleteUser(id: string) {
+  deleteUserAccess(id: string) {
     const url: string = this.apiUrl + 'delete/' + id;
     return this.http.delete(url).pipe(catchError(this.handleError));
 
 
   }
 
-  getUsers(): Observable<User[]> {
+  getUserAccesss(): Observable<UserAccess[]> {
     const url: string = this.apiUrl + 'get/all';
-    return this.http.get<User[]>(url).pipe(catchError(this.handleError));
-  }
-
-  getUser(id: string): Observable<User> {
-    const url = `${this.apiUrl}get/${id}`;
-    return this.http.get<User>(url)
+    return this.http.get<UserAccess[]>(url)
       .pipe(catchError(this.handleError));
   }
 
-  updateUser(id: string, userDetails: User) {
+  getUserAccess(id: string): Observable<UserAccess> {
+    const url = `${this.apiUrl}get/${id}`;
+    return this.http.get<UserAccess>(url)
+      .pipe(catchError(this.handleError));
+  }
+
+  getUserAccessByServiceDeskId(id: string): Observable<UserAccess[]> {
+    const url = `${this.apiUrl}getbySid/${id}`;
+    return this.http.get<UserAccess[]>(url)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateUserAccess(id: string, userAccessDetails: UserAccess) {
     const url: string = this.apiUrl + 'update/' + id;
-    return this.http.put(url, userDetails)
+    return this.http.put(url, userAccessDetails)
       .pipe(catchError(this.handleError));
 
   }

@@ -4,4 +4,5 @@ export interface User {
     Fname: string;
     Lname: string;
     RoleId: string;
+    RoleName: string;
 }

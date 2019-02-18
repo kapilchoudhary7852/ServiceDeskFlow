@@ -6,6 +6,7 @@ const UserAccessService = require('../controller/UserAccess.Service');
 router.post('/create', create);
 router.get('/get/all', getAll);
 router.get('/get/:id', getById);
+router.get('/getbySid/:id', getBySId);
 router.put('/update/:id', update);
 router.delete('/delete/:id', _delete);
 
@@ -25,6 +26,11 @@ function getAll(req, res, next) {
 
 function getById(req, res, next) {
     UserAccessService.getById(req.params.id)
+        .then(userAccess => userAccess ? res.json(userAccess) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+function getBySId(req, res, next) {
+    UserAccessService.getBySId(req.params.id)
         .then(userAccess => userAccess ? res.json(userAccess) : res.sendStatus(404))
         .catch(err => next(err));
 }

@@ -16,6 +16,10 @@ import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update
 import { ServiceDeskCreateUpdateComponent } from './component/HR-CEO/service-desk-create-update/service-desk-create-update.component';
 import { ServicedescService } from './service/servicedesc.service';
 import { ListingComponent } from './component/shared/listing/listing.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UserAccessService } from './service/user-access.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,9 +38,10 @@ import { ListingComponent } from './component/shared/listing/listing.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
-  providers: [UserService, DatePipe,ServicedescService],
+  providers: [UserService, DatePipe,ServicedescService,UserAccessService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
