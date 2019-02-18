@@ -1,3 +1,23 @@
+
+<div>
+
+  <div>
+
+    <label for="">Service Desk:</label>   <input type="text" [(ngModel)]='serviceDeskInput' >
+    <label for="">    Ticket:</label>  <input type="text" [(ngModel)]='ticketInput' >
+    <label for="">    Employee:</label>  <input type="text" [(ngModel)]='employeeInput' >
+
+    <label for="">    Status:</label>  <input type="text" [(ngModel)]='statusInput' >
+    <label for="">    Ticket Date:</label>  <input type="text" [(ngModel)]='ticketDateInput' >
+    <label for="">    Resolved Date:</label>  <input type="text" [(ngModel)]='resolvedDateInput' >
+    <label for="">    Assigner:</label>  <input type="text" [(ngModel)]='assignerInput' >
+
+  </div>
+
+  <button (click)='filterTickets()'>Search Ticket</button>
+
+  <button (click)='resetFilters()'>Reset</button>
+
 <table>
   <th>
     <tr>
@@ -29,10 +49,12 @@
         <td>{{ ticket.Duration }}</td>
 
 
-        <td><button type="button" (click)='editTicket(i)'>Edit</button> <button type="button" (click)='deactivateRole(i)'>Deactivate</button></td>
+        <td><button type="button" (click)='editTicket(i)'>Edit</button> <button type="button" (click)='deactivateRole(i)'>Assign</button></td>
   
       </tr>
   </th>
 
  
 </table>
+
+</div>
