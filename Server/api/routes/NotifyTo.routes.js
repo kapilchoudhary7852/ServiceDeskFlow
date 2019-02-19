@@ -7,6 +7,7 @@ router.post('/create', create);
 router.get('/get/all', getAll);
 router.get('/get/:id', getById);
 router.get('/getbySid/:id', getBySId);
+router.get('/getbyUid/:id', getByUId);
 router.put('/update/:id', update);
 router.delete('/delete/:id', _delete);
 
@@ -30,6 +31,12 @@ function getById(req, res, next) {
         .catch(err => next(err));
 }
 function getBySId(req, res, next) {
+    NotifyToService.getBySId(req.params.id)
+        .then(x => x ? res.json(x) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getByUId(req, res, next) {
     NotifyToService.getBySId(req.params.id)
         .then(x => x ? res.json(x) : res.sendStatus(404))
         .catch(err => next(err));

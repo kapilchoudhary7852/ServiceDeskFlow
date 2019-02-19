@@ -63,6 +63,7 @@ export class TicketCreationFormComponent implements OnInit {
       PriorityId: ['', [Validators.required]],
       IssueTitle: ['', [Validators.required]],
       CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+      Status: [1],
       Description: ['',[Validators.required]],
       NotifyTo: ['',[Validators.required]],
     });

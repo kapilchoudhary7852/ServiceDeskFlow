@@ -1,60 +1,66 @@
-
 <div>
-
   <div>
-
-    <label for="">Service Desk:</label>   <input type="text" [(ngModel)]='serviceDeskInput' >
-    <label for="">    Ticket:</label>  <input type="text" [(ngModel)]='ticketInput' >
-    <label for="">    Employee:</label>  <input type="text" [(ngModel)]='employeeInput' >
-
-    <label for="">    Status:</label>  <input type="text" [(ngModel)]='statusInput' >
-    <label for="">    Ticket Date:</label>  <input type="text" [(ngModel)]='ticketDateInput' >
-    <label for="">    Resolved Date:</label>  <input type="text" [(ngModel)]='resolvedDateInput' >
-    <label for="">    Assigner:</label>  <input type="text" [(ngModel)]='assignerInput' >
-
+    <div style="padding: 5px;">
+    <label for="">Service Desk:</label>  
+     <select [(ngModel)]='serviceDeskInput'>
+      <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
+      </select>
+     <label for="">Ticket:</label>  <input type="text" [(ngModel)]='ticketInput' ><br>
+    <label>Employee</label>
+    <ng-multiselect-dropdown [data]="users" [(ngModel)]='employeeInput'  [placeholder]="'Select users'"  
+      [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+    </ng-multiselect-dropdown>
   </div>
-
+  <div style="padding: 20px;">
+    <label for="">Ticket Date:</label> From <input type="date" [(ngModel)]='ticketDateFromInput' >To <input type="date" [(ngModel)]='ticketDateToInput' >
+  </div>
+  <div style="padding: 20px;"> 
+  <label for="">Resolved Date:</label>From  <input type="date" [(ngModel)]='resolvedDateFromInput' >To <input type="date" [(ngModel)]='resolvedDateToInput' >
+</div>
+<div style="padding: 20px;">
+    <label for="">Status:</label> 
+    <select [(ngModel)]='statusInput'>
+      <option *ngFor="let da of status" [value]='da.id'>{{da.name}}</option>
+      </select>
+    <label for="">Assigner:</label>  <input type="text" [(ngModel)]='assignerInput' >
+    <label for="">Priority:</label> 
+    <select [(ngModel)]='priorityInput'>
+      <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
+      </select>
+  </div>
+  </div>
   <button (click)='filterTickets()'>Search Ticket</button>
-
   <button (click)='resetFilters()'>Reset</button>
-
 <table>
   <th>
     <tr>
-        <td>#</td>
-
+     <td>#</td>
       <td>Service Desk</td>
       <td>Issue Title</td>
       <td>Notify To</td>
-      <td>Assigner</td>
+      <td>Assignee</td>
+      <td>Reporter</td>
       <td>Status</td>
-
+      <td>Priority</td>
       <td>Ticket Date</td>
       <td>Resolve Date</td>
-      <td>Resolve Duration</td>
+      <td>Resolve Duration(Hr)</td>
       <td>Action</td>
-
     </tr>
     <tr *ngFor="let ticket of tickets ; let i = index">
         <td>{{ i }}</td>
-        <td>{{ ticket.ServiceDeskId  }}</td>
+        <td>{{ ticket.ServiceDeskName  }}</td>
         <td>{{ ticket.IssueTitle }}</td>
-        <td>{{ ticket.NotifyTo }}</td>
-
-        <td>{{ ticket.CreatedBy }}</td>
-        <td>{{ ticket.Status  }}</td>
-
-        <td>{{ ticket.CreatedDate }}</td>
-        <td>{{ ticket.ResolveDate }}</td>
-        <td>{{ ticket.Duration }}</td>
-
-
+        <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
+        <td>{{ ticket.AssignedName }}</td>
+        <td>{{ ticket.CreatedName }}</td>
+        <td>{{ ticket.StatusName  }}</td>
+        <td>{{ ticket.PriorityName  }}</td>
+        <td>{{ ticket.CreatedDate}}</td>
+        <td>{{ ticket.ResolvedDate }}</td>
+        <td>{{ ticket.ResolvedDuration }}</td>
         <td><button type="button" (click)='editTicket(i)'>Edit</button> <button type="button" (click)='deactivateRole(i)'>Assign</button></td>
-  
-      </tr>
-  </th>
-
- 
-</table>
-
+    </tr>
+   </th>
+ </table>
 </div>

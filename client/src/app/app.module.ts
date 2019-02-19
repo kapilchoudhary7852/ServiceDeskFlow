@@ -19,6 +19,7 @@ import { ListingComponent } from './component/shared/listing/listing.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserAccessService } from './service/user-access.service';
 import { TicketDetailsComponent } from './component/shared/ticket-details/ticket-details.component';
+import { NotifytoService } from './service/notifyto.service';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { TicketDetailsComponent } from './component/shared/ticket-details/ticket
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
   ],
-  providers: [UserService, DatePipe,ServicedescService,UserAccessService],
+  providers: [UserService, DatePipe,ServicedescService,UserAccessService,NotifytoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
