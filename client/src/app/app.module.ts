@@ -18,6 +18,7 @@ import { ServicedescService } from './service/servicedesc.service';
 import { ListingComponent } from './component/shared/listing/listing.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserAccessService } from './service/user-access.service';
+import { TicketDetailsComponent } from './component/shared/ticket-details/ticket-details.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UserAccessService } from './service/user-access.service';
     TicketCreationFormComponent,
     RoleCreateUpdateComponent,
     ServiceDeskCreateUpdateComponent,
-    ListingComponent
+    ListingComponent,
+    TicketDetailsComponent
   ],
   imports: [
     BrowserModule,

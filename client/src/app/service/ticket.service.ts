@@ -32,6 +32,12 @@ export class TicketService {
       .pipe(catchError(this.handleError));
   }
 
+  getTicketWithId(id): Observable<Ticket[]> {
+    const url: string = this.apiUrl + 'get/'+id;
+    return this.http.get<Ticket[]>(url)
+      .pipe(catchError(this.handleError));
+  }
+
   getUser(id: string): Observable<Ticket> {
     const url = `${this.apiUrl}get/${id}`;
     return this.http.get<Ticket>(url)

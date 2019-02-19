@@ -7,6 +7,8 @@ import { TicketCreationFormComponent } from './component/shared/ticket-creation-
 import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update/role-create-update.component';
 import { ServiceDeskCreateUpdateComponent } from './component/HR-CEO/service-desk-create-update/service-desk-create-update.component';
 import { ListingComponent } from './component/shared/listing/listing.component';
+import { TicketDetailsComponent } from './component/shared/ticket-details/ticket-details.component';
+
 
 
 
@@ -19,7 +21,7 @@ const routes: Routes = [
   { path: 'role', component: RoleCreateUpdateComponent },
   { path: 'servicedesk', component: ServiceDeskCreateUpdateComponent },
   { path: 'listing', component: ListingComponent },
-
+  { path: 'ticketdetails', component: TicketDetailsComponent },
 ];
 
 
