@@ -4,6 +4,8 @@ const NotifyTo = db.NotifyTo;
 module.exports = {
     getAll,
     getById,
+    getBySId,
+    getByUId,
     create,
     update,
     delete: _delete
@@ -27,6 +29,12 @@ async function create(Param,id) {
     console.log(notifyTo);
     await notifyTo.save();
  }
+}
+async function getBySId(id) {
+    return await NotifyTo.find({ ServiceRequestId : id });
+}
+async function getByUId(id) {
+    return await NotifyTo.find({ UserId : id });
 }
 async function update(id, Param) {
     const notifyTo = await NotifyTo.findById(id);

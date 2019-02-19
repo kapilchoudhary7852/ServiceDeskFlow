@@ -10,6 +10,7 @@ const schema = new Schema({
     CreatedBy: { type: String, required: true },
     CreatedDate: { type: Date,default: Date.now},
     Assigned: { type: String },
+    ResolvedDate: { type: Date},
     IsActive: { type: Boolean, default: true,required:true },
 });
 module.exports = mongoose.model('ServiceRequest', schema);

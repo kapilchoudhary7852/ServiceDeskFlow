@@ -7,5 +7,5 @@ export enum StatusEnum {
     Escalated = 6, 
     Closed = 7,
     Reopen = 8,  
-    Completed = 9,  
+    Completed = 9  
 }
