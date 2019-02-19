@@ -6,6 +6,7 @@ const serviceRequestHistory_routes=require('./routes/ServiceRequestHistory.route
 const serviceStatus_routes=require('./routes/ServiceStatus.routes');
 const user_routes=require('./routes/user.routes');
 const userAccess_routes=require('./routes/UserAccess.routes');
+const notifyTo_routes=require('./routes/NotifyTo.routes');
 module.exports = {
    role_routes,
    serviceDesk_routes,
@@ -15,4 +16,5 @@ module.exports = {
    serviceStatus_routes,
    user_routes,
    userAccess_routes,
+   notifyTo_routes,
 };

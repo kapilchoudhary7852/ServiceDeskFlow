@@ -12,7 +12,6 @@ import { RolesEnum } from '../../../Common/Enum/RolesEnum';
   selector: 'app-service-desk-create-update',
   templateUrl: './service-desk-create-update.component.html',
   styleUrls: ['./service-desk-create-update.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServiceDeskCreateUpdateComponent implements OnInit {
  
@@ -232,10 +231,4 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       this.servicedesks = data;
     });
   }
-
-// ngOnChanges() {
-//   this.createForm.controls['selectedIRA'].setValue(this.selectedItemIRA);
-//   console.log('change');
-
-//  }
 }

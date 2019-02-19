@@ -1,5 +1,7 @@
 const db = require('_helpers/db');
 const ServiceRequest = db.ServiceRequest;
+const ServiceRequestHostory = require('../controller/ServiceRequestHistory.Service');
+const NotifyTo = require('../controller/NotifyTo.service');
 
 module.exports = {
     getAll,
@@ -19,7 +21,12 @@ async function getById(id) {
 
 async function create(serviceRequestParam) {
    const serviceRequest = new ServiceRequest(serviceRequestParam);
-   await serviceRequest.save();
+   let Sdata =  await serviceRequest.save();
+    if(Sdata._id != null)
+         {
+           await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);
+           await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+         }
 }
 
 async function update(id, serviceRequestParam) {

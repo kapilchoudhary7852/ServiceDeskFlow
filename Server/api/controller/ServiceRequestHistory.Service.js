@@ -17,8 +17,20 @@ async function getById(id) {
     return await ServiceRequestHistory.findById(id);
 }
 
-async function create(serviceRequestHistoryParam) {
-    const serviceRequestHistory = new ServiceRequestHistory(serviceRequestHistoryParam);
+async function create(serviceRequestHistoryParam,serviceRequestId) {
+    const serviceRequestHistory = new ServiceRequestHistory({
+        ServiceRequestId: serviceRequestId,
+        ServiceDeskId: serviceRequestHistoryParam.ServiceDeskId,
+        PriorityId: serviceRequestHistoryParam.PriorityId,
+        IssueTitle: serviceRequestHistoryParam.IssueTitle,
+        Description: serviceRequestHistoryParam.Description,
+        Status: serviceRequestHistoryParam.Status,
+        CreatedBy: serviceRequestHistoryParam.CreatedBy,
+        Assigned: serviceRequestHistoryParam.Assigned,
+        IsActive: serviceRequestHistoryParam.IsActive,
+    
+    });
+    console.log(serviceRequestHistory);
     await serviceRequestHistory.save();
 }
 

@@ -12,4 +12,5 @@ module.exports = {
     ServiceStatus: require('../api/model/ServiceStatus'),
     User: require('../api/model/user.model'),
     UserAccess: require('../api/model/UserAccess'),
+    NotifyTo: require('../api/model/NotifyTo'),
 };
