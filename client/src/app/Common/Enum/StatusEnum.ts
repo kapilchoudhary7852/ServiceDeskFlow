@@ -1,4 +1,4 @@
-enum StatusEnum {
+export enum StatusEnum {
     New = 1, 
     InProgress = 2,
     Pending = 3, 
