@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
 import { TicketService } from 'src/app/service/ticket.service';
 import { Ticket } from '../../../model/ticket';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router } from '@angular/router';
 import { JsonPipe, DatePipe } from '@angular/common';
 import { PriorityEnum } from '../../../Common/Enum/PriorityEnum';
 import { ServiceDesk } from '../../../model/ServiceDesk';
@@ -15,21 +15,13 @@ import { NotifytoService } from '../../../service/notifyto.service';
 import { NotifyTo } from '../../../model/NotifyTo';
 
 
-
-
-
-
 @Component({
   selector: 'app-ticket-details',
   templateUrl: './ticket-details.component.html',
   styleUrls: ['./ticket-details.component.css']
 })
 export class TicketDetailsComponent implements OnInit {
-
-  ticketId = "5c6cf41589c4b1e5976ce0fd";
   ticketDetails = null;
-
-
   submitted = false;
   ticketForm: FormGroup;
   prioritys: {id: number; name: string}[] = [];
@@ -41,7 +33,7 @@ export class TicketDetailsComponent implements OnInit {
   Description:string ='NoNeed';
   dropdownSettings = {};
   dropdownSettings2 = {};
-
+  ticketId: string = null;
 
   notifyTo: NotifyTo[]=[];
 
@@ -51,15 +43,15 @@ export class TicketDetailsComponent implements OnInit {
 
 
 
-  constructor(private formBuilder:FormBuilder,private UserService: UserService, private serviceDescService: ServicedescService,private ticketService: TicketService, private router: Router,private notifytoService: NotifytoService,public datepipe: DatePipe) { 
+  constructor(private formBuilder:FormBuilder,private route: ActivatedRoute,private UserService: UserService, private serviceDescService: ServicedescService,private ticketService: TicketService, private router: Router,private notifytoService: NotifytoService,public datepipe: DatePipe) { 
 
   }
 
   ngOnInit() 
   {
+    this.ticketId = this.route.snapshot.paramMap.get('id');
     this.getUsers();
     this.getServiceDesks();
-
     for(let n in PriorityEnum) {
       if (typeof PriorityEnum[n] === 'number') {
         this.prioritys.push({id: <any>PriorityEnum[n], name: n});

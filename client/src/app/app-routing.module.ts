@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'role', component: RoleCreateUpdateComponent },
   { path: 'servicedesk', component: ServiceDeskCreateUpdateComponent },
   { path: 'listing', component: ListingComponent },
-  { path: 'ticketdetails', component: TicketDetailsComponent },
+  { path: 'ticketdetails/:id', component: TicketDetailsComponent },
 ];
 
 
