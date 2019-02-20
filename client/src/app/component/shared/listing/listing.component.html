@@ -6,10 +6,13 @@
       <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
       </select>
      <label for="">Ticket:</label>  <input type="text" [(ngModel)]='ticketInput' ><br>
-    <label>Employee</label>
-    <ng-multiselect-dropdown [data]="users" [(ngModel)]='employeeInput'  [placeholder]="'Select users'"  
-      [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-    </ng-multiselect-dropdown>
+    <label>Assignee</label>
+    <select [(ngModel)]='AssigneeInput'>
+      <option *ngFor="let d of userAssignee " [value]='d.id'>{{d.name}}</option>
+      </select>
+    <!-- <ng-multiselect-dropdown [data]="userAssignee" [(ngModel)]='AssigneeInput'  [placeholder]="'Select users'"  
+      [settings]="dropdownSettings" (onSelect)="onItemSelect($event,1)" (onSelectAll)="onSelectAll($event,1)">
+    </ng-multiselect-dropdown> -->
   </div>
   <div style="padding: 20px;">
     <label for="">Ticket Date:</label> From <input type="date" [(ngModel)]='ticketDateFromInput' >To <input type="date" [(ngModel)]='ticketDateToInput' >
@@ -22,11 +25,17 @@
     <select [(ngModel)]='statusInput'>
       <option *ngFor="let da of status" [value]='da.id'>{{da.name}}</option>
       </select>
-    <label for="">Assigner:</label>  <input type="text" [(ngModel)]='assignerInput' >
     <label for="">Priority:</label> 
     <select [(ngModel)]='priorityInput'>
       <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
       </select>
+      <label for="">Reporter:</label>  
+      <select [(ngModel)]='ReporterInput'>
+        <option *ngFor="let d of userReporter " [value]='d.id'>{{d.name}}</option>
+        </select>
+      <!-- <ng-multiselect-dropdown [data]="userReporter" [(ngModel)]='ReporterInput'  [placeholder]="'Select users'"  
+      [settings]="dropdownSettings" (onSelect)="onItemSelect($event,2)" (onSelectAll)="onSelectAll($event,2)">
+    </ng-multiselect-dropdown> -->
   </div>
   </div>
   <button (click)='filterTickets()'>Search Ticket</button>
@@ -59,7 +68,13 @@
         <td>{{ ticket.CreatedDate}}</td>
         <td>{{ ticket.ResolvedDate }}</td>
         <td>{{ ticket.ResolvedDuration }}</td>
-        <td><button type="button" (click)='editTicket(i)'>Edit</button> <button type="button" (click)='deactivateRole(i)'>Assign</button></td>
+        <td>
+          <button type="button" (click)='editTicket(i)'>Assign</button> 
+          <button type="button" (click)='editTicket(i)'>Edit</button> 
+          <button type="button" (click)='deactivateRole(i)'>Delete</button>
+          <button type="button" (click)='editTicket(i)'>View</button> 
+          <button type="button" (click)='deactivateRole(i)'>Reopen</button>
+        </td>
     </tr>
    </th>
  </table>

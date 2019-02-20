@@ -15,6 +15,7 @@ import { User } from '../../../model/user';
 import { DatePipe } from '@angular/common';
 import { NotifytoService } from '../../../service/notifyto.service';
 import { NotifyTo } from '../../../model/NotifyTo';
+
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -40,9 +41,14 @@ export class ListingComponent implements OnInit {
   serviceDesks: {id: string; name: string}[] = [];
   servicedesks :  ServiceDesk[]=[];
   users :  User[]=[];
+  userAssignee :  {id: string; name: string}[] = [];
+  userReporter :  {id: string; name: string}[] = [];
   notifyTo: NotifyTo[]=[];
   dropdownSettings = {};
-  Selectedusers: User[]=[];
+  SelectedReporter: User[]=[];
+  SelectedAssignee: User[]=[];
+  ReporterInput =''
+  AssigneeInput =''
   constructor(private formBuilder:FormBuilder,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
@@ -77,24 +83,59 @@ export class ListingComponent implements OnInit {
   filterTickets ()
   {
     var arryFiltered = this.unFilteredTickets;
-    if (this.serviceDeskInput != '') 
+    if (this.serviceDeskInput != '' && this.serviceDeskInput != '0' && this.serviceDeskInput != null) 
       arryFiltered =  arryFiltered.filter(item=> item.ServiceDeskId==this.serviceDeskInput)
-    if (this.statusInput != '') 
+    if (this.statusInput != '' &&  this.statusInput != '0') 
       arryFiltered =  arryFiltered.filter(item=> item.Status==this.statusInput)
+    if (this.priorityInput != '' &&  this.priorityInput != '0') 
+      arryFiltered =  arryFiltered.filter(item=> item.PriorityId==this.priorityInput)
+    if (this.AssigneeInput != '0' && this.AssigneeInput != '') 
+        arryFiltered =  arryFiltered.filter(item=> item.Assigned == this.AssigneeInput)
+    if (this.ReporterInput!= '0' && this.ReporterInput!= '') 
+        arryFiltered =  arryFiltered.filter(item=> item.CreatedBy == this.ReporterInput)
+    if (this.ticketDateFromInput !=''|| this.ticketDateToInput !='') 
+     {
+        if(this.ticketDateFromInput =='')
+          this.ticketDateFromInput = '1000-01-01T08:07:20.717Z';
+        if(this.ticketDateToInput =='')
+          this.ticketDateToInput = '3000-01-01T08:07:20.717Z';
+        arryFiltered =  arryFiltered.filter(item=> new Date(item.CreatedDate) >= new Date(this.ticketDateFromInput) && new Date(item.CreatedDate) <= new Date(this.ticketDateToInput))
+     }
+     if (this.resolvedDateFromInput !=''|| this.resolvedDateToInput !='') 
+     {
+        if(this.resolvedDateFromInput =='')
+          this.resolvedDateFromInput = '1000-01-01T08:07:20.717Z';
+        if(this.resolvedDateToInput =='')
+          this.resolvedDateToInput = '3000-01-01T08:07:20.717Z';
+        arryFiltered =  arryFiltered.filter(item=> new Date(item.ResolvedDate) >= new Date(this.resolvedDateFromInput) && new Date(item.ResolvedDate) <= new Date(this.resolvedDateToInput))
+     }
     this.tickets = arryFiltered;
-    for (let t of this.tickets){
-      for (let sd of this.servicedesks){
-        if(t.ServiceDeskId == sd._id)
-           t.ServiceDeskId=sd.Name;
-    }
-   }
   }
   getAllTickets()
   {
     this.ticketService.getTickets().subscribe(data => {
     this.tickets = data;
+    this.unFilteredTickets = data;
     this.UserService.getUsers().subscribe(x => {
     this.users = x;
+    this.userReporter = [];
+    this.userAssignee = [];
+    this.userReporter.push({ id: '0' , name:'----Select----' });
+    for (let t of this.tickets){
+      for (let u of this.users){
+        if(t.CreatedBy == u._id)
+          this.userReporter.push({ id: u._id , name:u.Fname+' '+u.Fname});
+      }
+    }
+    this.userReporter = this.userReporter.filter((el, i, a) => i === a.indexOf(el))
+    this.userAssignee.push({ id: '0' , name:'----Select----' });
+    for (let t of this.tickets){
+      for (let u of this.users){
+        if(t.Assigned == u._id)
+        this.userAssignee.push({ id: u._id , name:u.Fname+' '+u.Fname});
+     }
+    }
+    this.userAssignee = this.userAssignee.filter((el, i, a) => i === a.indexOf(el))
     this.notifytoService.gets().subscribe(y => {
     this.notifyTo = y;
       for (let t of this.tickets){
@@ -112,28 +153,31 @@ export class ListingComponent implements OnInit {
        }
      }
      for (let t of this.tickets){
-       for(let n in StatusEnum) {
+       for(let n in  StatusEnum) {
         if (typeof StatusEnum[n] === 'number') {
-          if(t.Status == <any>StatusEnum[n]){
-            t.StatusName = n;
+           let ID = <any>StatusEnum[n];
+           let NAME = n;
+           if(t.Status == ID)
+             t.StatusName=NAME;
          }
-      }
      }
     }
     for (let t of this.tickets){
+      for(let n in  PriorityEnum) {
+        if (typeof PriorityEnum[n] === 'number') {
+           let ID = <any>PriorityEnum[n];
+           let NAME = n;
+           if(t.PriorityId == ID)
+             t.PriorityName=NAME;
+         }
+     }
       if(t.CreatedDate != null && t.ResolvedDate != null){
         let diffInMs: number = Date.parse(t.ResolvedDate) - Date.parse(t.CreatedDate);
         t.ResolvedDuration  = ((diffInMs / 1000 / 60 / 60))/3;
       }
       t.CreatedDate = this.datepipe.transform(t.CreatedDate, 'dd-MMM-yyyy h:mm a');
       t.ResolvedDate = this.datepipe.transform(t.ResolvedDate, 'dd-MMM-yyyy h:mm a');
-      for(let n in PriorityEnum) {
-        if (typeof PriorityEnum[n] === 'number') {
-           if(t.Status == <any>PriorityEnum[n]){
-             t.PriorityName = n;
-          }
-       }
-     }
+     
      }
      for (let ds of this.tickets){
       ds.NotifyToName = [];
@@ -175,17 +219,28 @@ export class ListingComponent implements OnInit {
     this.resolvedDateFromInput='';
     this.resolvedDateToInput='';
     this.assignerInput='';
+    this.ReporterInput ='';
+    this.AssigneeInput='';
     this.getAllTickets();
   }
-  onItemSelect(item: any) {
+  onItemSelect(item: any, val:any) {
     if(item!=null){
-        this.Selectedusers.push(item);
+      if(val==1)
+        this.SelectedAssignee.push(item);
+      if(val==2)
+        this.SelectedReporter.push(item);
     }
   }
-  onSelectAll(items: any) {
+  onSelectAll(items: any, val:any) {
     if(items!=null){
-      this.Selectedusers = null;
-      this.Selectedusers= items;
-    }
+      if(val==1){
+        this.SelectedAssignee = null;
+        this.SelectedAssignee= items;
+      }
+      if(val==1){
+        this.SelectedReporter  = null;
+        this.SelectedReporter = items;
+      }
+   }
   }
 }
