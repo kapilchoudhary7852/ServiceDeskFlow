@@ -19,7 +19,7 @@ export class TicketService {
     return this.http.post(url, body).pipe(catchError(this.handleError));
   }
 
-  deleteUser(id: string) {
+  delete(id: string) {
     const url: string = this.apiUrl + 'delete/' + id;
     return this.http.delete(url).pipe(catchError(this.handleError));
 
@@ -38,15 +38,15 @@ export class TicketService {
       .pipe(catchError(this.handleError));
   }
 
-  getUser(id: string): Observable<Ticket> {
+  get(id: string): Observable<Ticket> {
     const url = `${this.apiUrl}get/${id}`;
     return this.http.get<Ticket>(url)
       .pipe(catchError(this.handleError));
   }
 
-  updateUser(id: string, userDetails: Ticket) {
+  update(id: string, Details: Ticket) {
     const url: string = this.apiUrl + 'update/' + id;
-    return this.http.put(url, userDetails)
+    return this.http.put(url, Details)
       .pipe(catchError(this.handleError));
 
   }

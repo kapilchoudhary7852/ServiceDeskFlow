@@ -49,10 +49,20 @@ export class ListingComponent implements OnInit {
   SelectedAssignee: User[]=[];
   ReporterInput =''
   AssigneeInput =''
+  _id = null;
   constructor(private formBuilder:FormBuilder,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
-
+  deactivateSR(data,val)
+  {
+    this._id = data._id;
+    if(val==0){
+       data.IsActive=false;
+       this.ticketService.update(this._id, data).subscribe(res => {
+        location.reload();
+      });
+    }
+  }
   ngOnInit() 
   {
     this.getServiceDesks();
@@ -185,7 +195,7 @@ export class ListingComponent implements OnInit {
          for (let u of this.users){
            if(ds._id === ua.ServiceRequestId){
              if(ua.UserId === u._id)
-              ds.NotifyToName.push(u.Fname+' '+u.Lname);
+             ds.NotifyToName.push(u.Fname+' '+u.Lname);
           }
        }
      }
@@ -243,4 +253,5 @@ export class ListingComponent implements OnInit {
       }
    }
   }
+  
 }

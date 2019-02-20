@@ -11,7 +11,9 @@ const schema = new Schema({
     CreatedBy: { type: String, required: true },
     CreatedDate: { type: Date,default: Date.now},
     Assigned: { type: String },
+    AssignedDate: { type: Date},
     ResolvedDate: { type: Date},
+    Comment: { type: String },
     IsActive: { type: Boolean, default: true,required:true },
 });
 module.exports = mongoose.model('ServiceRequestHistory', schema);

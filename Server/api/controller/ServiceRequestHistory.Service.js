@@ -6,7 +6,9 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    updateMultiple,
+    delete: _delete,
+    
 };
 
 async function getAll() {
@@ -44,4 +46,12 @@ async function update(id, serviceRequestHistoryParam) {
 
 async function _delete(id) {
     await serviceRequestHistory.findByIdAndRemove(id);
+}
+
+async function updateMultiple(id, serviceRequestHistoryParam) {
+    const serviceRequestHistory = await ServiceRequestHistory.findById(id);
+    // validate
+    if (!serviceRequestHistory) throw 'Service Request not found';
+    Object.assign(serviceRequestHistory, serviceRequestHistoryParam);
+    await serviceRequestHistory.save();
 }

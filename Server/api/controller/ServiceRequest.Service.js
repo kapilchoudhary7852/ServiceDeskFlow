@@ -27,14 +27,18 @@ async function create(serviceRequestParam) {
            await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);
            await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
          }
-}
+ }
 
 async function update(id, serviceRequestParam) {
     const serviceRequest = await ServiceRequest.findById(id);
     // validate
     if (!serviceRequest) throw 'Service Request not found';
     Object.assign(serviceRequest, serviceRequestParam);
-    await serviceRequest.save();
+    let Sdata = await serviceRequest.save();
+    if(Sdata._id != null && serviceDeskParam.IsActive == true)
+      { 
+         
+      }
 }
 
 async function _delete(id) {
