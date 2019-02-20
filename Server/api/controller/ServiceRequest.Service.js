@@ -35,10 +35,9 @@ async function update(id, serviceRequestParam) {
     if (!serviceRequest) throw 'Service Request not found';
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();
-    if(Sdata._id != null && serviceDeskParam.IsActive == true)
-      { 
-         
-      }
+    if(Sdata._id != null && serviceDeskParam.IsActive == true){
+        
+    }
 }
 
 async function _delete(id) {
