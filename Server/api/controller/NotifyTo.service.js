@@ -52,5 +52,6 @@ async function update(id, Param) {
  }
 
  async function _deleteMultiple(id) {
-    await NotifyTo.remove({ ServiceDeskId: id});
+    console.log(id)
+    await NotifyTo.remove({ ServiceRequestId: id});
 }

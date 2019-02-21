@@ -195,7 +195,7 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketForm.controls.Comment.setValue(this.ticketDetails.Comment);
 
       this.fillTicketDetails(this.ticketDetails);
-      console.log(this.ticketDetails);
+     // console.log(this.ticketDetails);
       
     });
   }
@@ -236,9 +236,9 @@ export class TicketDetailsComponent implements OnInit {
     
      this.ticketService.update(this.ticketId,this.ticketForm.value ).subscribe(data=>{
 
-      console.log(this.ticketForm.value);
+      this.router.navigateByUrl('/listing'),
+      error=>alert('error');
       
-       alert('Ticket updated');
 
      });
 
