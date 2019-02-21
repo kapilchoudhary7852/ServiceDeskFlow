@@ -33,9 +33,7 @@ export class TicketCreationFormComponent implements OnInit {
     if (this.ticketForm.invalid) {
       return;
     } else {
-    this.ticketService.createTicket(this.ticketForm.value).subscribe(res => 
-      this.router.navigateByUrl('/listing'),
-      error=>alert('error'));
+    this.ticketService.createTicket(this.ticketForm.value).subscribe(res => this.router.navigateByUrl('/listing'), error=>alert('error'));
     }
   }
   constructor(private formBuilder:FormBuilder,private UserService: UserService, private serviceDescService: ServicedescService,private ticketService: TicketService, private router: Router) { 

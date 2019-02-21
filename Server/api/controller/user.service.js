@@ -23,7 +23,9 @@ async function create(userParam) {
         throw 'UserId "' + userParam.UserId + '" is already Exit';
     }
     const user = new User(userParam);
-    await user.save();
+    let result = await user.save();
+    if(result._id!=null)
+     return true;
 }
 
 async function update(id, userParam) {

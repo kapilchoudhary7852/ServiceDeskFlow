@@ -25,7 +25,7 @@ export class AddUserComponent implements OnInit {
       UserId: ['', [Validators.required]],
       Fname: ['', [Validators.required]],
       Lname: ['', [Validators.required]],
-      RoleId: [this.roles[0], Validators.required]
+      RoleId: ['', Validators.required]
     });
     
   }
@@ -38,7 +38,12 @@ export class AddUserComponent implements OnInit {
     } else {
       console.log(this.createForm.value);
       this.userService.createUser(this.createForm.value).subscribe(res => {
-        this.route.navigateByUrl('/home');
+        if(res == true) {
+          this.route.navigateByUrl('/home');
+        }
+        else{
+          alert(res);
+        }
       });
     }
   }

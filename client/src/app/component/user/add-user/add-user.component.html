@@ -28,12 +28,12 @@
 
     <div class="form-group">
       <label>Role</label>
-      <select  formControlName="RoleId" [ngClass]="{ 'is-invalid': submitted && f.RoleId.errors }">
+      <select required formControlName="RoleId" [ngClass]="{ 'is-invalid': submitted && f.RoleId.errors }">
         <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
       </select>
-      <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+      <!-- <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
         <div *ngIf="f.RoleId.errors.required">Role required</div>
-      </div>
+      </div> -->
     </div>
     <div class="form-group">
       <button class="btn">Add</button>
