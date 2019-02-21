@@ -38,7 +38,7 @@ app.use('/api/useraccess', require('./api/routes/UserAccess.routes'));
 app.use('/api/notifyto', require('./api/routes/NotifyTo.routes'));
 
 app.use(errorHandler);
-const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 8000;
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 8001;
 const server = app.listen(port, function () {
     console.log('Server listening on port ' + port);
 });

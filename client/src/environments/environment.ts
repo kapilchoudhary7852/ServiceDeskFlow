@@ -8,6 +8,7 @@ export const environment = {
   ServiceDeskId: '5c6a947ca2759018e8bb7db8',
   Name: 'KapilM Choudhary',
   RoleId: 1,
+  AppUrl:'http://localhost:8001',
 };
 
 /*

@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { Ticket } from '../model/ticket';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
 
 
 @Injectable({
@@ -10,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class TicketService {
 
-  private apiUrl = 'http://localhost:8000/api/servicerequest/';
+  private apiUrl = environment.AppUrl+'/api/servicerequest/';
 
   constructor(private http: HttpClient) { }
 
