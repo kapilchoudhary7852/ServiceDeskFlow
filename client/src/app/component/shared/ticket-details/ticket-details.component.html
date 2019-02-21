@@ -2,7 +2,7 @@
     <h1>Ticket creation form</h1>
   <div class="from-group">
     <label>Service Desk</label>
-    <select [ngClass]="{ 'is-invalid': submitted && f.ServiceDeskId.errors }" formControlName="ServiceDeskId" name="ServiceDeskId" id="" class="form-control" >
+    <select   [ngClass]="{ 'is-invalid': submitted && f.ServiceDeskId.errors }" formControlName="ServiceDeskId" name="ServiceDeskId" id="" class="form-control" >
     <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
     </select>
     <div *ngIf="submitted && f.ServiceDeskId.errors" class="invalid-feedback">

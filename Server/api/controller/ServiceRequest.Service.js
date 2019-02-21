@@ -31,12 +31,16 @@ async function create(serviceRequestParam) {
 
 async function update(id, serviceRequestParam) {
     const serviceRequest = await ServiceRequest.findById(id);
+    
     // validate
     if (!serviceRequest) throw 'Service Request not found';
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();
-    if(Sdata._id != null && serviceDeskParam.IsActive == true){
-        
+    
+    if(Sdata._id != null && serviceRequestParam.IsActive == true)
+    {
+        NotifyTo.deleteMultiple(Sdata._id); 
+        await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);    
     }
 }
 

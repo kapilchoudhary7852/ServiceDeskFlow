@@ -171,8 +171,6 @@ export class TicketDetailsComponent implements OnInit {
     this.ticketForm.controls.NotifyTo.setValue(this.Selectedusers);
     this.ticketForm.controls.AssignedTime.setValue(tickets[0].CreatedDate);
     this.ticketForm.controls.AssignTo.setValue(this.assignedTo);
-
-    console.log(this.assignedTo['_id']);
     
 
 
@@ -192,8 +190,12 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketForm.controls.PriorityId.setValue(this.ticketDetails.PriorityId);
       this.ticketForm.controls.IssueTitle.setValue(this.ticketDetails.IssueTitle);
       this.ticketForm.controls.Description.setValue(this.ticketDetails.Description);
+      this.ticketForm.controls.Status.setValue(StatusEnum[this.ticketDetails.Status]);
+
+      this.ticketForm.controls.Comment.setValue(this.ticketDetails.Comment);
 
       this.fillTicketDetails(this.ticketDetails);
+      console.log(this.ticketDetails);
       
     });
   }
@@ -231,6 +233,14 @@ export class TicketDetailsComponent implements OnInit {
 
   generateTicket()
   {
+    
+     this.ticketService.update(this.ticketId,this.ticketForm.value ).subscribe(data=>{
+
+      console.log(this.ticketForm.value);
+      
+       alert('Ticket updated');
+
+     });
 
   }
 

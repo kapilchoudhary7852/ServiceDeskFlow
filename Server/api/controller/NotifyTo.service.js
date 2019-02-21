@@ -8,7 +8,8 @@ module.exports = {
     getByUId,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    deleteMultiple:_deleteMultiple
 };
 
 async function getAll() {
@@ -49,3 +50,7 @@ async function update(id, Param) {
  async function _delete(id) {
     await NotifyTo.findByIdAndRemove(id);
  }
+
+ async function _deleteMultiple(id) {
+    await NotifyTo.remove({ ServiceDeskId: id});
+}
