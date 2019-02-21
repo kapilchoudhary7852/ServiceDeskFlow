@@ -55,10 +55,10 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       allowSearchFilter: true
     };
     this.getUsers();
-    this.getServiceDesks();
-
-    this.UserAccessService.getUserAccesss().subscribe(data=>{
-     this.userAccess = data;
+    this.serviceDescService.getServiceDesks().subscribe(y => {
+    this.servicedesks = y
+    this.UserAccessService.getUserAccesss().subscribe(x=>{
+    this.userAccess = x;
      for (let ds of this.servicedesks){
          ds.servicemanager = [];
          for (let ua of this.userAccess){
@@ -90,10 +90,10 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
              ds.secondaryauthority.push(u.Fname+' '+u.Lname);
          }
       }
+     }
     }
-   }
-      });
-
+    });
+  });
   }
   get f() { return this.createForm.controls; }
   onItemSelect(item: any,val : any) {
@@ -148,12 +148,10 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
         Description: ['NoNeed'],
         IsActive: ['true'],
       });
-      this.getUsers();
-      this.serviceDescService.getServiceDesk(data._id).subscribe(data=>{
-        this.servicedesk = data;
-      });
-      this.UserAccessService.getUserAccessByServiceDeskId(data._id).subscribe(data=>{
-      this.userAccess = data;
+      this.serviceDescService.getServiceDesk(data._id).subscribe(x=>{
+      this.servicedesk = x;
+      this.UserAccessService.getUserAccessByServiceDeskId(data._id).subscribe(y=>{
+      this.userAccess = y;
       this.selectedItemManager =[];
       this.selectedItemIRA =[];
       this.selectedItemSecondary =[];
@@ -161,23 +159,21 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
           for (let ac of this.userAccess){
             if(ac.UserId === us._id)
              this.selectedItemManager.push(us);
-            }
-        }
+          }
+       }
       for (let us of this.userP){
           for (let ac of this.userAccess){
             if(ac.UserId === us._id)
               this.selectedItemIRA.push(us);
-
-            }
-                   }
+           }
+        }
       for (let us of this.userS){
           for (let ac of this.userAccess){
             if(ac.UserId === us._id)
             this.selectedItemSecondary.push(us);
             }
        }
-      });
-      this.createForm.patchValue({
+      this.createForm.setValue({
         Name: this.servicedesk.Name,
         AssignedReminder: this.servicedesk.AssignedReminder,
         CreatedBy: '5c63a65dda007e1474b2b5cc',
@@ -187,6 +183,8 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
         selectedSecondary: this.selectedItemSecondary,
         IsActive:  this.servicedesk.IsActive,
       });  
+     });
+    });
     }
   }
   onSubmit() {
@@ -224,11 +222,6 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       this.userM = data.filter(x => parseInt(x.RoleId) === RolesEnum.ServiceManager);
       this.userP = data.filter(x => parseInt(x.RoleId) === RolesEnum.PrimaryAuthority);
       this.userS = data.filter(x => parseInt(x.RoleId) === RolesEnum.SecondaryAuthorityAssigner);
-    });
-  }
-  getServiceDesks() {
-    this.serviceDescService.getServiceDesks().subscribe(data => {
-      this.servicedesks = data;
     });
   }
 }

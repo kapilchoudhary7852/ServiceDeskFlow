@@ -17,6 +17,8 @@ import { NotifytoService } from '../../../service/notifyto.service';
 import { NotifyTo } from '../../../model/NotifyTo';
 import { environment } from '../../../../environments/environment';
 import { RolesEnum } from 'src/app/Common/Enum/RolesEnum';
+import { enterView } from '@angular/core/src/render3/instructions';
+import { error } from 'protractor';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -54,7 +56,8 @@ export class ListingComponent implements OnInit {
   newAssigned='';
   newAssignedTicketId='';
   newticket : Ticket;
-  newticketComment:''
+  newticketComment:'';
+  newAssignusers :  User[]=[];
   constructor(private formBuilder:FormBuilder,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
@@ -64,9 +67,7 @@ export class ListingComponent implements OnInit {
     if(val==0){
        data.IsActive=false;
        data.Comment=this.newticketComment;
-       this.ticketService.update(this._id, data).subscribe(res => {
-        location.reload();
-      });
+       this.ticketService.update(this._id, data).subscribe(res => alert('Data Save'),error=>alert('error'));
     }
   //   if(val==1){
   //     data.Status=4;
@@ -234,6 +235,12 @@ export class ListingComponent implements OnInit {
   getUsers() {
     this.UserService.getUsers().subscribe(data => {
       this.users = data;
+      if(this.Ent.RoleId == 2 || this.Ent.RoleId == 1)
+       this.newAssignusers = this.users.filter(x=> x.RoleId == String(RolesEnum.ServiceManager) || x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority) || x.RoleId == String(RolesEnum.Employee));
+      if(this.Ent.RoleId == 3)
+       this.newAssignusers = this.users.filter(x=>  x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority) || x.RoleId == String(RolesEnum.Employee));
+      if(this.Ent.RoleId == 4)
+       this.newAssignusers = this.users.filter(x=> x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.Employee)); 
     });
   }
   resetFilters()

@@ -21,12 +21,15 @@ async function getById(id) {
 
 async function create(serviceRequestParam) {
    const serviceRequest = new ServiceRequest(serviceRequestParam);
+   serviceRequest.Assigned=null;
+   serviceRequest.AssignedDate=null;
+   serviceRequest.ResolvedDate=null;
+   serviceRequest.Comment=null;
    let Sdata =  await serviceRequest.save();
-    if(Sdata._id != null)
-         {
-           await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);
-           await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
-         }
+   if(Sdata._id != null){
+     await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);
+     await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+    }
  }
 
 async function update(id, serviceRequestParam) {

@@ -21,13 +21,11 @@ async function getById(id) {
 }
 
 async function create(Param,id) {
-  console.log(Param);
-   for (var i = 0; i < Param.length; i++) {
+  for (var i = 0; i < Param.length; i++) {
     const notifyTo = new NotifyTo({
       ServiceRequestId: id,
       UserId: Param[i]._id,
     });
-    console.log(notifyTo);
     await notifyTo.save();
  }
 }

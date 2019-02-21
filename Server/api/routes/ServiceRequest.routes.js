@@ -37,7 +37,6 @@ function update(req, res, next) {
 }
 
 function _delete(req, res, next) {
-    console.log('req.params.id:-'+req.params.id)
     serviceRequestService.delete(req.params.id)
         .then(() => res.json({}))
         .catch(err => next(err,console.log('err:-' + err)));

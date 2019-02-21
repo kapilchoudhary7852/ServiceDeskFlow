@@ -71,7 +71,10 @@
         <td>
           <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 || Ent.RoleId == 4" type="button" (click)='assignTicket(ticket._id)'>Assign</button> 
           <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button> 
-          <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
+          <div *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId"> 
+             <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
+             <button type="button">Edit</button>
+          </div>
           <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id)'>Reopen</button>
         </td>
     </tr>
@@ -82,7 +85,7 @@
   <div>
    <label for="">Reporter:</label>
     <select [(ngModel)]='newAssigned'>
-     <option *ngFor="let d of users" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
+     <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
     </select>
     </div>
     <label for="">Comment:</label>
