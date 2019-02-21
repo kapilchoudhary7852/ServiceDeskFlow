@@ -15,27 +15,28 @@ import { User } from '../../../model/user';
 import { DatePipe } from '@angular/common';
 import { NotifytoService } from '../../../service/notifyto.service';
 import { NotifyTo } from '../../../model/NotifyTo';
-
+import { environment } from '../../../../environments/environment';
+import { RolesEnum } from 'src/app/Common/Enum/RolesEnum';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.css']
 })
 export class ListingComponent implements OnInit {
-
+  Ent = environment;
   serviceDeskInput = '';
   ticketInput = '';
   employeeInput = '';
-  statusInput=''
-  ticketDateFromInput=''
-  ticketDateToInput=''
-  resolvedDateFromInput=''
-  resolvedDateToInput=''
-  assignerInput=''
-  priorityInput=''
-  tickets = []
-  filteredTickets = []
-  unFilteredTickets = []
+  statusInput='';
+  ticketDateFromInput='';
+  ticketDateToInput='';
+  resolvedDateFromInput='';
+  resolvedDateToInput='';
+  assignerInput='';
+  priorityInput='';
+  tickets = [];
+  filteredTickets = [];
+  unFilteredTickets = [];
   prioritys: {id: number; name: string}[] = [];
   status: {id: number; name: string}[] = [];
   serviceDesks: {id: string; name: string}[] = [];
@@ -47,21 +48,34 @@ export class ListingComponent implements OnInit {
   dropdownSettings = {};
   SelectedReporter: User[]=[];
   SelectedAssignee: User[]=[];
-  ReporterInput =''
-  AssigneeInput =''
+  ReporterInput ='';
+  AssigneeInput ='';
   _id = null;
+  newAssigned='';
+  newAssignedTicketId='';
+  newticket : Ticket;
+  newticketComment:''
   constructor(private formBuilder:FormBuilder,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
-  deactivateSR(data,val)
+  updateTicket(data,val)
   {
     this._id = data._id;
     if(val==0){
        data.IsActive=false;
+       data.Comment=this.newticketComment;
        this.ticketService.update(this._id, data).subscribe(res => {
         location.reload();
       });
     }
+  //   if(val==1){
+  //     data.Status=4;
+  //     data.Comment=this.newticketComment;
+  //     this.ticketService.update(this._id, data).subscribe(res => {
+  //      location.reload();
+  //    });
+  //  }
+   this._id = null
   }
   ngOnInit() 
   {
@@ -200,7 +214,11 @@ export class ListingComponent implements OnInit {
        }
      }
     }
-    });
+    //Set filter for login user service desk
+    if(this.Ent.RoleId != RolesEnum.HRCEO )
+      this.tickets  =  this.tickets.filter(item=> item.ServiceDeskId==this.Ent.ServiceDeskId)
+    
+   });
    }); 
   });
   }
@@ -253,5 +271,29 @@ export class ListingComponent implements OnInit {
       }
    }
   }
-  
+  assignTicket(id){
+    this.newAssignedTicketId=id
+  }
+  funResetAssigned(){
+    this.newAssigned='';
+    this.newAssignedTicketId='';
+    this.newticket = null;
+    this.newticketComment = '';  
+  }
+  funNewAssigned(val){
+    if(this.newAssignedTicketId!=null && this.newAssignedTicketId!=''){
+      this.ticketService.get(this.newAssignedTicketId).subscribe(data => {
+      this.newticket = data;
+      if(val==1)
+        this.newticket.Assigned=this.newAssigned; 
+      if(val==2)
+        this.newticket.Status=4;
+      this.newticket.Comment=this.newticketComment;  
+      this.ticketService.update(this.newticket._id,this.newticket).subscribe(data => {
+        this.funResetAssigned(); 
+        location.reload();
+      });
+    });
+  }
+ }
 }

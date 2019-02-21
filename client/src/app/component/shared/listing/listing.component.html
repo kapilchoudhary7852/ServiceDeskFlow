@@ -69,13 +69,30 @@
         <td>{{ ticket.ResolvedDate }}</td>
         <td>{{ ticket.ResolvedDuration }}</td>
         <td>
-          <button type="button" (click)='editTicket(i)'>Assign</button> 
-          <button type="button" routerLink="/ticketdetails/{{ticket._id}}">Edit</button> 
-          <button type="button" (click)='deactivateSR(ticket,0)'>Delete</button>
-          <button type="button" (click)='editTicket(i)'>View</button> 
-          <button type="button" (click)='deactivateRole(i)'>Reopen</button>
+          <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 || Ent.RoleId == 4" type="button" (click)='assignTicket(ticket._id)'>Assign</button> 
+          <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button> 
+          <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
+          <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id)'>Reopen</button>
         </td>
     </tr>
    </th>
  </table>
+</div>
+<div>
+  <div>
+   <label for="">Reporter:</label>
+    <select [(ngModel)]='newAssigned'>
+     <option *ngFor="let d of users" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
+    </select>
+    </div>
+    <label for="">Comment:</label>
+    <input type="text" [(ngModel)]='newticketComment' ><br>
+    <button type="button" (click)='funNewAssigned(1)'>Assign</button>
+    <button type="button" (click)='funResetAssigned()'>Reset</button>
+</div>
+<div>
+  <label for="">Comment:</label>
+  <input type="text" [(ngModel)]='newticketComment' ><br>
+  <button type="button" (click)='funNewAssigned(2)'>Reopen</button>
+  <button type="button" (click)='funResetAssigned()'>Reset</button>
 </div>

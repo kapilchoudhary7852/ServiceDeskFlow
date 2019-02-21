@@ -2,9 +2,13 @@
    <div>
         <dl *ngFor="let user of users"  >
                 <dd>{{user.Fname +' '+ user.Lname}}</dd>
-                <dd>User Id : {{user.UserId}}</dd>
-                <dd>Role Name : {{user.RoleName}}</dd>
+                <dd>User Id : {{user._id}}</dd>
+                <dd>Role Name :</dd>
+                <dd>{{user.RoleName+' '+user.RoleId}}</dd>
                 <dd>Role Id : {{user.RoleId}}</dd>
+                <dd>Service Desk: </dd>
+                <dd>{{user.ServiceDeskName}}</dd>
+                <dd>Service Id: {{user.ServiceDeskId}}</dd>
                 <div class="button-group">
                   <button id="updateButton" routerLink="/update/{{user._id}}"> Update</button>
                   <button id="deleteButton" (click)="deleteUser(user._id)" > Delete</button>

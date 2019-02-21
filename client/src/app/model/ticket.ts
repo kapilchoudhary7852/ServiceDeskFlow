@@ -4,6 +4,7 @@ export interface Ticket {
     PriorityId: Number;
     IssueTitle: string;
     Description: string;
+    Comment: string;
     Status: Number;
     CreatedBy: String;
     Assigned: String;
