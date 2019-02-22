@@ -20,6 +20,8 @@ async function getById(id) {
 }
 
 async function create(serviceRequestHistoryParam,serviceRequestId) {
+    console.log(serviceRequestHistoryParam);
+
     const serviceRequestHistory = new ServiceRequestHistory({
         ServiceRequestId: serviceRequestId,
         ServiceDeskId: serviceRequestHistoryParam.ServiceDeskId,

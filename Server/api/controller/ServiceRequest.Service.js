@@ -40,11 +40,17 @@ async function update(id, serviceRequestParam) {
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();
     
-    // if(Sdata._id != null && serviceRequestParam.IsActive == true)
-    // {
+    if(Sdata._id != null && serviceRequestParam.IsActive == true)
+    {
         NotifyTo.deleteMultiple(Sdata._id); 
-        await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);    
-   // }
+        await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);  
+
+       // console.log("serviceRequestParam");
+        //console.log(serviceRequestParam);
+       // console.log("serviceRequestParam");
+          
+        await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+    }
 }
 
 async function _delete(id) {
