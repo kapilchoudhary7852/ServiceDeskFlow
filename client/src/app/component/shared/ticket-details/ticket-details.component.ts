@@ -262,8 +262,7 @@ export class TicketDetailsComponent implements OnInit {
 
      formValues['Assigned']= this.ticketForm.controls.Assigned.value[0]._id;
 
-    // console.log(formValues);
-     
+     formValues['IsActive'] = this.ticketDetails.IsActive;
 
     
      this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
