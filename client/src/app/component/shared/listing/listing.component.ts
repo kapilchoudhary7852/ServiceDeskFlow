@@ -19,6 +19,8 @@ import { environment } from '../../../../environments/environment';
 import { RolesEnum } from 'src/app/Common/Enum/RolesEnum';
 import { enterView } from '@angular/core/src/render3/instructions';
 import { error } from 'protractor';
+import { UserAccess } from '../../../model/UserAccess';
+import { UserAccessService } from 'src/app/service/user-access.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -58,7 +60,8 @@ export class ListingComponent implements OnInit {
   newticket : Ticket;
   newticketComment:'';
   newAssignusers :  User[]=[];
-  constructor(private formBuilder:FormBuilder,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
+  userAccess :  UserAccess[]=[];
+  constructor(private formBuilder:FormBuilder,private UserAccessService: UserAccessService,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
   updateTicket(data,val)
@@ -69,13 +72,12 @@ export class ListingComponent implements OnInit {
        data.Comment=this.newticketComment;
        this.ticketService.update(this._id, data).subscribe(res => alert('Data Save'),error=>alert('error'));
     }
-  //   if(val==1){
-  //     data.Status=4;
-  //     data.Comment=this.newticketComment;
-  //     this.ticketService.update(this._id, data).subscribe(res => {
-  //      location.reload();
-  //    });
-  //  }
+    if(val==1){
+      data.CreatedBy=this.Ent.UserId;
+      this.ticketService.update(this._id, data).subscribe(res => {
+       location.reload();
+     });
+   }
    this._id = null
   }
   ngOnInit() 
@@ -216,8 +218,9 @@ export class ListingComponent implements OnInit {
      }
     }
     //Set filter for login user service desk
-    if(this.Ent.RoleId != RolesEnum.HRCEO )
+    if(this.Ent.RoleId != RolesEnum.HRCEO && this.Ent.RoleId != RolesEnum.Employee )
       this.tickets  =  this.tickets.filter(item=> item.ServiceDeskId==this.Ent.ServiceDeskId)
+    
     
    });
    }); 
@@ -226,6 +229,8 @@ export class ListingComponent implements OnInit {
   getServiceDesks() {
     this.serviceDescService.getServiceDesks().subscribe(data => {
       this.servicedesks = data;
+      if(this.Ent.RoleId != RolesEnum.HRCEO)
+        this.servicedesks = this.servicedesks.filter(x=> x._id == this.Ent.ServiceDeskId);
       this.serviceDesks.push({ id: '0' , name:'----Select----' });
       for (let ds of this.servicedesks){
         this.serviceDesks.push({ id: ds._id , name:ds.Name });
@@ -233,15 +238,24 @@ export class ListingComponent implements OnInit {
     });
   }
   getUsers() {
-    this.UserService.getUsers().subscribe(data => {
-      this.users = data;
-      if(this.Ent.RoleId == 2 || this.Ent.RoleId == 1)
-       this.newAssignusers = this.users.filter(x=> x.RoleId == String(RolesEnum.ServiceManager) || x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority) || x.RoleId == String(RolesEnum.Employee));
-      if(this.Ent.RoleId == 3)
-       this.newAssignusers = this.users.filter(x=>  x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority) || x.RoleId == String(RolesEnum.Employee));
-      if(this.Ent.RoleId == 4)
-       this.newAssignusers = this.users.filter(x=> x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.Employee)); 
+    this.UserService.getUsers().subscribe(X => {
+     this.users = X;
+    this.UserAccessService.getUserAccesss().subscribe(Y=>{
+    this.userAccess = Y;  
+    for (let u of this.users){
+      for (let ua of this.userAccess){
+         if(u._id === ua.UserId){
+          u.ServiceDeskId = ua.ServiceDeskId;
+        }
+     }
+    }
+    this.users = this.users.filter(x=> x.ServiceDeskId == this.Ent.ServiceDeskId)
+    if(this.Ent.RoleId == 2 || this.Ent.RoleId == 1)
+      this.newAssignusers = this.users.filter(x=> x.RoleId == String(RolesEnum.ServiceManager) || x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
+    if(this.Ent.RoleId == 3)
+       this.newAssignusers = this.users.filter(x=>  x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
     });
+  });
   }
   resetFilters()
   {

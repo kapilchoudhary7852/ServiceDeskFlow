@@ -13,7 +13,7 @@ import { UserService } from 'src/app/service/user.service';
 import { StatusEnum } from '../../../Common/Enum/StatusEnum';
 import { NotifytoService } from '../../../service/notifyto.service';
 import { NotifyTo } from '../../../model/NotifyTo';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ticket-details',
@@ -21,6 +21,7 @@ import { NotifyTo } from '../../../model/NotifyTo';
   styleUrls: ['./ticket-details.component.css']
 })
 export class TicketDetailsComponent implements OnInit {
+  Ent = environment;
   ticketDetails = null;
   submitted = false;
   ticketForm: FormGroup;
@@ -29,7 +30,7 @@ export class TicketDetailsComponent implements OnInit {
   servicedesks :  ServiceDesk[]=[];
   users :  User[]=[];
   Selectedusers: User[]=[];
-  CreatedBy: string ='5c6bb134833255dfbd38d29b';;
+  CreatedBy = this.Ent.UserId;
   Description:string ='NoNeed';
   dropdownSettings = {};
   dropdownSettings2 = {};
@@ -83,7 +84,7 @@ export class TicketDetailsComponent implements OnInit {
       ServiceDeskId: ['', [Validators.required]],
       PriorityId: ['', [Validators.required]],
       IssueTitle: ['', [Validators.required]],
-      CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+      CreatedBy: [this.CreatedBy],
       Description: ['',[Validators.required]],
       NotifyTo: ['',[Validators.required]],
       Assigned: ['',[Validators.required]],

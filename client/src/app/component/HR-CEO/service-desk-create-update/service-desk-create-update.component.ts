@@ -8,13 +8,14 @@ import { ServiceDesk } from '../../../model/ServiceDesk';
 import { UserAccessService } from 'src/app/service/user-access.service';
 import { UserAccess } from '../../../model/UserAccess';
 import { RolesEnum } from '../../../Common/Enum/RolesEnum';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-service-desk-create-update',
   templateUrl: './service-desk-create-update.component.html',
   styleUrls: ['./service-desk-create-update.component.css'],
 })
 export class ServiceDeskCreateUpdateComponent implements OnInit {
- 
+  Ent = environment;
   submitted = false;
   createForm: FormGroup;
   users :  User[]=[];
@@ -26,7 +27,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
   selectedItemIRA : User[]=[];
   selectedItemSecondary : User[]=[];
   dropdownSettings = {};
-  CreatedBy: string ='5c63a65dda007e1474b2b5cc';;
+  CreatedBy = this.Ent.UserId;
   Description:string ='NoNeed';
   _id = null;
   userM :  User[];
@@ -38,7 +39,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
     this.createForm = this.formBuilder.group({
       Name: ['', [Validators.required]],
       AssignedReminder: ['', [Validators.required]],
-      CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+      CreatedBy: [this.CreatedBy],
       selectedManager: ['',[Validators.required]],
       selectedIRA: ['',[Validators.required]],
       selectedSecondary: ['',[Validators.required]],
@@ -141,7 +142,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       this.createForm = this.formBuilder.group({
         Name: ['', [Validators.required]],
         AssignedReminder: ['', [Validators.required]],
-        CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+        CreatedBy: [this.CreatedBy],
         selectedManager: ['',[Validators.required]],
         selectedIRA: ['',[Validators.required]],
         selectedSecondary: ['',[Validators.required]],
@@ -176,7 +177,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       this.createForm.setValue({
         Name: this.servicedesk.Name,
         AssignedReminder: this.servicedesk.AssignedReminder,
-        CreatedBy: '5c63a65dda007e1474b2b5cc',
+        CreatedBy: this.CreatedBy,
         Description: 'NoNeed',
         selectedManager: this.selectedItemManager,
         selectedIRA: this.selectedItemIRA,
@@ -193,7 +194,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       return;
     } else {
       console.log(this.createForm.value);
-      this.CreatedBy = '5c63a65dda007e1474b2b5cc';
+      this.CreatedBy = this.CreatedBy;
       this.Description = 'NoNeed';
       if(this._id == null){
       this.serviceDescService.createServiceDesk(this.createForm.value).subscribe(res => {

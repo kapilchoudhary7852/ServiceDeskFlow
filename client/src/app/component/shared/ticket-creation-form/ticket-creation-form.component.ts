@@ -10,12 +10,14 @@ import { ServiceDesk } from '../../../model/ServiceDesk';
 import { ServicedescService } from '../../../service/servicedesc.service';
 import { User } from '../../../model/user';
 import { UserService } from 'src/app/service/user.service';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-ticket-creation-form',
   templateUrl: './ticket-creation-form.component.html',
   styleUrls: ['./ticket-creation-form.component.css']
 })
 export class TicketCreationFormComponent implements OnInit {
+  Ent = environment;
   submitted = false;
   ticketForm: FormGroup;
   prioritys: {id: number; name: string}[] = [];
@@ -23,7 +25,7 @@ export class TicketCreationFormComponent implements OnInit {
   servicedesks :  ServiceDesk[]=[];
   users :  User[]=[];
   Selectedusers: User[]=[];
-  CreatedBy: string ='5c63a65dda007e1474b2b5cc';;
+  CreatedBy = this.Ent.UserId;
   Description:string ='NoNeed';
   dropdownSettings = {};
   generateTicket() 
@@ -60,7 +62,7 @@ export class TicketCreationFormComponent implements OnInit {
       ServiceDeskId: ['', [Validators.required]],
       PriorityId: ['', [Validators.required]],
       IssueTitle: ['', [Validators.required]],
-      CreatedBy: ['5c63a65dda007e1474b2b5cc'],
+      CreatedBy: [this.CreatedBy],
       Status: [1],
       Description: ['',[Validators.required]],
       NotifyTo: ['',[Validators.required]],
