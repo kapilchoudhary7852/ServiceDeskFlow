@@ -37,6 +37,8 @@ export class TicketDetailsComponent implements OnInit {
   ticketId: string = null;
 
   notifyTo: NotifyTo[]=[];
+  status: {id: number; name: string}[] = [];
+
 
   Assigned={};
 
@@ -53,6 +55,14 @@ export class TicketDetailsComponent implements OnInit {
     this.ticketId = this.route.snapshot.paramMap.get('id');
     this.getUsers();
     this.getServiceDesks();
+
+    this.status.push({ id: 0 , name:'----Select----' });
+    for(let n in StatusEnum) {
+      if (typeof StatusEnum[n] === 'number') {
+         this.status.push({id: <any>StatusEnum[n], name: n});
+        }
+    }
+
     for(let n in PriorityEnum) {
       if (typeof PriorityEnum[n] === 'number') {
         this.prioritys.push({id: <any>PriorityEnum[n], name: n});
@@ -127,15 +137,19 @@ export class TicketDetailsComponent implements OnInit {
              t.ServiceDeskName = sd.Name;
        }
      }
+   
      for (let t of tickets){
        for(let n in StatusEnum) {
         if (typeof StatusEnum[n] === 'number') {
-          if(t.Status == <any>StatusEnum[n]){
+          if(t.Status == <any>StatusEnum[n])
+          {
             t.StatusName = n;
          }
       }
      }
     }
+
+
     for (let t of tickets){
       if(t.CreatedDate != null && t.ResolvedDate != null){
         let diffInMs: number = Date.parse(t.ResolvedDate) - Date.parse(t.CreatedDate);
@@ -191,7 +205,7 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketForm.controls.PriorityId.setValue(this.ticketDetails.PriorityId);
       this.ticketForm.controls.IssueTitle.setValue(this.ticketDetails.IssueTitle);
       this.ticketForm.controls.Description.setValue(this.ticketDetails.Description);
-      this.ticketForm.controls.Status.setValue(StatusEnum[this.ticketDetails.Status]);
+      this.ticketForm.controls.Status.setValue(this.ticketDetails.Status);
 
       this.ticketForm.controls.Comment.setValue(this.ticketDetails.Comment);
 

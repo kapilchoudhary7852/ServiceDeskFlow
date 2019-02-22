@@ -39,7 +39,7 @@ async function update(id, serviceRequestParam) {
     if (!serviceRequest) throw 'Service Request not found';
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();
-    
+    console.log(serviceRequestParam);
     if(Sdata._id != null && serviceRequestParam.IsActive == true)
     {
         NotifyTo.deleteMultiple(Sdata._id); 
