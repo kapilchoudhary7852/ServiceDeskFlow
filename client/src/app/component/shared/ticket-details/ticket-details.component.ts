@@ -37,7 +37,7 @@ export class TicketDetailsComponent implements OnInit {
 
   notifyTo: NotifyTo[]=[];
 
-  assignedTo={};
+  Assigned={};
 
 
 
@@ -86,7 +86,7 @@ export class TicketDetailsComponent implements OnInit {
       CreatedBy: ['5c63a65dda007e1474b2b5cc'],
       Description: ['',[Validators.required]],
       NotifyTo: ['',[Validators.required]],
-      AssignTo: ['',[Validators.required]],
+      Assigned: ['',[Validators.required]],
       AssignedTime: ['',[Validators.required]],
       Comment: ['',[Validators.required]],
       Status: ['',[Validators.required]],
@@ -115,7 +115,7 @@ export class TicketDetailsComponent implements OnInit {
           if(t.Assigned == u._id)
           {
             t.AssignedName = u.Fname+' '+u.Lname;
-            this.assignedTo = u;
+            this.Assigned = u;
           }
             
        }
@@ -170,8 +170,8 @@ export class TicketDetailsComponent implements OnInit {
 
     this.ticketForm.controls.NotifyTo.setValue(this.Selectedusers);
     this.ticketForm.controls.AssignedTime.setValue(tickets[0].CreatedDate);
-    this.ticketForm.controls.AssignTo.setValue(this.assignedTo);
-    
+    this.ticketForm.controls.Assigned.setValue([this.Assigned]);
+
 
 
 
@@ -193,6 +193,7 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketForm.controls.Status.setValue(StatusEnum[this.ticketDetails.Status]);
 
       this.ticketForm.controls.Comment.setValue(this.ticketDetails.Comment);
+
 
       this.fillTicketDetails(this.ticketDetails);
      // console.log(this.ticketDetails);
@@ -220,6 +221,15 @@ export class TicketDetailsComponent implements OnInit {
     }
   }
 
+  
+  onItemSelectAssigned(item: any) {
+    if(item!=null){
+       // this.Selectedusers.push(item);
+
+    }
+  }
+  
+
   getServiceDesks() {
     this.serviceDescService.getServiceDesks().subscribe(data => {
       this.servicedesks = data;
@@ -233,8 +243,15 @@ export class TicketDetailsComponent implements OnInit {
 
   generateTicket()
   {
+    var formValues = this.ticketForm.value
+
+     formValues['Assigned']= this.ticketForm.controls.Assigned.value[0]._id;
+
+    // console.log(formValues);
+     
+
     
-     this.ticketService.update(this.ticketId,this.ticketForm.value ).subscribe(data=>{
+     this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
 
       this.router.navigateByUrl('/listing'),
       error=>alert('error');

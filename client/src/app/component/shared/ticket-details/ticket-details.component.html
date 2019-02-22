@@ -1,4 +1,5 @@
 <form [formGroup]= 'ticketForm'>
+  {{this.ticketForm.value | json}}
     <h1>Ticket creation form</h1>
   <div class="from-group">
     <label>Service Desk</label>
@@ -49,8 +50,8 @@
 
     <div class="form-group">
         <label>Assigned To</label>
-        <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }"   [placeholder]="'Select users'"  [formControl]="ticketForm.controls['AssignTo']" 
-          [settings]="dropdownSettings2" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" >
+        <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }"   [placeholder]="'Select users'"  [formControl]="ticketForm.controls['Assigned']" 
+          [settings]="dropdownSettings2" (onSelect)="onItemSelectAssigned($event)" (onSelectAll)="onSelectAll($event)" >
         </ng-multiselect-dropdown>
         <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
           <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
