@@ -20,7 +20,7 @@ async function getById(id) {
 }
 
 async function create(serviceRequestHistoryParam,serviceRequestId) {
-    console.log(serviceRequestHistoryParam);
+    //console.log(serviceRequestHistoryParam);
 
     const serviceRequestHistory = new ServiceRequestHistory({
         ServiceRequestId: serviceRequestId,
@@ -38,7 +38,7 @@ async function create(serviceRequestHistoryParam,serviceRequestId) {
         Comment: null,
     
     });
-    console.log(serviceRequestHistory);
+    //console.log(serviceRequestHistory);
     await serviceRequestHistory.save();
 }
 

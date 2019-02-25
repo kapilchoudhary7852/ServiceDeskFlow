@@ -35,19 +35,32 @@ async function create(serviceRequestParam) {
 async function update(id, serviceRequestParam) {
     const serviceRequest = await ServiceRequest.findById(id);
     
+    if (serviceRequestParam.Assigned )//&& !serviceRequest.Assigned
+    {
+
+       // console.log("Assigned : "+ serviceRequestParam.Assigned +" 4444");
+        serviceRequestParam.AssignedDate = Date.now();
+
+    }
+    else
+    {
+      //  console.log("Not Assigned :"+ serviceRequestParam.Assigned+" 8888");
+        serviceRequestParam.AssignedDate = null;
+
+    }
+
     // validate
     if (!serviceRequest) throw 'Service Request not found';
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();
-    console.log(serviceRequestParam);
     if(Sdata._id != null && serviceRequestParam.IsActive == true)
     {
         NotifyTo.deleteMultiple(Sdata._id); 
         await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);  
 
-       // console.log("serviceRequestParam");
-        //console.log(serviceRequestParam);
-       // console.log("serviceRequestParam");
+       //   console.log("serviceRequestParam");
+    //      console.log(serviceRequestParam);
+       //   console.log("serviceRequestParam");
           
         await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
     }
