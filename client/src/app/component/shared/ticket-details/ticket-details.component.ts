@@ -185,7 +185,12 @@ export class TicketDetailsComponent implements OnInit {
 
     this.ticketForm.controls.NotifyTo.setValue(this.Selectedusers);
     this.ticketForm.controls.AssignedTime.setValue(tickets[0].CreatedDate);
-    this.ticketForm.controls.Assigned.setValue([this.Assigned]);
+    //console.log(this.Assigned.UserId);
+    if (this.Assigned["UserId"])
+    {
+      this.ticketForm.controls.Assigned.setValue([this.Assigned]);
+    }
+    
 
 
 
@@ -260,7 +265,12 @@ export class TicketDetailsComponent implements OnInit {
   {
     var formValues = this.ticketForm.value
 
+  
+    
+    if (this.ticketForm.controls.Assigned.value.length)
+    {
      formValues['Assigned']= this.ticketForm.controls.Assigned.value[0]._id;
+    }
 
      formValues['IsActive'] = this.ticketDetails.IsActive;
 
