@@ -154,7 +154,6 @@ export class ListingComponent implements OnInit {
           this.userReporter.push({ id: u._id , name:u.Fname+' '+u.Fname});
       }
     }
-    this.userReporter = this.userReporter.filter((el, i, a) => i === a.indexOf(el))
     this.userAssignee.push({ id: '0' , name:'----Select----' });
     for (let t of this.tickets){
       for (let u of this.users){
@@ -162,7 +161,6 @@ export class ListingComponent implements OnInit {
         this.userAssignee.push({ id: u._id , name:u.Fname+' '+u.Fname});
      }
     }
-    this.userAssignee = this.userAssignee.filter((el, i, a) => i === a.indexOf(el))
     this.notifytoService.gets().subscribe(y => {
     this.notifyTo = y;
       for (let t of this.tickets){
@@ -219,9 +217,7 @@ export class ListingComponent implements OnInit {
     }
     //Set filter for login user service desk
     if(this.Ent.RoleId != RolesEnum.HRCEO && this.Ent.RoleId != RolesEnum.Employee )
-      this.tickets  =  this.tickets.filter(item=> item.ServiceDeskId==this.Ent.ServiceDeskId)
-    
-    
+      this.tickets  =  this.tickets.filter(f => this.Ent.ServiceDeskId.includes(f.ServiceDeskId))
    });
    }); 
   });
@@ -230,7 +226,7 @@ export class ListingComponent implements OnInit {
     this.serviceDescService.getServiceDesks().subscribe(data => {
       this.servicedesks = data;
       if(this.Ent.RoleId != RolesEnum.HRCEO)
-        this.servicedesks = this.servicedesks.filter(x=> x._id == this.Ent.ServiceDeskId);
+         this.servicedesks = this.servicedesks.filter(f => this.Ent.ServiceDeskId.includes(f._id));
       this.serviceDesks.push({ id: '0' , name:'----Select----' });
       for (let ds of this.servicedesks){
         this.serviceDesks.push({ id: ds._id , name:ds.Name });
@@ -243,17 +239,13 @@ export class ListingComponent implements OnInit {
     this.UserAccessService.getUserAccesss().subscribe(Y=>{
     this.userAccess = Y;  
     for (let u of this.users){
+      u.ServiceDeskId = [];
       for (let ua of this.userAccess){
          if(u._id === ua.UserId){
-          u.ServiceDeskId = ua.ServiceDeskId;
+          u.ServiceDeskId.push(ua.ServiceDeskId);
         }
+      }
      }
-    }
-    this.users = this.users.filter(x=> x.ServiceDeskId == this.Ent.ServiceDeskId)
-    if(this.Ent.RoleId == 2 || this.Ent.RoleId == 1)
-      this.newAssignusers = this.users.filter(x=> x.RoleId == String(RolesEnum.ServiceManager) || x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
-    if(this.Ent.RoleId == 3)
-       this.newAssignusers = this.users.filter(x=>  x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
     });
   });
   }
@@ -292,8 +284,13 @@ export class ListingComponent implements OnInit {
       }
    }
   }
-  assignTicket(id){
-    this.newAssignedTicketId=id
+  assignTicket(id,SdId){
+    this.newAssignusers = this.users.filter(x=> x.ServiceDeskId.includes(SdId));
+    if(this.Ent.RoleId == 2 || this.Ent.RoleId == 1)
+      this.newAssignusers = this.newAssignusers.filter(x=> x.RoleId == String(RolesEnum.ServiceManager) || x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
+    if(this.Ent.RoleId == 3)
+       this.newAssignusers = this.newAssignusers.filter(x=>  x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
+    this.newAssignedTicketId=id 
   }
   funResetAssigned(){
     this.newAssigned='';

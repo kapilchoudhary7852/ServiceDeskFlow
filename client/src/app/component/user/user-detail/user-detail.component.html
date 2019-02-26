@@ -7,8 +7,9 @@
                 <dd>{{user.RoleName}}</dd>
                 <dd>Role Id : {{user.RoleId}}</dd>
                 <dd>Service Desk: </dd>
-                <dd>{{user.ServiceDeskName}}</dd>
-                <dd>Service Id: {{user.ServiceDeskId}}</dd>
+                <dd><div *ngFor=" let d of user.ServiceDeskId">{{d}}</div></dd>
+                <dd>Service Id</dd>
+                <dd><div *ngFor=" let d of user.ServiceDeskId">{{d}}</div></dd>
                 <div class="button-group">
                   <button id="updateButton" routerLink="/update/{{user._id}}"> Update</button>
                   <button id="deleteButton" (click)="deleteUser(user._id)" > Delete</button>
