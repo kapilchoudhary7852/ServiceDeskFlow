@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,9 +8,10 @@ import { environment } from '../../../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
   Ent = environment;
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  Mylisting(){
+    this.router.navigateByUrl('/Mylisting/true');
   }
-
 }

@@ -8,6 +8,7 @@ module.exports = {
     getById,
     create,
     update,
+    updateAssginee,
     delete: _delete
 };
 
@@ -34,21 +35,12 @@ async function create(serviceRequestParam) {
 
 async function update(id, serviceRequestParam) {
     const serviceRequest = await ServiceRequest.findById(id);
-    
-    if (serviceRequestParam.Assigned )//&& !serviceRequest.Assigned
-    {
-
-       // console.log("Assigned : "+ serviceRequestParam.Assigned +" 4444");
+    if (serviceRequestParam.Assigned ){
         serviceRequestParam.AssignedDate = Date.now();
-
     }
-    else
-    {
-      //  console.log("Not Assigned :"+ serviceRequestParam.Assigned+" 8888");
+    else{
         serviceRequestParam.AssignedDate = null;
-
     }
-
     // validate
     if (!serviceRequest) throw 'Service Request not found';
     Object.assign(serviceRequest, serviceRequestParam);
@@ -59,6 +51,18 @@ async function update(id, serviceRequestParam) {
         await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);  
         await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
     }
+}
+
+async function updateAssginee(id, serviceRequestParam) {
+    const serviceRequest = await ServiceRequest.findById(id);
+    if (!serviceRequest) throw 'Service Request not found';
+    if (serviceRequestParam.Assigned )
+        serviceRequestParam.AssignedDate = Date.now();
+    // validate
+    Object.assign(serviceRequest, serviceRequestParam);
+    let Sdata = await serviceRequest.save();
+    if(Sdata._id != null && serviceRequestParam.IsActive == true)
+        await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
 }
 
 async function _delete(id) {

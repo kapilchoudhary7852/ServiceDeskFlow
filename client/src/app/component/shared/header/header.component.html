@@ -3,6 +3,6 @@
         <a *ngIf="Ent.RoleId == 1" [routerLink]="[ '/servicedesk']">Service Desk</a>
         <a *ngIf="Ent.RoleId == 1" [routerLink]="[ 'user/create']">Add User</a>
         <a [routerLink]="[ '/ticket']">Ticket</a>
-        <!-- <a [routerLink]="[ '/role']">Role</a> -->
-        <a [routerLink]="[ '/listing']">Listing</a>
+        <a *ngIf="Ent.ServiceDeskId.length >= 1" [routerLink]="[ '/listing']">Listing</a>
+        <a (click)="Mylisting()" >My Issues</a>
 </div>
