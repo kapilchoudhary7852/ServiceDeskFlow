@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  UserId: '5c6f93d9d8d5a20a58fde425',
-  ServiceDeskId: ['5c6f9615d8d5a20a58fde435','5c6f962dd8d5a20a58fde439','5c6f95a1d8d5a20a58fde42e'],
-  Name: 'KapilHR HRCEO',
-  RoleId: 1,
+  UserId: '5c6f9503d8d5a20a58fde429',
+  ServiceDeskId: ['5c6f9615d8d5a20a58fde435' , '5c6f962dd8d5a20a58fde439'],
+  Name: 'KapilE1 Employe',
+  RoleId: 3,
   AppUrl:'http://localhost:8000',
 };
 

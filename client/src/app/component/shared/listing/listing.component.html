@@ -33,7 +33,6 @@
       <select [(ngModel)]='ReporterInput'>
         <option *ngFor="let d of userReporter " [value]='d.id'>{{d.name}}</option>
         </select>
-      
        <!-- <ng-multiselect-dropdown [data]="userReporter" [(ngModel)]='ReporterInput'  [placeholder]="'Select users'"  
       [settings]="dropdownSettings" (onSelect)="onItemSelect($event,2)" (onSelectAll)="onSelectAll($event,2)">
     </ng-multiselect-dropdown> -->
@@ -70,13 +69,11 @@
         <td>{{ ticket.ResolvedDate }}</td>
         <td>{{ ticket.ResolvedDuration }}</td>
         <td>
-          <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 " type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button> 
+          <button *ngIf="(Ent.RoleId === 2 || Ent.RoleId==3) && !IsMylisting" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button> 
           <button *ngIf="Ent.RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
-          <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button> 
-          <div *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId"> 
-             <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
-             <button type="button">Edit</button>
-          </div>
+          <button *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId && IsMylisting" type="button" (click)='updateTicket(ticket,0)'>Delete</button>
+          <button *ngIf="IsMylisting" type="button" (click)='ticketdetails(ticket._id)'>View</button>
+          <button *ngIf="!IsMylisting" type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button>
           <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
         </td>
     </tr>
@@ -85,18 +82,18 @@
 </div>
 <div>
   <div>
-   <label for="">Assignee:</label>
+   <label >Assignee:</label>
     <select [(ngModel)]='newAssigned'>
      <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
     </select>
     </div>
-    <label for="">Comment:</label>
+    <label >Comment:</label>
     <input type="text" [(ngModel)]='newticketComment' ><br>
     <button type="button" (click)='funNewAssigned(1)'>Assign</button>
     <button type="button" (click)='funResetAssigned()'>Reset</button>
 </div>
 <div>
-  <label for="">Comment:</label>
+  <label >Comment:</label>
   <input type="text" [(ngModel)]='newticketComment' ><br>
   <button type="button" (click)='funNewAssigned(2)'>Reopen</button>
   <button type="button" (click)='funResetAssigned()'>Reset</button>

@@ -60,6 +60,13 @@ export class TicketService {
 
   }
 
+  updateAssginee(id: string, Details: Ticket) {
+    const url: string = this.apiUrl + 'updateAssginee/' + id;
+    return this.http.put(url, Details)
+      .pipe(catchError(this.handleError));
+
+  }
+  
 
   handleError(error) {
     let errorMessage = '';

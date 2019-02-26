@@ -7,6 +7,7 @@ router.post('/create', create);
 router.get('/get/all', getAll);
 router.get('/get/:id', getById);
 router.put('/update/:id', update);
+router.put('/updateAssginee/:id', updateAssginee);
 router.delete('/delete/:id', _delete);
 
 module.exports = router;
@@ -32,6 +33,12 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
     serviceRequestService.update(req.params.id, req.body)
+        .then(() => res.json({}))
+        .catch(err => next(err));
+}
+
+function updateAssginee(req, res, next) {
+    serviceRequestService.updateAssginee(req.params.id, req.body)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
