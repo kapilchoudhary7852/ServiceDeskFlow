@@ -52,17 +52,22 @@ export class UserDetailComponent implements OnInit {
          }
        }
        for(let u of this.users){
+        u.ServiceDeskId = [];
         for(let sd of this.userAccess){
           if (u._id == sd.UserId) {
-              u.ServiceDeskId=sd.ServiceDeskId;
+              u.ServiceDeskId.push(sd.ServiceDeskId);
           }
         }
-        for(let sd of this.servicedesks){
-          if (u.ServiceDeskId == sd._id) {
-              u.ServiceDeskName=sd.Name;
+      }
+      for(let u of this.users){
+        u.ServiceDeskName = [];
+         for (var a=0;a<u.ServiceDeskId.length;a++) {
+          for(let sd of this.servicedesks){
+            if(u.ServiceDeskId[a] == sd._id)
+                u.ServiceDeskName.push(sd.Name);
           }
         }
-       }
+      }
        console.log(this.users);
      });
     });

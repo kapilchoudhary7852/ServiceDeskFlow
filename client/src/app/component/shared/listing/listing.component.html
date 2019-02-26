@@ -33,7 +33,8 @@
       <select [(ngModel)]='ReporterInput'>
         <option *ngFor="let d of userReporter " [value]='d.id'>{{d.name}}</option>
         </select>
-      <!-- <ng-multiselect-dropdown [data]="userReporter" [(ngModel)]='ReporterInput'  [placeholder]="'Select users'"  
+      
+       <!-- <ng-multiselect-dropdown [data]="userReporter" [(ngModel)]='ReporterInput'  [placeholder]="'Select users'"  
       [settings]="dropdownSettings" (onSelect)="onItemSelect($event,2)" (onSelectAll)="onSelectAll($event,2)">
     </ng-multiselect-dropdown> -->
   </div>
@@ -69,14 +70,14 @@
         <td>{{ ticket.ResolvedDate }}</td>
         <td>{{ ticket.ResolvedDuration }}</td>
         <td>
-          <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 " type="button" (click)='assignTicket(ticket._id,1)'>Assign</button> 
+          <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 " type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button> 
           <button *ngIf="Ent.RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
           <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button> 
           <div *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId"> 
              <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
              <button type="button">Edit</button>
           </div>
-          <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id)'>Reopen</button>
+          <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
         </td>
     </tr>
    </th>
@@ -84,7 +85,7 @@
 </div>
 <div>
   <div>
-   <label for="">Reporter:</label>
+   <label for="">Assignee:</label>
     <select [(ngModel)]='newAssigned'>
      <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
     </select>

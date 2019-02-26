@@ -57,11 +57,6 @@ async function update(id, serviceRequestParam) {
     {
         NotifyTo.deleteMultiple(Sdata._id); 
         await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);  
-
-       //   console.log("serviceRequestParam");
-    //      console.log(serviceRequestParam);
-       //   console.log("serviceRequestParam");
-          
         await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
     }
 }

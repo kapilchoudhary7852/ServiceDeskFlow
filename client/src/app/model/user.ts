@@ -5,6 +5,6 @@ export interface User {
     Lname: string;
     RoleId: string;
     RoleName: string;
-    ServiceDeskName: string;
-    ServiceDeskId: string;
+    ServiceDeskName: string[];
+    ServiceDeskId: string[];
 }
