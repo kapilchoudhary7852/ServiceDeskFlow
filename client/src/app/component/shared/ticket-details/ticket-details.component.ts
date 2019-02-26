@@ -95,7 +95,7 @@ export class TicketDetailsComponent implements OnInit {
       ServiceDeskId: ['', [Validators.required]],
       PriorityId: ['', [Validators.required]],
       IssueTitle: ['', [Validators.required]],
-      CreatedBy: [this.CreatedBy],
+     // CreatedBy: [this.CreatedBy],
       Description: ['',[Validators.required]],
       NotifyTo: ['',[Validators.required]],
       Assigned: ['',[Validators.required]],
@@ -286,6 +286,13 @@ export class TicketDetailsComponent implements OnInit {
     }
 
      formValues['IsActive'] = this.ticketDetails.IsActive;
+
+     if (StatusEnum.Resolved==this.ticketForm.controls.Status.value)
+    {
+        //alert("Resolved")
+
+        formValues.ResolvedDate = Date.now();
+    }
 
     
      this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
