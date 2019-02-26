@@ -41,6 +41,7 @@ export class TicketDetailsComponent implements OnInit {
 
 
   Assigned={};
+  tickets = [];
 
 
 
@@ -106,7 +107,19 @@ export class TicketDetailsComponent implements OnInit {
 
 
     this.getTicketDetails();
+    this.getAllTickets();
 
+  }
+
+  getAllTickets()
+  {
+
+    this.ticketService.getTicketHistory().subscribe(data => {
+      this.tickets = data;
+
+      console.log(this.tickets);
+      
+    })
   }
 
 

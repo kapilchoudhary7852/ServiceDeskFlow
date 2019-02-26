@@ -13,6 +13,7 @@ import { environment } from '../../environments/environment';
 export class TicketService {
 
   private apiUrl = environment.AppUrl+'/api/servicerequest/';
+  private apiUrlTicketHistory = environment.AppUrl+'/api/servicerequesthistory/';
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +27,12 @@ export class TicketService {
     return this.http.delete(url).pipe(catchError(this.handleError));
 
 
+  }
+
+  getTicketHistory(): Observable<Ticket[]> {
+    const url: string = this.apiUrlTicketHistory + 'get/all';
+    return this.http.get<Ticket[]>(url)
+      .pipe(catchError(this.handleError));
   }
 
   getTickets(): Observable<Ticket[]> {

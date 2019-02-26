@@ -32,10 +32,9 @@ async function create(serviceRequestHistoryParam,serviceRequestId) {
         CreatedBy: serviceRequestHistoryParam.CreatedBy,
         Assigned: serviceRequestHistoryParam.Assigned,
         IsActive: serviceRequestHistoryParam.IsActive,
-        Assigned: null,
-        AssignedDate: null,
-        ResolvedDate: null,
-        Comment: null,
+        AssignedDate: serviceRequestHistoryParam.AssignedDate,
+        ResolvedDate: serviceRequestHistoryParam.ResolvedDate,
+        Comment: serviceRequestHistoryParam.Comment,
     
     });
     //console.log(serviceRequestHistory);

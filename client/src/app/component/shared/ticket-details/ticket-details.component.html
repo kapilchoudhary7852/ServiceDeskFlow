@@ -1,3 +1,50 @@
+
+<div>
+  <h2>Ticket History</h2>
+  <table>
+    <th>
+      <tr>
+       <td>#</td>
+        <td>Service Desk</td>
+        <td>Issue Title</td>
+        <td>Notify To</td>
+        <td>Assignee</td>
+        <td>Reporter</td>
+        <td>Status</td>
+        <td>Priority</td>
+        <td>Ticket Date</td>
+        <td>Resolve Date</td>
+        <td>Resolve Duration(Hr)</td>
+        <td>Action</td>
+      </tr>
+      <tr *ngFor="let ticket of tickets ; let i = index">
+          <td>{{ i }}</td>
+          <td>{{ ticket.ServiceDeskId  }}</td>
+          <td>{{ ticket.IssueTitle }}</td>
+          <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
+          <td>{{ ticket.AssignedName }}</td>
+          <td>{{ ticket.CreatedName }}</td>
+          <td>{{ticket.Status}}</td>
+          <td>{{ ticket.PriorityId  }}</td>
+          <td>{{ ticket.CreatedDate}}</td>
+          <td>{{ ticket.ResolvedDate }}</td>
+          <td>{{ ticket.ResolvedDuration }}</td>
+          <td>
+            <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 " type="button" (click)='assignTicket(ticket._id,1)'>Assign</button> 
+            <button *ngIf="Ent.RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
+            <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button> 
+            <div *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId"> 
+               <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
+               <button type="button">Edit</button>
+            </div>
+            <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id)'>Reopen</button>
+          </td>
+      </tr>
+     </th>
+   </table>
+
+
+
 <form [formGroup]= 'ticketForm'>
     <h1>Ticket creation form</h1>
   <div class="from-group">
@@ -58,7 +105,7 @@
       </div>
 
       <div class="form-group">
-          <label>Assigned Time</label>
+          <label>Assigned Date Time</label>
           <input readonly [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="AssignedTime" name="AssignedTime" type="text" class="form-control"  >
           <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
             <div *ngIf="f.Description.errors.required">Description is required</div>
@@ -87,3 +134,5 @@
     <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
   
   </form>
+
+</div>
