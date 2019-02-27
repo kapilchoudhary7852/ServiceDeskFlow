@@ -47,6 +47,8 @@ async function update(id, serviceRequestParam) {
     let Sdata = await serviceRequest.save();
     if(Sdata._id != null && serviceRequestParam.IsActive == true)
     {
+        serviceRequestParam.CreatedBy = serviceRequest.CreatedBy;
+
         NotifyTo.deleteMultiple(Sdata._id); 
         await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);  
         await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
@@ -58,6 +60,7 @@ async function updateAssginee(id, serviceRequestParam) {
     if (!serviceRequest) throw 'Service Request not found';
     if (serviceRequestParam.Assigned )
         serviceRequestParam.AssignedDate = Date.now();
+        
     // validate
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();

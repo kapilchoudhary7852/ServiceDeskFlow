@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  UserId: '5c6f9503d8d5a20a58fde429',
-  ServiceDeskId: ['5c6f9615d8d5a20a58fde435' , '5c6f962dd8d5a20a58fde439'],
-  Name: 'KapilE1 Employe',
-  RoleId: 3,
+  UserId: '5c6bb096833255dfbd38d29a',
+  ServiceDeskId: ['5c6bde8089c4b1e5976ce0c7' , '5c6bde9c89c4b1e5976ce0ce'],
+  Name: 'Akshaya SM2 Deo',
+  RoleId: 1,
   AppUrl:'http://localhost:8000',
 };
 
