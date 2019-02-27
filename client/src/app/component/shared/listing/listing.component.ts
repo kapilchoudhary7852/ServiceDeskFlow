@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
 import { TicketService } from 'src/app/service/ticket.service';
 import { Ticket } from '../../../model/ticket';
-import { ActivatedRoute,Router} from '@angular/router';
+import {ActivatedRoute, Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { StatusEnum } from '../../../Common/Enum/StatusEnum';
@@ -61,7 +61,7 @@ export class ListingComponent implements OnInit {
   newticketComment:'';
   newAssignusers :  User[]=[];
   userAccess :  UserAccess[]=[];
-  IsMylisting : boolean = false;
+  IsMylisting : boolean=false;
   constructor(private formBuilder:FormBuilder,private route: ActivatedRoute,private UserAccessService: UserAccessService,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
@@ -144,15 +144,7 @@ export class ListingComponent implements OnInit {
   {
     this.ticketService.getTickets().subscribe(data => {
     this.tickets = data;
-    //Set filter for login user service desk
-     if(this.IsMylisting){
-       this.tickets  =  this.tickets.filter(f => f.CreatedBy == this.Ent.UserId);
-       this.unFilteredTickets = this.tickets;
-     }
-     else if(this.Ent.RoleId != RolesEnum.HRCEO){
-      this.tickets  =  this.tickets.filter(f => this.Ent.ServiceDeskId.includes(f.ServiceDeskId))
-      this.unFilteredTickets = this.tickets;
-    }
+    this.unFilteredTickets = data;
     this.UserService.getUsers().subscribe(x => {
     this.users = x;
     this.userReporter = [];
@@ -225,20 +217,22 @@ export class ListingComponent implements OnInit {
        }
      }
     }
-   
+    //Set filter for login user service desk
+    if(this.Ent.RoleId != RolesEnum.HRCEO && this.Ent.RoleId != RolesEnum.Employee )
+      this.tickets  =  this.tickets.filter(f => this.Ent.ServiceDeskId.includes(f.ServiceDeskId))
    });
    }); 
   });
   }
   getServiceDesks() {
     this.serviceDescService.getServiceDesks().subscribe(data => {
-    this.servicedesks = data;
-    if(this.Ent.RoleId != RolesEnum.HRCEO && !this.IsMylisting)
-      this.servicedesks = this.servicedesks.filter(f => this.Ent.ServiceDeskId.includes(f._id));
-    this.serviceDesks.push({ id: '0' , name:'----Select----' });
-    for (let ds of this.servicedesks){
+      this.servicedesks = data;
+      if(this.Ent.RoleId != RolesEnum.HRCEO)
+         this.servicedesks = this.servicedesks.filter(f => this.Ent.ServiceDeskId.includes(f._id));
+      this.serviceDesks.push({ id: '0' , name:'----Select----' });
+      for (let ds of this.servicedesks){
         this.serviceDesks.push({ id: ds._id , name:ds.Name });
-     }
+      }
     });
   }
   getUsers() {
@@ -255,7 +249,7 @@ export class ListingComponent implements OnInit {
       }
      }
     });
-   });
+  });
   }
   resetFilters()
   {
@@ -315,14 +309,11 @@ export class ListingComponent implements OnInit {
       if(val==2)
         this.newticket.Status=4;
       this.newticket.Comment=this.newticketComment;  
-      this.ticketService.updateAssginee(this.newticket._id,this.newticket).subscribe(data => {
+      this.ticketService.update(this.newticket._id,this.newticket).subscribe(data => {
         this.funResetAssigned(); 
         location.reload();
       });
     });
   }
  }
- ticketdetails(id,SdId){
-  //this.router.navigateByUrl('/Mylisting/true');
-}
 }
