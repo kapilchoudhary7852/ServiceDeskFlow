@@ -1,3 +1,18 @@
-<p>
-  dashboard works!
-</p>
+<div>
+<h2>
+  DASHBOARD
+</h2>
+
+<div style="padding: 5px;">
+  <label for="">Service Desk:</label>  
+   <select [(ngModel)]='serviceDeskInput'>
+    <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
+    </select>
+    <label for="">Ticket Date:</label> From <input type="date" [(ngModel)]='ticketDateFromInput' >To <input type="date" [(ngModel)]='ticketDateToInput' >
+    <button (click)='filterTickets()'>Search Ticket</button>
+</div>
+  <div id="Chart">
+   <canvas id="myChart" width="1000" height="500"></canvas>
+  </div>
+  
+</div>
