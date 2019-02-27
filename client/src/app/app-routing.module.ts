@@ -8,14 +8,15 @@ import { RoleCreateUpdateComponent } from './component/HR-CEO/role-create-update
 import { ServiceDeskCreateUpdateComponent } from './component/HR-CEO/service-desk-create-update/service-desk-create-update.component';
 import { ListingComponent } from './component/shared/listing/listing.component';
 import { TicketDetailsComponent } from './component/shared/ticket-details/ticket-details.component';
-
+import { DashboardComponent } from './component/shared/dashboard/dashboard.component';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'home', component: UserDetailComponent },
-   { path: 'user/create', component: AddUserComponent },
+  { path: 'user/create', component: AddUserComponent },
   { path: 'update/:id', component: UpdateUserComponent },
   { path: 'ticket', component: TicketCreationFormComponent },
   { path: 'role', component: RoleCreateUpdateComponent },
