@@ -21,7 +21,7 @@
           <td>{{ ticket.ServiceDeskId  }}</td>
           <td>{{ ticket.IssueTitle }}</td>
           <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
-          <td>{{ ticket.AssignedName }}</td>
+          <td>{{ getUserNameById(ticket.Assigned) }}</td>
           <td>{{ getUserNameById(ticket.CreatedBy) }}</td>
           <td>{{getStatusNameById(ticket.Status)}} </td>
           <td>{{ getPriorityNameById(ticket.PriorityId)  }}</td>

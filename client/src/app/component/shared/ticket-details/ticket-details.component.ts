@@ -225,23 +225,16 @@ export class TicketDetailsComponent implements OnInit {
 
   getUserNameById(id)
   {
-    if(!this.users.length)
-    {
-        return ' yttt';
-    }
-    
+    if(!id)
+    return '';
 
-    // if(this.users)
-    // {
-    //   let user = this.users.find((value) => value.UserId == id).Fname;
-    //   return user
-    //   console.log(user);
-    // }
-    
-    
-    return id;
-    // return this.users[0].Fname;
-    // return user.Fname;//+' '+myobject.Lname;
+    if(this.users)
+    {
+       let user = this.users.find(value=>value._id===id);
+      
+       return user.Fname
+    }    
+    return '';
   }
 
   getTicketDetails()
