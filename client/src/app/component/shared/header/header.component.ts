@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   Ent = environment;
   constructor(private router: Router) { }
-
+  
   ngOnInit() {}
   Mylisting(){
     this.router.navigateByUrl('/Mylisting/true');
