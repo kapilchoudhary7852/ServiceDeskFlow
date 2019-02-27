@@ -5,29 +5,25 @@
     <th>
       <tr>
        <td>#</td>
-        <td>Service Desk</td>
+        <!-- <td>Service Desk</td> -->
         <td>Issue Title</td>
-        <td>Notify To</td>
         <td>Assignee</td>
         <td>Reporter</td>
         <td>Status</td>
         <td>Priority</td>
-        <td>Ticket Date</td>
-        <td>Resolve Date</td>
-        <td>Resolve Duration(Hr)</td>
+        <!-- <td>Ticket Date</td> -->
+        <!-- <td>Resolve Date</td> -->
       </tr>
       <tr *ngFor="let ticket of tickets ; let i = index">
           <td>{{ i }}</td>
-          <td>{{ ticket.ServiceDeskId  }}</td>
+          <!-- <td>{{ ticket.ServiceDeskId  }}</td> -->
           <td>{{ ticket.IssueTitle }}</td>
-          <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
           <td>{{ getUserNameById(ticket.Assigned) }}</td>
           <td>{{ getUserNameById(ticket.CreatedBy) }}</td>
           <td>{{getStatusNameById(ticket.Status)}} </td>
           <td>{{ getPriorityNameById(ticket.PriorityId)  }}</td>
-          <td>{{ ticket.CreatedDate}}</td>
-          <td>{{ ticket.ResolvedDate }}</td>
-          <td>{{ ticket.ResolvedDuration }}</td>
+          <!-- <td>{{ ticket.CreatedDate}}</td> -->
+          <!-- <td>{{ ticket.ResolvedDate }}</td> -->
       </tr>
      </th>
    </table>

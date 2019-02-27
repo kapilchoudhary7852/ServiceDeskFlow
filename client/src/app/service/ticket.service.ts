@@ -34,6 +34,12 @@ export class TicketService {
     return this.http.get<Ticket[]>(url)
       .pipe(catchError(this.handleError));
   }
+  
+  getTicketHistoryWithId(id): Observable<Ticket[]> {
+    const url: string = this.apiUrlTicketHistory + 'get/'+id;
+    return this.http.get<Ticket[]>(url)
+      .pipe(catchError(this.handleError));
+  }
 
   getTickets(): Observable<Ticket[]> {
     const url: string = this.apiUrl + 'get/all';

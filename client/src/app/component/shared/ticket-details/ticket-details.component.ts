@@ -114,10 +114,14 @@ export class TicketDetailsComponent implements OnInit {
 
   getAllTickets()
   {
+    console.log(this.ticketId);
 
     this.ticketService.getTicketHistory().subscribe(data => {
+      
+      
       this.tickets = data;
-
+      this.tickets = this.tickets.filter(ticket=>ticket.ServiceRequestId===this.ticketId)
+      //console.log(this.tickets);
       
     })
   }
@@ -232,6 +236,7 @@ export class TicketDetailsComponent implements OnInit {
     {
        let user = this.users.find(value=>value._id===id);
       
+       if(user)
        return user.Fname
     }    
     return '';
