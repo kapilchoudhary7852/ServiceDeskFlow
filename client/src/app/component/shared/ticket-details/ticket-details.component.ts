@@ -322,6 +322,11 @@ export class TicketDetailsComponent implements OnInit {
 
         formValues.ResolvedDate = Date.now();
     }
+    else
+    {
+      formValues.ResolvedDate = null;
+
+    }
 
     
      this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
