@@ -118,7 +118,6 @@ export class TicketDetailsComponent implements OnInit {
     this.ticketService.getTicketHistory().subscribe(data => {
       this.tickets = data;
 
-      console.log(this.tickets);
       
     })
   }
@@ -222,6 +221,27 @@ export class TicketDetailsComponent implements OnInit {
   getPriorityNameById(id)
   {
     return PriorityEnum[id];
+  }
+
+  getUserNameById(id)
+  {
+    if(!this.users.length)
+    {
+        return ' yttt';
+    }
+    
+
+    // if(this.users)
+    // {
+    //   let user = this.users.find((value) => value.UserId == id).Fname;
+    //   return user
+    //   console.log(user);
+    // }
+    
+    
+    return id;
+    // return this.users[0].Fname;
+    // return user.Fname;//+' '+myobject.Lname;
   }
 
   getTicketDetails()
