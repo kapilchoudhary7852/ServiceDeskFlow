@@ -15,7 +15,6 @@
         <td>Ticket Date</td>
         <td>Resolve Date</td>
         <td>Resolve Duration(Hr)</td>
-        <td>Action</td>
       </tr>
       <tr *ngFor="let ticket of tickets ; let i = index">
           <td>{{ i }}</td>
@@ -24,21 +23,11 @@
           <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
           <td>{{ ticket.AssignedName }}</td>
           <td>{{ ticket.CreatedName }}</td>
-          <td>{{ticket.Status}}</td>
-          <td>{{ ticket.PriorityId  }}</td>
+          <td>{{getStatusNameById(ticket.Status)}} </td>
+          <td>{{ getPriorityNameById(ticket.PriorityId)  }}</td>
           <td>{{ ticket.CreatedDate}}</td>
           <td>{{ ticket.ResolvedDate }}</td>
           <td>{{ ticket.ResolvedDuration }}</td>
-          <td>
-            <button *ngIf="Ent.RoleId === 2 || Ent.RoleId==3 " type="button" (click)='assignTicket(ticket._id,1)'>Assign</button> 
-            <button *ngIf="Ent.RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
-            <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button> 
-            <div *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId"> 
-               <button type="button" (click)='updateTicket(ticket,0)'>Delete</button>
-               <button type="button">Edit</button>
-            </div>
-            <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id)'>Reopen</button>
-          </td>
       </tr>
      </th>
    </table>

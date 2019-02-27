@@ -53,6 +53,7 @@ export class TicketDetailsComponent implements OnInit {
 
   ngOnInit() 
   {
+
     this.ticketId = this.route.snapshot.paramMap.get('id');
     this.getUsers();
     this.getServiceDesks();
@@ -211,6 +212,16 @@ export class TicketDetailsComponent implements OnInit {
     
     });
    }); 
+  }
+
+  getStatusNameById(id)
+  {
+    return StatusEnum[id];
+  }
+
+  getPriorityNameById(id)
+  {
+    return PriorityEnum[id];
   }
 
   getTicketDetails()
