@@ -4,6 +4,7 @@ const ServiceRequestHistory = db.ServiceRequestHistory;
 module.exports = {
     getAll,
     getById,
+    getByServiceRequestId,
     create,
     update,
     updateMultiple,
@@ -13,6 +14,9 @@ module.exports = {
 
 async function getAll() {
     return await ServiceRequestHistory.find({ IsActive : true });
+}
+async function getByServiceRequestId(id) {
+    return await ServiceRequestHistory.find({ ServiceRequestId : id });
 }
 
 async function getById(id) {

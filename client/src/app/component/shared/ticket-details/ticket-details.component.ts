@@ -116,13 +116,8 @@ export class TicketDetailsComponent implements OnInit {
   {
     console.log(this.ticketId);
 
-    this.ticketService.getTicketHistory().subscribe(data => {
-      
-      
+    this.ticketService.getTicketHistoryForSR(this.ticketId).subscribe(data => {
       this.tickets = data;
-      this.tickets = this.tickets.filter(ticket=>ticket.ServiceRequestId===this.ticketId)
-      //console.log(this.tickets);
-      
     })
   }
 

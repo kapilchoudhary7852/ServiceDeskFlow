@@ -6,6 +6,7 @@ const serviceRequestHistoryService = require('../controller/ServiceRequestHistor
 router.post('/create', create);
 router.get('/get/all', getAll);
 router.get('/get/:id', getById);
+router.get('/getallforsr/:id', getByServiceRequestId);
 router.put('/update/:id', update);
 router.delete('/delete/:id', _delete);
 
@@ -27,6 +28,12 @@ function getById(req, res, next) {
     serviceRequestHistoryService.getById(req.params.id)
         .then(serviceRequestHistory => serviceRequestHistory ? res.json(serviceRequestHistory) : res.sendStatus(404))
         .catch(err => next(err));
+}
+
+function getByServiceRequestId(req, res, next) {
+    serviceRequestHistoryService.getByServiceRequestId(req.params.id)
+        .then(serviceRequestHistory => serviceRequestHistory ? res.json(serviceRequestHistory) : res.sendStatus(404))
+        .catch(err => next(err));1
 }
 
 function update(req, res, next) {
