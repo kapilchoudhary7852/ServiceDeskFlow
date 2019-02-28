@@ -74,7 +74,7 @@ export class ListingComponent implements OnInit {
        this.ticketService.update(this._id, data).subscribe(res => alert('Data Save'),error=>alert('error'));
     }
     if(val==1){
-      data.CreatedBy=this.Ent.UserId;
+      data.Assigned=this.Ent.UserId;
       this.ticketService.update(this._id, data).subscribe(res => {
        location.reload();
      });
@@ -309,7 +309,7 @@ export class ListingComponent implements OnInit {
       if(val==2)
         this.newticket.Status=4;
       this.newticket.Comment=this.newticketComment;  
-      this.ticketService.update(this.newticket._id,this.newticket).subscribe(data => {
+      this.ticketService.updateAssginee(this.newticket._id,this.newticket).subscribe(data => {
         this.funResetAssigned(); 
         location.reload();
       });

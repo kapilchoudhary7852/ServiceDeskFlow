@@ -1,5 +1,5 @@
 <div class="header">
-        <a *ngIf="Ent.RoleId != 5" [routerLink]="[ '/dashboard']">Dashboard</a>
+        <a *ngIf="Ent.RoleId != 5 && Ent.RoleId != 4 " [routerLink]="[ '/dashboard']">Dashboard</a>
         <a *ngIf="Ent.RoleId == 1" [routerLink]="[ '/home']">Users</a>
         <a *ngIf="Ent.RoleId == 1" [routerLink]="[ '/servicedesk']">Service Desk</a>
         <a *ngIf="Ent.RoleId == 1" [routerLink]="[ 'user/create']">Add User</a>
