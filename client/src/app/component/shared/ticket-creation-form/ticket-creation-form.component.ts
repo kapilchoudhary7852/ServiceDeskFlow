@@ -25,7 +25,7 @@ export class TicketCreationFormComponent implements OnInit {
   servicedesks :  ServiceDesk[]=[];
   users :  User[]=[];
   Selectedusers: User[]=[];
-  CreatedBy = this.Ent.UserId;
+  CreatedBy : string = '';
   Description:string ='NoNeed';
   dropdownSettings = {};
   generateTicket() 
@@ -42,7 +42,12 @@ export class TicketCreationFormComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.getUsers();
+    debugger;
+    if(localStorage.getItem('User') == null)
+      return this.router.navigateByUrl('login');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.CreatedBy = User[0]._id; 
+      this.getUsers();
     for(let n in PriorityEnum) {
       if (typeof PriorityEnum[n] === 'number') {
         this.prioritys.push({id: <any>PriorityEnum[n], name: n});

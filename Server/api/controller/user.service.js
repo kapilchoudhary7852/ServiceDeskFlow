@@ -6,7 +6,8 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getSession
 };
 
 async function getAll() {
@@ -40,4 +41,7 @@ async function update(id, userParam) {
 }
 async function _delete(id) {
     await User.findByIdAndRemove(id);
+}
+async function getSession(id) {
+    return await User.find({UserId : id});
 }

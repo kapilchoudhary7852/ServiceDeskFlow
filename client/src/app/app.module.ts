@@ -21,7 +21,7 @@ import { UserAccessService } from './service/user-access.service';
 import { TicketDetailsComponent } from './component/shared/ticket-details/ticket-details.component';
 import { NotifytoService } from './service/notifyto.service';
 import { DashboardComponent } from './component/shared/dashboard/dashboard.component';
-
+import { LoginComponent } from './component/user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { DashboardComponent } from './component/shared/dashboard/dashboard.compo
     ServiceDeskCreateUpdateComponent,
     ListingComponent,
     TicketDetailsComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

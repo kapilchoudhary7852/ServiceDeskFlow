@@ -27,7 +27,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
   selectedItemIRA : User[]=[];
   selectedItemSecondary : User[]=[];
   dropdownSettings = {};
-  CreatedBy = this.Ent.UserId;
+  CreatedBy: string = '';
   Description:string ='NoNeed';
   _id = null;
   userM :  User[];
@@ -36,6 +36,11 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
   isEdit : boolean = false;
   constructor(private formBuilder: FormBuilder,private UserAccessService: UserAccessService,private UserService: UserService, private serviceDescService: ServicedescService, private route: Router) { }
   ngOnInit() {
+    debugger;
+    if(localStorage.getItem('User') == null)
+      this.route.navigateByUrl('login');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.CreatedBy = User[0]._id; 
     this.createForm = this.formBuilder.group({
       Name: ['', [Validators.required]],
       AssignedReminder: ['', [Validators.required]],

@@ -30,7 +30,7 @@ export class TicketDetailsComponent implements OnInit {
   servicedesks :  ServiceDesk[]=[];
   users :  User[]=[];
   Selectedusers: User[]=[];
-  CreatedBy = this.Ent.UserId;
+  CreatedBy : string ='';
   Description:string ='NoNeed';
   dropdownSettings = {};
   dropdownSettings2 = {};
@@ -53,7 +53,10 @@ export class TicketDetailsComponent implements OnInit {
 
   ngOnInit() 
   {
-
+    if(localStorage.getItem('User') == null)
+       return this.router.navigateByUrl('login');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.CreatedBy = User[0]._id;
     this.ticketId = this.route.snapshot.paramMap.get('id');
     this.getUsers();
     this.getServiceDesks();

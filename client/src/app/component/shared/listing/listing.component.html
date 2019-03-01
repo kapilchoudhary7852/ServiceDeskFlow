@@ -69,12 +69,11 @@
         <td>{{ ticket.ResolvedDate }}</td>
         <td>{{ ticket.ResolvedDuration }}</td>
         <td>
-          <div *ngIf="!IsMylisting "><button *ngIf="Ent.RoleId == 2 || Ent.RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button></div>
-          <button *ngIf="Ent.RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
-          <button *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId && IsMylisting" type="button" (click)='updateTicket(ticket,0)'>Delete</button>
-     
+          <div *ngIf="!IsMylisting "><button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button></div>
+          <button *ngIf="RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
+          <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,0)'>Delete</button>
           <button  type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button>
-          <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
+          <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button"  (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
         </td>
     </tr>
    </th>

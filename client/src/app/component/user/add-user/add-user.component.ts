@@ -16,6 +16,8 @@ export class AddUserComponent implements OnInit {
   roles: {id: number; name: string}[] = [];
   constructor(private formBuilder: FormBuilder, private userService: UserService, private route: Router) { }
   ngOnInit() {
+    if(localStorage.getItem('User') == null)
+      this.route.navigateByUrl('login');
     for(var n in RolesEnum) {
       if (typeof RolesEnum[n] === 'number') {
         this.roles.push({id: <any>RolesEnum[n], name: n});

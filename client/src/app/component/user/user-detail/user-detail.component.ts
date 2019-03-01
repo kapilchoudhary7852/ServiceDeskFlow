@@ -22,6 +22,8 @@ export class UserDetailComponent implements OnInit {
   constructor(private userService: UserService,private UserAccessService: UserAccessService,private serviceDescService: ServicedescService, private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('User') == null)
+      return this.router.navigateByUrl('login');
     this.getUsers();
 
   }

@@ -41,6 +41,12 @@ export class UserAccessService {
       .pipe(catchError(this.handleError));
   }
 
+  getUserAccessByUserId(id: string): Observable<UserAccess[]> {
+    const url = `${this.apiUrl}getbyUid/${id}`;
+    return this.http.get<UserAccess[]>(url)
+      .pipe(catchError(this.handleError));
+  }
+
   updateUserAccess(id: string, userAccessDetails: UserAccess) {
     const url: string = this.apiUrl + 'update/' + id;
     return this.http.put(url, userAccessDetails)
