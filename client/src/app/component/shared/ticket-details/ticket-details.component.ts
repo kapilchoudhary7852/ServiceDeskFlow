@@ -5,12 +5,12 @@ import { TicketService } from 'src/app/service/ticket.service';
 import { Ticket } from '../../../model/ticket';
 import {ActivatedRoute, Router } from '@angular/router';
 import { JsonPipe, DatePipe } from '@angular/common';
-import { PriorityEnum } from '../../../Common/Enum/PriorityEnum';
+import { PriorityEnum, getPriorityNameById } from '../../../Common/Enum/PriorityEnum';
 import { ServiceDesk } from '../../../model/ServiceDesk';
 import { ServicedescService } from '../../../service/servicedesc.service';
 import { User } from '../../../model/user';
 import { UserService } from 'src/app/service/user.service';
-import { StatusEnum } from '../../../Common/Enum/StatusEnum';
+import { StatusEnum ,getStatusNameById} from '../../../Common/Enum/StatusEnum';
 import { NotifytoService } from '../../../service/notifyto.service';
 import { NotifyTo } from '../../../model/NotifyTo';
 import { environment } from '../../../../environments/environment';
@@ -326,6 +326,7 @@ export class TicketDetailsComponent implements OnInit {
     
      this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
 
+      alert('Ticket Updated Successfully');
       this.router.navigateByUrl('/listing'),
       error=>alert('error');
       

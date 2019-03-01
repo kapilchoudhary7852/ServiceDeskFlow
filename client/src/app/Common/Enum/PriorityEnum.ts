@@ -4,3 +4,8 @@ export enum PriorityEnum {
     High = 3, 
     Urgent = 4
 }
+
+export function getPriorityNameById(id)
+{
+  return PriorityEnum[id];
+}

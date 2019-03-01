@@ -7,3 +7,8 @@ export enum StatusEnum {
     Escalated = 6,
     Pending = 7 
 }
+
+export function getStatusNameById(id)
+  {
+    return StatusEnum[id];
+  }
