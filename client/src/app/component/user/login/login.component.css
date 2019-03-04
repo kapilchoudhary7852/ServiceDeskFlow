@@ -1,0 +1,15 @@
+.login-box{
+    background: #fff;
+    border-radius: 6px;
+    padding: 0 30px;
+    border: 1px solid #DDDBDA;
+    width: 430px;
+    margin: 100px auto;
+}
+.login-box h4{
+    text-transform: uppercase;
+    margin: 25px 0;
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+}
