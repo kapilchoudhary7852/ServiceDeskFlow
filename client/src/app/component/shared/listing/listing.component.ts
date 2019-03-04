@@ -65,6 +65,7 @@ export class ListingComponent implements OnInit {
   CreatedBy : string='';
   RoleId : Number = 0;
   ServiceDeskList = []; 
+  IsEmploye : boolean = false;
   constructor(private formBuilder:FormBuilder,private route: ActivatedRoute,private UserAccessService: UserAccessService,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
@@ -86,16 +87,21 @@ export class ListingComponent implements OnInit {
   }
   ngOnInit() 
   {
+    
     if(localStorage.getItem('User') == null)
        return this.router.navigateByUrl('login');
+    this.IsEmploye = JSON.parse(localStorage.getItem('IsEmploye'));
+    if(this.IsEmploye)
+        this.router.navigateByUrl('/Mylisting/true');
     var User = JSON.parse(localStorage.getItem('User'));
-      this.CreatedBy = User[0]._id; 
-      this.RoleId = Number(User[0].RoleId); 
-      this.IsMylisting = Boolean(this.route.snapshot.paramMap.get('MyList'));
+    this.CreatedBy = User[0]._id; 
+    this.RoleId = Number(User[0].RoleId); 
+    this.IsMylisting = Boolean(this.route.snapshot.paramMap.get('MyList'));
     this.ServiceDeskList = [];
      for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
        this.ServiceDeskList.push(s);
      }
+    
     this.getServiceDesks();
     this.getUsers();
     this.status.push({ id: 0 , name:'----Select----' });

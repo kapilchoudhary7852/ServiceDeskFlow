@@ -19,11 +19,16 @@ export class UserDetailComponent implements OnInit {
   roles: {id: number; name: string}[] = [];
   servicedesks :  ServiceDesk[]=[];
   userAccess :  UserAccess[]=[];
+  RoleId : Number = 0;
   constructor(private userService: UserService,private UserAccessService: UserAccessService,private serviceDescService: ServicedescService, private router: Router) { }
 
   ngOnInit() {
     if(localStorage.getItem('User') == null)
       return this.router.navigateByUrl('login');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.RoleId = Number(User[0].RoleId) 
+    if(this.RoleId != RolesEnum.HRCEO)
+        this.router.navigateByUrl('dashboard');  
     this.getUsers();
 
   }

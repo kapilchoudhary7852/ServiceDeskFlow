@@ -40,8 +40,8 @@
   </div>
   <button (click)='filterTickets()'>Search Ticket</button>
   <button (click)='resetFilters()'>Reset</button>
-<table>
-  <th>
+<table >
+  <th >
     <tr>
      <td>#</td>
       <td>Service Desk</td>
@@ -56,8 +56,11 @@
       <td>Resolve Duration(Hr)</td>
       <td>Action</td>
     </tr>
-    <tr *ngFor="let ticket of tickets ; let i = index">
-        <td>{{ i }}</td>
+    <tr *ngIf="tickets.length==0">
+      <td>NO data found</td>
+    </tr>
+     <tr  *ngFor="let ticket of tickets ; let i = index">
+        <td>{{ i+1 }}</td>
         <td>{{ ticket.ServiceDeskName  }}</td>
         <td>{{ ticket.IssueTitle }}</td>
         <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
@@ -78,6 +81,7 @@
     </tr>
    </th>
  </table>
+ 
 </div>
 <div>
   <div>

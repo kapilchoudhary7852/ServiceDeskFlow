@@ -15,7 +15,7 @@
         <!-- <td>Resolve Date</td> -->
       </tr>
       <tr *ngFor="let ticket of tickets ; let i = index">
-          <td>{{ i }}</td>
+          <td>{{ i+1 }}</td>
           <!-- <td>{{ ticket.ServiceDeskId  }}</td> -->
           <td>{{ ticket.IssueTitle }}</td>
           <td>{{ getUserNameById(ticket.Assigned) }}</td>

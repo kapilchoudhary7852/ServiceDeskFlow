@@ -20,7 +20,7 @@ async function getById(id) {
 async function create(serviceDeskParam) {
     // validate
     if (await ServiceDesk.findOne( { "Name" : serviceDeskParam.Name})) {
-        throw 'Service Desk name "' + serviceDeskParam.Name + '" is already exist';
+        return 'Service Desk name "' + serviceDeskParam.Name + '" is already exist';
     }
     const serviceDesk = new ServiceDesk({
         Name:  serviceDeskParam.Name,
@@ -35,7 +35,9 @@ async function create(serviceDeskParam) {
         await UserAccess.create(serviceDeskParam.selectedManager,Sdata._id);
         await UserAccess.create(serviceDeskParam.selectedIRA,Sdata._id);
         await UserAccess.create(serviceDeskParam.selectedSecondary,Sdata._id);
-      }
+        return true;   
+    }
+      
 }
 
 async function update(id, serviceDeskParam) {
@@ -43,18 +45,19 @@ async function update(id, serviceDeskParam) {
     // validate
     if (!serviceDesk) throw 'Service Desc not found';
     if (serviceDesk.Name !== serviceDeskParam.Name && await ServiceDesk.findOne({ Name: serviceDeskParam.Name })) {
-        throw 'Priority name "' + serviceDescParam.Name + '" is already exist';
+        return 'Service Desk name "' + serviceDescParam.Name + '" is already exist';
     }
     Object.assign(serviceDesk, serviceDeskParam);
     let Sdata = await serviceDesk.save();
     if(Sdata._id != null && serviceDeskParam.IsActive == true)
-      { 
-         UserAccess.deleteMultiple(Sdata._id); 
-         await UserAccess.create(serviceDeskParam.selectedManager,Sdata._id);
-         await UserAccess.create(serviceDeskParam.selectedIRA,Sdata._id);
-         await UserAccess.create(serviceDeskParam.selectedSecondary,Sdata._id);
+    { 
+        UserAccess.deleteMultiple(Sdata._id); 
+        await UserAccess.create(serviceDeskParam.selectedManager,Sdata._id);
+        await UserAccess.create(serviceDeskParam.selectedIRA,Sdata._id);
+        await UserAccess.create(serviceDeskParam.selectedSecondary,Sdata._id);
+        return true;
     }
-}
+  }
 
 async function _delete(id) {
     await ServiceDesk.findByIdAndRemove(id);

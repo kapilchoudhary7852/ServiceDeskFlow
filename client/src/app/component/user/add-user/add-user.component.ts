@@ -14,12 +14,17 @@ export class AddUserComponent implements OnInit {
   submitted = false;
   createForm: FormGroup;
   roles: {id: number; name: string}[] = [];
+  RoleId : Number = 0;
   constructor(private formBuilder: FormBuilder, private userService: UserService, private route: Router) { }
   ngOnInit() {
     if(localStorage.getItem('User') == null)
       this.route.navigateByUrl('login');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.RoleId = Number(User[0].RoleId) 
+    if(this.RoleId != RolesEnum.HRCEO)
+      this.route.navigateByUrl('dashboard');
     for(var n in RolesEnum) {
-      if (typeof RolesEnum[n] === 'number') {
+    if (typeof RolesEnum[n] === 'number') {
         this.roles.push({id: <any>RolesEnum[n], name: n});
         }
     }

@@ -47,7 +47,13 @@ export class UpdateUserComponent implements OnInit {
     } else {
       console.log(this.updateForm.value);
       this.userService.updateUser(this.userId, this.updateForm.value).subscribe(res => {
-        this.router.navigateByUrl('/home');
+        if(res == true){
+          alert('Data Updated')
+          this.router.navigateByUrl('/home');
+        }
+        else{
+          alert('SomeThing went wrong!')
+        }
       });
     }
   }

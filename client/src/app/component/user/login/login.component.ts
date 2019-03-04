@@ -45,12 +45,15 @@ export class LoginComponent implements OnInit {
       for(let n of this.userAccess){
         this.user.ServiceDeskId.push(n.ServiceDeskId);
       }
+      debugger;
       if(this.user.ServiceDeskId.length==0){
         this.user.ServiceDeskId.push('5c78efca7b22c61ff466543d');
+        localStorage.setItem('IsEmploye', JSON.stringify('true'));
       }
       localStorage.setItem('User', JSON.stringify(this.user));
       localStorage.setItem('ServiceDesk', JSON.stringify(this.user.ServiceDeskId));
       var User = localStorage.getItem('User');
+      location.reload();
       return this.route.navigateByUrl('dashboard');
       
       });

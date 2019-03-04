@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit {
                     'rgba(250, 162, 235, 1)','rgba(300, 99, 132, 1)', 'rgba(500, 162, 235, 1)', 
                     'rgba(400, 206, 86, 1)'];
   BackgroundColor=[];        
-  ServiceDeskList = [];            
+  ServiceDeskList = [];     
+  RoleId : Number = 0;       
   constructor(private serviceDescService: ServicedescService, 
     private router: Router, private ticketService: TicketService) { }
   ngOnInit() {
@@ -43,6 +44,8 @@ export class DashboardComponent implements OnInit {
      for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
        this.ServiceDeskList.push(s);
      } 
+     if(this.RoleId == RolesEnum.Employee || this.RoleId == RolesEnum.SecondaryAuthorityAssigner)
+       this.router.navigateByUrl('/Mylisting/true');
     this.getAllTickets();
     this.getServiceDesks();
   }
