@@ -20,6 +20,9 @@ body{
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
-/* .portlet:hover {
-    border-top: 4px solid #2c4750;
-} */
+
+.page-title {
+    color: #22201c;
+    font-family: 'Overlock', "Open Sans", sans-serif;
+    font-weight: bold !important;
+}
