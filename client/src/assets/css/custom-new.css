@@ -1,0 +1,25 @@
+body{
+
+    
+}
+
+.page-content-wrapper {
+    background: #f2f3f5;
+}
+.page-contentInn {
+    padding: 20px;
+}
+.portlet.solid {
+    padding: 5px 15px 15px 15px;
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+.portlet {
+    position: relative;
+    box-shadow: 1px 1px 10px #e4e4e4;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+/* .portlet:hover {
+    border-top: 4px solid #2c4750;
+} */

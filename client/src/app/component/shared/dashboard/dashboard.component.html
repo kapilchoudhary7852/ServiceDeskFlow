@@ -1,18 +1,46 @@
-<div>
-<h2>
-  DASHBOARD
-</h2>
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <div class="page-contentInn">
+        <div id="divMainContainer" class="portlet solid light-grey travelForm formElement clearfix candidateSearchPage ">
+            <div class="row">
+               <div class="col-md-12">
+                  <h3 class="page-title">
+                      DASHBOARD                                
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-4">
+                          <label for="">Service Desk:</label>
+                          <select [(ngModel)]='serviceDeskInput'>
+                            <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
+                          </select>
+                      </div>
 
-<div style="padding: 5px;">
-  <label for="">Service Desk:</label>  
-   <select [(ngModel)]='serviceDeskInput'>
-    <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
-    </select>
-    <label for="">Ticket Date:</label> From <input type="date" [(ngModel)]='ticketDateFromInput' >To <input type="date" [(ngModel)]='ticketDateToInput' >
-    <button (click)='filterTickets()'>Search Ticket</button>
-</div>
-  <div id="Chart">
-   <canvas id="myChart" width="1000" height="500"></canvas>
+                      <div class="col-md-4">
+                          <label for="">Ticket Date:</label> From
+                          <input type="date" [(ngModel)]='ticketDateFromInput'>To
+                          <input type="date" [(ngModel)]='ticketDateToInput'>
+                      </div>
+                      
+                      <div class="col-md-4">
+                          <button (click)='filterTickets()'>Search Ticket</button>
+                      </div>
+                    </div>
+                  </div>
+
+          
+                 
+                  
+               </div>
+                
+              </div>
+              <div id="Chart">
+                <canvas id="myChart" width="1000" height="500"></canvas>
+              </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-  
-</div>
+ 
+

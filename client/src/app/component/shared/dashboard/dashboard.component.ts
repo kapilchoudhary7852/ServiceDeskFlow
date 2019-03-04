@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   constructor(private serviceDescService: ServicedescService, 
     private router: Router, private ticketService: TicketService) { }
   ngOnInit() {
-    debugger;
+    
     if(localStorage.getItem('User') == null)
      return this.router.navigateByUrl('login');
      this.ServiceDeskList = [];
