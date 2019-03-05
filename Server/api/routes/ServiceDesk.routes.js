@@ -7,7 +7,7 @@ router.get('/get/all', getAll);
 router.get('/get/:id', getById);
 router.put('/update/:id', update);
 router.delete('/delete/:id', _delete);
-
+router.get('/gets/all', gets);
 module.exports = router;
 function create(req, res, next) {
     serviceDeskService.create(req.body)
@@ -21,6 +21,12 @@ function getAll(req, res, next) {
         .catch(err => next(err));
 }
 
+function gets(req, res, next) {
+    serviceDeskService.gets()
+        .then(serviceDesc => res.json(serviceDesc))
+        .catch(err => next(err));
+}
+
 function getById(req, res, next) {
     serviceDeskService.getById(req.params.id)
         .then(serviceDesc => serviceDesc ? res.json(serviceDesc) : res.sendStatus(404))
@@ -29,7 +35,7 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
     serviceDeskService.update(req.params.id, req.body)
-        .then(() => res.json({}))
+        .then(serviceDesc => res.json(serviceDesc))
         .catch(err => next(err));
 }
 

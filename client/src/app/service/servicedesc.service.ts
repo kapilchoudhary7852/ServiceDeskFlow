@@ -29,6 +29,12 @@ export class ServicedescService {
       .pipe(catchError(this.handleError));
   }
 
+  gets(): Observable<ServiceDesk[]> {
+    const url: string = this.apiUrl + 'gets/all';
+    return this.http.get<ServiceDesk[]>(url)
+      .pipe(catchError(this.handleError));
+  }
+
   getServiceDesk(id: string): Observable<ServiceDesk> {
     const url = `${this.apiUrl}get/${id}`;
     return this.http.get<ServiceDesk>(url)

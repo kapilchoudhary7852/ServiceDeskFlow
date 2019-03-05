@@ -27,8 +27,6 @@ async function create(Param,id) {
       UserId: Param[i]._id,
     });
     let result = await notifyTo.save();
-    if(result._id!=null)
-     return true;
  }
 }
 async function getBySId(id) {
