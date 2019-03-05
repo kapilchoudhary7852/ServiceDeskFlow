@@ -38,25 +38,43 @@ export class LoginComponent implements OnInit {
     } else {
       this.userService.getSession(this.createForm.get('UserId').value+'_'+this.createForm.get('Password').value).subscribe(res => {
       this.user= res;
-      this.UserAccessService.getUserAccessByUserId(res[0]._id).subscribe(X => {
-      this.userAccess= X;
       this.user.ServiceDeskId = [];
-      for(let n of this.userAccess){
-        this.user.ServiceDeskId.push(n.ServiceDeskId);
+      if(res[0].RoleId == RolesEnum.HRCEO){
+        this.serviceDescService.getServiceDesks().subscribe(Y => {
+          this.servicedesks= Y;    
+          this.user.ServiceDeskId = [];
+           for(let n of this.servicedesks){
+              this.user.ServiceDeskId.push(n._id);
+            }
+          localStorage.setItem('ServiceDesk', JSON.stringify(this.user.ServiceDeskId));
+          localStorage.setItem('IsEmploye', JSON.stringify('false'));
+          localStorage.setItem('User', JSON.stringify(this.user));
+          location.reload();
+          return this.route.navigateByUrl('dashboard');
+         });
       }
-      
-      if(this.user.ServiceDeskId.length==0){
+      else if(res[0].RoleId == RolesEnum.Employee){
         this.user.ServiceDeskId.push('5c78efca7b22c61ff466543d');
         localStorage.setItem('IsEmploye', JSON.stringify('true'));
+        localStorage.setItem('ServiceDesk', JSON.stringify(this.user.ServiceDeskId));
+        localStorage.setItem('User', JSON.stringify(this.user));
+        location.reload();
+        return this.route.navigateByUrl('dashboard');
       }
-      localStorage.setItem('User', JSON.stringify(this.user));
-      localStorage.setItem('ServiceDesk', JSON.stringify(this.user.ServiceDeskId));
-      var User = localStorage.getItem('User');
-      location.reload();
-      return this.route.navigateByUrl('dashboard');
-      
+      else{
+        this.UserAccessService.getUserAccessByUserId(res[0]._id).subscribe(X => {
+          this.userAccess= X;
+           for(let n of this.userAccess){
+             this.user.ServiceDeskId.push(n.ServiceDeskId);
+           }
+           localStorage.setItem('ServiceDesk', JSON.stringify(this.user.ServiceDeskId));
+           localStorage.setItem('IsEmploye', JSON.stringify('false'));
+           localStorage.setItem('User', JSON.stringify(this.user));
+           location.reload();
+           return this.route.navigateByUrl('dashboard');
+        });
+       }
       });
-     });
     }
   }
 }

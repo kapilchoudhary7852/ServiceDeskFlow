@@ -13,7 +13,7 @@ router.delete('/delete/:id', _delete);
 module.exports = router;
 
 function create(req, res, next) {
-    
+    console.log(req);
     serviceRequestService.create(req.body)
         .then(serviceRequest => res.json(serviceRequest))
         .catch(err => next(err,));

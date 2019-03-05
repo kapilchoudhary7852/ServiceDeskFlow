@@ -21,6 +21,7 @@ async function getById(id) {
 }
 
 async function create(serviceRequestParam) {
+   console.log(serviceRequestParam)
    const serviceRequest = new ServiceRequest(serviceRequestParam);
    serviceRequest.Assigned=null;
    serviceRequest.AssignedDate=null;

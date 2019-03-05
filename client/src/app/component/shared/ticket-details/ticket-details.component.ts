@@ -335,8 +335,8 @@ export class TicketDetailsComponent implements OnInit {
     console.log(formValues)
      this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
       alert('Ticket Updated Successfully');
-      this.router.navigateByUrl('/listing'),
-      error=>alert('error');
+      this.router.navigateByUrl('/Mylisting/true'), 
+      error=>alert('Some thing went wrong!');
       });
 
   }
