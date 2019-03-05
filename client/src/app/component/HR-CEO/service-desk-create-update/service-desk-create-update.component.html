@@ -1,84 +1,125 @@
-<div class="content">  
-  <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <div class="page-contentInn">
+      <div class="portlet solid light-grey main-dashboard-page" id="divMainContainer">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="page-title">Service Desk</h3>
+          </div>
+        </div>
 
-  <h4>Service Desk</h4>
-  <div style="width:50%">
-    <div class="form-group">
-      <label>Service Name</label>
-      <input type="text" formControlName="Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
-      <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
-        <div *ngIf="f.Name.errors.required">Service Name is required</div>
+        <div class="form row" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Service Name</label>
+              <input type="text" formControlName="Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+              <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                <div *ngIf="f.Name.errors.required">Service Name is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Assigned Reminder</label>
+              <input type="number" formControlName="AssignedReminder" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.AssignedReminder.errors }"
+              />
+              <div *ngIf="submitted && f.AssignedReminder.errors" class="invalid-feedback">
+                <div *ngIf="f.AssignedReminder.errors.required">Assigned Reminder is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Isactive</label>
+              <input class="check-box-desk" formControlName="IsActive" type="checkbox" [ngClass]="{ 'is-invalid': submitted && f.IsActive.errors }" />
+              <div>
+                <button class="btn btn-primary goBtn">Add</button>
+                <input class="btn btn-primary goBtn" type="button" value="Reset" (click)='resetData()' style="padding:6px; margin-left:5px;">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Service Manager</label>
+              <ng-multiselect-dropdown [ngClass]="{ 'is-invalid': submitted && f.selectedManager.errors }" [placeholder]="'Select Manager'"
+                [data]="userM" [formControl]="createForm.controls['selectedManager']" [settings]="dropdownSettings" (onSelect)="onItemSelect($event,1)"
+                (onSelectAll)="onSelectAll($event,1)">
+              </ng-multiselect-dropdown>
+              <div *ngIf="submitted && f.selectedManager.errors" class="invalid-feedback">
+                <div *ngIf="f.selectedManager.errors.required">Required Field</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Primary Authority/IRA</label>
+              <ng-multiselect-dropdown [ngClass]="{ 'is-invalid': submitted && f.selectedIRA.errors }" [placeholder]="'Select Authority'"
+                [formControl]="createForm.controls['selectedIRA']" [data]="userP" [settings]="dropdownSettings" (onSelect)="onItemSelect($event,2)"
+                (onSelectAll)="onSelectAll($event,2)">
+              </ng-multiselect-dropdown>
+              <div *ngIf="submitted && f.selectedIRA.errors" class="invalid-feedback">
+                <div *ngIf="f.selectedIRA.errors.required">Required Field</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Secondary Authority</label>
+              <ng-multiselect-dropdown [ngClass]="{ 'is-invalid': submitted && f.selectedSecondary.errors }" [placeholder]="'Select Authority'"
+                [formControl]="createForm.controls['selectedSecondary']" [data]="userS" [settings]="dropdownSettings" (onSelect)="onItemSelect($event,3)"
+                (onSelectAll)="onSelectAll($event,3)">
+              </ng-multiselect-dropdown>
+              <div *ngIf="submitted && f.selectedSecondary.errors" class="invalid-feedback">
+                <div *ngIf="f.selectedSecondary.errors.required">Required Field</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover service-table">
+            <th>
+              <tr>
+                <td width="5%">#</td>
+                <td width="10%">Service Name</td>
+                <td width="10%">Service Manager</td>
+                <td width="10%">Primary Authority/IRA</td>
+                <td width="10%">Secondary Authority</td>
+                <td width="10%">Reminder</td>
+                <td width="10%">Is Active</td>
+                <td width="10%">Action</td>
+
+              </tr>
+              <tr *ngFor="let servicedesk of servicedesks;let i = index">
+                <td>{{i+1}}</td>
+                <td>{{ servicedesk.Name }}</td>
+                <td>
+                  <div *ngFor="let userW of servicedesk.servicemanager">{{userW}}</div>
+                </td>
+                <td>
+                  <div *ngFor="let userW of servicedesk.primaryauthority">{{userW}}</div>
+                </td>
+                <td>
+                  <div *ngFor="let userW of servicedesk.secondaryauthority">{{userW}}</div>
+                </td>
+                <td>{{ servicedesk.AssignedReminder }}</td>
+                <td>{{ servicedesk.IsActive }}</td>
+                <td>
+                  <button type="button" (click)='editRow(servicedesk,1)'>Edit</button>
+                  <button type="button" (click)='editRow(servicedesk,0)'>Deactivate</button>
+                </td>
+              </tr>
+            </th>
+          </table>
+        </div>
       </div>
-      <label>Assigned Reminder</label>
-      <input type="number" formControlName="AssignedReminder" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.AssignedReminder.errors }" />
-      <div *ngIf="submitted && f.AssignedReminder.errors" class="invalid-feedback">
-        <div *ngIf="f.AssignedReminder.errors.required">Assigned Reminder is required</div>
-      </div>
-      <label>Isactive</label>
-      <input formControlName="IsActive"  type="checkbox"  [ngClass]="{ 'is-invalid': submitted && f.IsActive.errors }" />
-      <div>
-      <button >Add</button><input type="button" value="Reset" (click)='resetData()' class="btn">
-       </div></div>
     </div>
-  <div style="width: 50%; margin-left:51%; margin-top: -18.2%;"> 
-     
-    <div >
-      <div class="form-group">
-        <label>Service Manager</label>
-        <ng-multiselect-dropdown [ngClass]="{ 'is-invalid': submitted && f.selectedManager.errors }"   [placeholder]="'Select Manager'" [data]="userM" [formControl]="createForm.controls['selectedManager']" 
-          [settings]="dropdownSettings" (onSelect)="onItemSelect($event,1)" (onSelectAll)="onSelectAll($event,1)">
-        </ng-multiselect-dropdown>
-        <div *ngIf="submitted && f.selectedManager.errors" class="invalid-feedback">
-          <div *ngIf="f.selectedManager.errors.required">Required Field</div>
-        </div>
-       </div>
-       <div class="form-group">
-        <label>Primary Authority/IRA</label>
-        <ng-multiselect-dropdown [ngClass]="{ 'is-invalid': submitted && f.selectedIRA.errors }" [placeholder]="'Select Authority'"  [formControl]="createForm.controls['selectedIRA']" [data]="userP" 
-         [settings]="dropdownSettings"  (onSelect)="onItemSelect($event,2)" (onSelectAll)="onSelectAll($event,2)">
-        </ng-multiselect-dropdown>
-        <div *ngIf="submitted && f.selectedIRA.errors" class="invalid-feedback">
-          <div *ngIf="f.selectedIRA.errors.required">Required Field</div>
-        </div>
-       </div>
-       <div class="form-group">
-        <label>Secondary Authority</label>
-        <ng-multiselect-dropdown [ngClass]="{ 'is-invalid': submitted && f.selectedSecondary.errors }" [placeholder]="'Select Authority'"  [formControl]="createForm.controls['selectedSecondary']"   [data]="userS" 
-         [settings]="dropdownSettings" (onSelect)="onItemSelect($event,3)" (onSelectAll)="onSelectAll($event,3)">
-        </ng-multiselect-dropdown>
-        <div *ngIf="submitted && f.selectedSecondary.errors" class="invalid-feedback">
-          <div *ngIf="f.selectedSecondary.errors.required">Required Field</div>
-        </div>
-      </div>
-     </div>
-</div>
-<div style="width: 100%;  margin-top: 5%">
-  <table>
-    <th>
-      <tr>
-        <td>#</td>
-        <td>Service Name</td>
-        <td>Service Manager</td>
-        <td>Primary Authority/IRA</td>
-        <td>Secondary Authority</td>
-        <td>Reminder</td>
-        <td>Is Active</td>
-        <td>Action</td>
-  
-      </tr>
-      <tr *ngFor="let servicedesk of servicedesks;let i = index">
-          <td>{{i+1}}</td>
-          <td>{{ servicedesk.Name  }}</td>
-          <td ><div *ngFor="let userW of servicedesk.servicemanager">{{userW}}</div></td>
-          <td ><div *ngFor="let userW of servicedesk.primaryauthority">{{userW}}</div></td>
-          <td ><div *ngFor="let userW of servicedesk.secondaryauthority">{{userW}}</div></td>
-          <td>{{ servicedesk.AssignedReminder }}</td>
-          <td>{{ servicedesk.IsActive }}</td>
-          <td><button type="button" (click)='editRow(servicedesk,1)'>Edit</button> <button type="button" (click)='editRow(servicedesk,0)'>Deactivate</button></td>
-        </tr>
-    </th>
-  </table>
   </div>
-</form>
-
 </div>
