@@ -51,6 +51,12 @@ export class TicketDetailsComponent implements OnInit {
 
   }
 
+  convertDateFormat(date)
+  {
+
+    return this.datepipe.transform(date, 'dd-MMM-yyyy h:mm a');
+  }
+
   ngOnInit() 
   {
     if(localStorage.getItem('User') == null)

@@ -12,7 +12,7 @@
         <td>Status</td>
         <td>Priority</td>
         <!-- <td>Ticket Date</td> -->
-        <!-- <td>Resolve Date</td> -->
+         <td>Resolve Date</td>
       </tr>
       <tr *ngFor="let ticket of tickets ; let i = index">
           <td>{{ i+1 }}</td>
@@ -23,7 +23,7 @@
           <td>{{getStatusNameById(ticket.Status)}} </td>
           <td>{{ getPriorityNameById(ticket.PriorityId)  }}</td>
           <!-- <td>{{ ticket.CreatedDate}}</td> -->
-          <!-- <td>{{ ticket.ResolvedDate }}</td> -->
+           <td>{{ convertDateFormat(ticket.ResolvedDate) }}</td>
       </tr>
      </th>
    </table>
