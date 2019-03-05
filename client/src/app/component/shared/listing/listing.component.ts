@@ -92,7 +92,7 @@ export class ListingComponent implements OnInit {
     if(localStorage.getItem('User') == null)
        return this.router.navigateByUrl('login');
     this.IsEmploye = JSON.parse(localStorage.getItem('IsEmploye'));
-    if(this.IsEmploye)
+    if(this.RoleId == RolesEnum.HRCEO && this.IsEmploye)
         this.router.navigateByUrl('/Mylisting/true');
     var User = JSON.parse(localStorage.getItem('User'));
     this.CreatedBy = User[0]._id; 
@@ -165,7 +165,7 @@ export class ListingComponent implements OnInit {
     this.tickets = data;
     if(this.IsMylisting)
       this.tickets= this.tickets.filter(item=> item.CreatedBy==this.CreatedBy)
-    if(!this.IsMylisting){
+    if(!this.IsMylisting && this.RoleId != RolesEnum.HRCEO){
       this.tickets= this.tickets.filter(item=> this.ServiceDeskList.includes(item.ServiceDeskId))
       }
     this.unFilteredTickets = this.tickets;
@@ -249,7 +249,7 @@ export class ListingComponent implements OnInit {
   getServiceDesks() {
     this.serviceDescService.getServiceDesks().subscribe(data => {
     this.servicedesks = data;
-    if(!this.IsMylisting)
+    if(!this.IsMylisting && this.RoleId !=RolesEnum.HRCEO)
         this.servicedesks = this.servicedesks.filter(f => this.ServiceDeskList.includes(f._id));
     this.serviceDesks.push({ id: '0' , name:'----Select----' });
      for (let ds of this.servicedesks){

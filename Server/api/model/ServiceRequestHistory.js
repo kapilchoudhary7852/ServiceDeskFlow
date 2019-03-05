@@ -15,5 +15,6 @@ const schema = new Schema({
     ResolvedDate: { type: Date},
     Comment: { type: String },
     IsActive: { type: Boolean, default: true,required:true },
+    Image: { type: String},
 });
 module.exports = mongoose.model('ServiceRequestHistory', schema);

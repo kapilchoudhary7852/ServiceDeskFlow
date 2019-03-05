@@ -5,7 +5,7 @@
         <a *ngIf="RoleId == 1" [routerLink]="[ '/servicedesk']">Service Desk</a>
         <a *ngIf="RoleId == 1" [routerLink]="[ 'user/create']">Add User</a>
         <a [routerLink]="[ '/ticket']">Ticket</a>
-        <a *ngIf="!IsEmploye" [routerLink]="[ '/listing']">Listing</a>
+        <a *ngIf="!IsEmploye || RoleId == 1" [routerLink]="[ '/listing']">Listing</a>
         <a (click)="Mylisting()" >My Issues</a>
         <a (click)="LogOut()" >LogOut</a>
 </div>
