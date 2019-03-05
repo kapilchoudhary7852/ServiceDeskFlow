@@ -3,6 +3,7 @@ const ServiceDesk = db.ServiceDesk;
 const UserAccess = require('../controller/UserAccess.Service')
 module.exports = {
     getAll,
+    gets,
     getById,
     create,
     update,
@@ -10,7 +11,11 @@ module.exports = {
 };
 
 async function getAll() {
-    return await ServiceDesk.find({ });
+    return await ServiceDesk.find({IsActive : true });
+}
+
+async function gets() {
+    return await ServiceDesk.find({});
 }
 
 async function getById(id) {
@@ -43,9 +48,9 @@ async function create(serviceDeskParam) {
 async function update(id, serviceDeskParam) {
     const serviceDesk = await ServiceDesk.findById(id);
     // validate
-    if (!serviceDesk) throw 'Service Desc not found';
+    if (!serviceDesk) return 'Service Desc not found';
     if (serviceDesk.Name !== serviceDeskParam.Name && await ServiceDesk.findOne({ Name: serviceDeskParam.Name })) {
-        return 'Service Desk name "' + serviceDescParam.Name + '" is already exist';
+        return 'Service Desk name "' + serviceDeskParam.Name + '" is already exist';
     }
     Object.assign(serviceDesk, serviceDeskParam);
     let Sdata = await serviceDesk.save();

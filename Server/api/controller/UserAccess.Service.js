@@ -33,7 +33,7 @@ async function create(userAccessParam,serviceDeskId) {
       UserId:  userAccessParam[i]._id,
       ServiceDeskId: serviceDeskId,
     });
-    await userAccess.save();
+    let Sdata = await userAccess.save();
  }
 }
 
@@ -49,5 +49,6 @@ async function _delete(id) {
     await UserAccess.findByIdAndRemove(id);
 }
 async function _deleteMultiple(id) {
+    console.log(id);
     await UserAccess.remove({ ServiceDeskId: id});
 }

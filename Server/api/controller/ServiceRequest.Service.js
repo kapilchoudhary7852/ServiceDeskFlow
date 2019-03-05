@@ -67,7 +67,7 @@ async function updateAssginee(id, serviceRequestParam) {
     if(Sdata._id != null && serviceRequestParam.IsActive == true){
             await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
             return true;
-        }
+      }
 }
 
 async function _delete(id) {

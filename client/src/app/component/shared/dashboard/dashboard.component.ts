@@ -40,6 +40,8 @@ export class DashboardComponent implements OnInit {
     
     if(localStorage.getItem('User') == null)
      return this.router.navigateByUrl('login');
+     var User = JSON.parse(localStorage.getItem('User'));
+     this.RoleId = Number(User[0].RoleId);
      this.ServiceDeskList = [];
      for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
        this.ServiceDeskList.push(s);
@@ -74,7 +76,6 @@ export class DashboardComponent implements OnInit {
    });
   }
   getServiceDesks() {
-   debugger;
     let ServiceDeskList = [];
     var Sd = JSON.parse(localStorage.getItem('ServiceDesk'));
     for(let s of Sd){
@@ -82,7 +83,8 @@ export class DashboardComponent implements OnInit {
     }
     this.serviceDescService.getServiceDesks().subscribe(data => {
       this.servicedesks = data;
-      this.servicedesks = this.servicedesks.filter(f => ServiceDeskList.includes(f._id));
+      if(this.RoleId != RolesEnum.HRCEO)
+        this.servicedesks = this.servicedesks.filter(f => ServiceDeskList.includes(f._id));
       this.serviceDesks.push({ id: '0' , name:'----Select----' });
       for (let ds of this.servicedesks){
         this.serviceDesks.push({ id: ds._id , name:ds.Name });

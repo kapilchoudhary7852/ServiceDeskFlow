@@ -64,7 +64,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       allowSearchFilter: true
     };
     this.getUsers();
-    this.serviceDescService.getServiceDesks().subscribe(y => {
+    this.serviceDescService.gets().subscribe(y => {
     this.servicedesks = y
     this.UserAccessService.getUserAccesss().subscribe(x=>{
     this.userAccess = x;
@@ -194,7 +194,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       });  
      });
     });
-    }
+   }
   }
   onSubmit() {
     this.submitted = true;
@@ -206,12 +206,18 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       this.Description = 'NoNeed';
       if(this._id == null){
       this.serviceDescService.createServiceDesk(this.createForm.value).subscribe(res => {
+        if(res == true) 
          location.reload();
+        else
+          alert(res)
        });
       }
       else{
         this.serviceDescService.updateServiceDesk(this._id, this.createForm.value).subscribe(res => {
-            location.reload();
+          if(res == true) 
+          location.reload();
+         else
+           alert(res)
         });
        }
       
