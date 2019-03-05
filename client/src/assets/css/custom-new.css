@@ -1,5 +1,8 @@
 body{
-    
+    font-family: 'Overlock';
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size:15px;  
 }
 
 .page-content-wrapper {
