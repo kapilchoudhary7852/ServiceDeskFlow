@@ -39,6 +39,7 @@ async function create(serviceRequestHistoryParam,serviceRequestId) {
         AssignedDate: serviceRequestHistoryParam.AssignedDate,
         ResolvedDate: serviceRequestHistoryParam.ResolvedDate,
         Comment: serviceRequestHistoryParam.Comment,
+        Image: serviceRequestHistoryParam.Image,
     
     });
     //console.log(serviceRequestHistory);

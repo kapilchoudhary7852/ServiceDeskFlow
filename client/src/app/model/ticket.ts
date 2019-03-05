@@ -18,4 +18,5 @@ export interface Ticket {
     AssignedName: String;
     NotifyToName: string[];
     ResolvedDuration:Number;
+    Image:String;
 }

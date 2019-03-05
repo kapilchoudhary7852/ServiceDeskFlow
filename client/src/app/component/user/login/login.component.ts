@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     if (this.createForm.invalid) {
       return;
     } else {
-      this.userService.getSession(this.createForm.get('UserId').value).subscribe(res => {
+      this.userService.getSession(this.createForm.get('UserId').value+'_'+this.createForm.get('Password').value).subscribe(res => {
       this.user= res;
       this.UserAccessService.getUserAccessByUserId(res[0]._id).subscribe(X => {
       this.userAccess= X;

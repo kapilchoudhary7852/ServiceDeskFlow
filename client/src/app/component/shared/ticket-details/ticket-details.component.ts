@@ -42,8 +42,7 @@ export class TicketDetailsComponent implements OnInit {
 
   Assigned={};
   tickets = [];
-
-
+  image : any;
 
 
 
@@ -112,7 +111,7 @@ export class TicketDetailsComponent implements OnInit {
       AssignedTime: ['',[Validators.required]],
       Comment: ['',[Validators.required]],
       Status: ['',[Validators.required]],
-
+      Image: [''],
     });
 
 
@@ -207,6 +206,7 @@ export class TicketDetailsComponent implements OnInit {
     this.ticketForm.controls.NotifyTo.setValue(this.Selectedusers);
     this.ticketForm.controls.AssignedTime.setValue(tickets[0].CreatedDate);
     //console.log(this.Assigned.UserId);
+   
     if (this.Assigned["UserId"])
     {
       this.ticketForm.controls.Assigned.setValue([this.Assigned]);
@@ -259,8 +259,7 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketForm.controls.Status.setValue(this.ticketDetails.Status);
 
       this.ticketForm.controls.Comment.setValue(this.ticketDetails.Comment);
-
-
+      this.image = this.ticketDetails.Image;
       this.fillTicketDetails(this.ticketDetails);
      // console.log(this.ticketDetails);
       
@@ -331,19 +330,29 @@ export class TicketDetailsComponent implements OnInit {
       formValues.ResolvedDate = null;
 
     }
-
-    
+    if(this.image != null)
+       formValues.Image = this.image;
+    console.log(formValues)
      this.ticketService.update(this.ticketId,formValues ).subscribe(data=>{
-
       alert('Ticket Updated Successfully');
       this.router.navigateByUrl('/listing'),
       error=>alert('error');
-      
-
-     });
+      });
 
   }
-
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+  
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+      this.image = myReader.result;
+    }
+    myReader.readAsDataURL(file);
+  }
   get f() { return this.ticketForm.controls; }
 
 

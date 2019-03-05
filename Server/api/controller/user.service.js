@@ -45,5 +45,6 @@ async function _delete(id) {
     await User.findByIdAndRemove(id);
 }
 async function getSession(id) {
-    return await User.find({UserId : id});
+    let res = id.split('_');
+    return await User.find({UserId : res[0]});
 }

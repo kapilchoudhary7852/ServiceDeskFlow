@@ -28,17 +28,20 @@ export class TicketCreationFormComponent implements OnInit {
   CreatedBy : string = '';
   Description:string ='NoNeed';
   dropdownSettings = {};
+  image : any;
   generateTicket() 
   {
+    
     console.log(this.ticketForm.value)
     this.submitted = true;
     if (this.ticketForm.invalid) {
       return;
     } else {
-    this.ticketService.createTicket(this.ticketForm.value).subscribe(res => 
+      this.ticketForm.patchValue({Image: this.image});
+      this.ticketService.createTicket(this.ticketForm.value).subscribe(res => 
       this.router.navigateByUrl('/Mylisting/true'), 
       error=>alert('error'));
-    }
+     }
   }
   constructor(private formBuilder:FormBuilder,private UserService: UserService, private serviceDescService: ServicedescService,private ticketService: TicketService, private router: Router) { 
 
@@ -72,6 +75,7 @@ export class TicketCreationFormComponent implements OnInit {
       Status: [1],
       Description: ['',[Validators.required]],
       NotifyTo: ['',[Validators.required]],
+      Image: [''],
     });
   }
 
@@ -99,5 +103,20 @@ export class TicketCreationFormComponent implements OnInit {
       this.Selectedusers= items;
     }
   }
+
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+  
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+      this.image = myReader.result;
+    }
+    myReader.readAsDataURL(file);
+  }
+
   get f() { return this.ticketForm.controls; }
 }
