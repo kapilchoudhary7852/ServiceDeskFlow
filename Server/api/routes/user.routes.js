@@ -8,6 +8,8 @@ router.get('/get/all', getAll);
 router.get('/get/:id', getById);
 router.put('/update/:id', update);
 router.delete('/delete/:id', _delete);
+router.get('/getSession/:id', getSession);
+router.post('/login', login);
 
 module.exports = router;
 
@@ -39,4 +41,17 @@ function _delete(req, res, next) {
     userService.delete(req.params.id)
         .then(() => res.json({}))
         .catch(err => next(err));
+}
+
+function login(req, res, next) {
+    console.log();
+    userService.login(req.body)
+        .then(user => res.json(user))
+        .catch(err => next(err));
+}
+
+function getSession(req, res, next) {
+    userService.getSession(req.params.id)
+      .then(user => res.json(user))
+      .catch(err => next(err));
 }

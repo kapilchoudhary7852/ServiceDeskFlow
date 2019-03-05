@@ -26,7 +26,9 @@ async function create(Param,id) {
       ServiceRequestId: id,
       UserId: Param[i]._id,
     });
-    await notifyTo.save();
+    let result = await notifyTo.save();
+    if(result._id!=null)
+     return true;
  }
 }
 async function getBySId(id) {
@@ -43,7 +45,9 @@ async function update(id, Param) {
         throw 'UserId "' + Param.UserId + '" is already exist';
     }
     Object.assign(notifyTo, Param);
-    await notifyTo.save();
+    let result = await notifyTo.save();
+    if(result._id!=null)
+     return true;
 }
  async function _delete(id) {
     await NotifyTo.findByIdAndRemove(id);

@@ -41,7 +41,12 @@ export class UserService {
       .pipe(catchError(this.handleError));
 
   }
-
+  
+  getSession(id: string): Observable<User> {
+    const url = `${this.apiUrl}getSession/${id}`;
+    return this.http.get<User>(url)
+      .pipe(catchError(this.handleError));
+  }
 
   handleError(error) {
     let errorMessage = '';

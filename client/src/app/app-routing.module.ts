@@ -9,7 +9,7 @@ import { ServiceDeskCreateUpdateComponent } from './component/HR-CEO/service-des
 import { ListingComponent } from './component/shared/listing/listing.component';
 import { TicketDetailsComponent } from './component/shared/ticket-details/ticket-details.component';
 import { DashboardComponent } from './component/shared/dashboard/dashboard.component';
-
+import { LoginComponent } from './component/user/login/login.component';
 
 
 const routes: Routes = [
@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'listing', component: ListingComponent },
   { path: 'Mylisting/:MyList', component: ListingComponent },
   { path: 'ticketdetails/:id', component: TicketDetailsComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 

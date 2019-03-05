@@ -6,7 +6,8 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getSession
 };
 
 async function getAll() {
@@ -20,7 +21,7 @@ async function getById(id) {
 async function create(userParam) {
     // validate
     if (await User.findOne( { "UserId" : userParam.UserId } )    ) {
-        throw 'UserId "' + userParam.UserId + '" is already Exit';
+        return 'UserId "' + userParam.UserId + '" is already Exit';
     }
     const user = new User(userParam);
     let result = await user.save();
@@ -33,11 +34,16 @@ async function update(id, userParam) {
     // validate
     if (!user) throw 'User not found';
     if (user.UserId !== userParam.UserId && await User.findOne({ UserId: userParam.UserId })) {
-        throw 'UserId "' + userParam.UserId + '" is already exist';
+        return 'UserId "' + userParam.UserId + '" is already exist';
     }
     Object.assign(user, userParam);
-    await user.save();
+    let result = await user.save();
+    if(result._id!=null)
+     return true;
 }
 async function _delete(id) {
     await User.findByIdAndRemove(id);
+}
+async function getSession(id) {
+    return await User.find({UserId : id});
 }

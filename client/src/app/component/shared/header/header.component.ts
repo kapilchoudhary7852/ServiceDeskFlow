@@ -8,10 +8,27 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   Ent = environment;
+  RoleId : Number = 0;
+  ServiceDeskList = [];
+  IsEmploye : boolean = false;
   constructor(private router: Router) { }
   
-  ngOnInit() {}
+  ngOnInit() {
+   if(localStorage.getItem('User') == null)
+     return this.router.navigateByUrl('login');
+   var User = JSON.parse(localStorage.getItem('User'));
+   this.IsEmploye = JSON.parse(localStorage.getItem('IsEmploye'));
+   this.RoleId = Number(User[0].RoleId) 
+   this.ServiceDeskList = [];
+     for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
+       this.ServiceDeskList.push(s);
+     } 
+  }
   Mylisting(){
     this.router.navigateByUrl('/Mylisting/true');
+  }
+  LogOut(){
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 }

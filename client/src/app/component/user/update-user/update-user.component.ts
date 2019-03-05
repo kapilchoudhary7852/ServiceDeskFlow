@@ -20,6 +20,8 @@ export class UpdateUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('User') == null)
+      return this.router.navigateByUrl('login');
     for(var n in RolesEnum) {
       if (typeof RolesEnum[n] === 'number') {
           this.roles.push({id: <any>RolesEnum[n], name: n});
@@ -45,7 +47,13 @@ export class UpdateUserComponent implements OnInit {
     } else {
       console.log(this.updateForm.value);
       this.userService.updateUser(this.userId, this.updateForm.value).subscribe(res => {
-        this.router.navigateByUrl('/home');
+        if(res == true){
+          alert('Data Updated')
+          this.router.navigateByUrl('/home');
+        }
+        else{
+          alert('SomeThing went wrong!')
+        }
       });
     }
   }

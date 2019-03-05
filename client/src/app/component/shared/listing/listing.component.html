@@ -40,8 +40,8 @@
   </div>
   <button (click)='filterTickets()'>Search Ticket</button>
   <button (click)='resetFilters()'>Reset</button>
-<table>
-  <th>
+<table >
+  <th >
     <tr>
      <td>#</td>
       <td>Service Desk</td>
@@ -56,8 +56,11 @@
       <td>Resolve Duration(Hr)</td>
       <td>Action</td>
     </tr>
-    <tr *ngFor="let ticket of tickets ; let i = index">
-        <td>{{ i }}</td>
+    <tr *ngIf="tickets.length==0">
+      <td>NO data found</td>
+    </tr>
+     <tr  *ngFor="let ticket of tickets ; let i = index">
+        <td>{{ i+1 }}</td>
         <td>{{ ticket.ServiceDeskName  }}</td>
         <td>{{ ticket.IssueTitle }}</td>
         <td><div *ngFor="let user of ticket.NotifyToName">{{user}}</div></td>
@@ -69,16 +72,16 @@
         <td>{{ ticket.ResolvedDate }}</td>
         <td>{{ ticket.ResolvedDuration }}</td>
         <td>
-          <div *ngIf="!IsMylisting "><button *ngIf="Ent.RoleId == 2 || Ent.RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button></div>
-          <button *ngIf="Ent.RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
-          <button *ngIf="ticket.Assigned == null && ticket.CreatedBy==Ent.UserId && IsMylisting" type="button" (click)='updateTicket(ticket,0)'>Delete</button>
-     
+          <div *ngIf="!IsMylisting "><button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button></div>
+          <button *ngIf="RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button> 
+          <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,0)'>Delete</button>
           <button  type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button>
-          <button *ngIf="ticket.Status == 5" type="button"  (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
+          <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button"  (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
         </td>
     </tr>
    </th>
  </table>
+ 
 </div>
 <div>
   <div>

@@ -13,7 +13,7 @@ module.exports = {
 };
 
 async function getAll() {
-    return await ServiceRequest.find({ IsActive : true });
+    return await ServiceRequest.find({ IsActive : true }).sort({"CreatedDate": -1});
 }
 
 async function getById(id) {
@@ -30,6 +30,7 @@ async function create(serviceRequestParam) {
    if(Sdata._id != null){
      await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);
      await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+     return true;
     }
  }
 
@@ -48,10 +49,10 @@ async function update(id, serviceRequestParam) {
     if(Sdata._id != null && serviceRequestParam.IsActive == true)
     {
         serviceRequestParam.CreatedBy = serviceRequest.CreatedBy;
-
         NotifyTo.deleteMultiple(Sdata._id); 
         await NotifyTo.create(serviceRequestParam.NotifyTo,Sdata._id);  
         await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+        return true;
     }
 }
 
@@ -60,12 +61,13 @@ async function updateAssginee(id, serviceRequestParam) {
     if (!serviceRequest) throw 'Service Request not found';
     if (serviceRequestParam.Assigned )
         serviceRequestParam.AssignedDate = Date.now();
-        
     // validate
     Object.assign(serviceRequest, serviceRequestParam);
     let Sdata = await serviceRequest.save();
-    if(Sdata._id != null && serviceRequestParam.IsActive == true)
-        await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+    if(Sdata._id != null && serviceRequestParam.IsActive == true){
+            await ServiceRequestHostory.create(serviceRequestParam,Sdata._id);
+            return true;
+        }
 }
 
 async function _delete(id) {

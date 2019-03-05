@@ -62,6 +62,10 @@ export class ListingComponent implements OnInit {
   newAssignusers :  User[]=[];
   userAccess :  UserAccess[]=[];
   IsMylisting : boolean=false;
+  CreatedBy : string='';
+  RoleId : Number = 0;
+  ServiceDeskList = []; 
+  IsEmploye : boolean = false;
   constructor(private formBuilder:FormBuilder,private route: ActivatedRoute,private UserAccessService: UserAccessService,private notifytoService: NotifytoService,public datepipe: DatePipe,private UserService: UserService,private serviceDescService: ServicedescService, private ticketService: TicketService, private router: Router) { 
 
   }
@@ -74,7 +78,7 @@ export class ListingComponent implements OnInit {
        this.ticketService.update(this._id, data).subscribe(res => alert('Data Save'),error=>alert('error'));
     }
     if(val==1){
-      data.Assigned=this.Ent.UserId;
+      data.Assigned=this.CreatedBy;
       this.ticketService.update(this._id, data).subscribe(res => {
        location.reload();
      });
@@ -83,7 +87,21 @@ export class ListingComponent implements OnInit {
   }
   ngOnInit() 
   {
+    
+    if(localStorage.getItem('User') == null)
+       return this.router.navigateByUrl('login');
+    this.IsEmploye = JSON.parse(localStorage.getItem('IsEmploye'));
+    if(this.IsEmploye)
+        this.router.navigateByUrl('/Mylisting/true');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.CreatedBy = User[0]._id; 
+    this.RoleId = Number(User[0].RoleId); 
     this.IsMylisting = Boolean(this.route.snapshot.paramMap.get('MyList'));
+    this.ServiceDeskList = [];
+     for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
+       this.ServiceDeskList.push(s);
+     }
+    
     this.getServiceDesks();
     this.getUsers();
     this.status.push({ id: 0 , name:'----Select----' });
@@ -144,7 +162,12 @@ export class ListingComponent implements OnInit {
   {
     this.ticketService.getTickets().subscribe(data => {
     this.tickets = data;
-    this.unFilteredTickets = data;
+    if(this.IsMylisting)
+      this.tickets= this.tickets.filter(item=> item.CreatedBy==this.CreatedBy)
+    if(!this.IsMylisting){
+      this.tickets= this.tickets.filter(item=> this.ServiceDeskList.includes(item.ServiceDeskId))
+      }
+    this.unFilteredTickets = this.tickets;
     this.UserService.getUsers().subscribe(x => {
     this.users = x;
     this.userReporter = [];
@@ -217,22 +240,20 @@ export class ListingComponent implements OnInit {
        }
      }
     }
-    //Set filter for login user service desk
-    if(this.Ent.RoleId != RolesEnum.HRCEO && this.Ent.RoleId != RolesEnum.Employee )
-      this.tickets  =  this.tickets.filter(f => this.Ent.ServiceDeskId.includes(f.ServiceDeskId))
+   
    });
    }); 
   });
   }
   getServiceDesks() {
     this.serviceDescService.getServiceDesks().subscribe(data => {
-      this.servicedesks = data;
-      if(this.Ent.RoleId != RolesEnum.HRCEO)
-         this.servicedesks = this.servicedesks.filter(f => this.Ent.ServiceDeskId.includes(f._id));
-      this.serviceDesks.push({ id: '0' , name:'----Select----' });
-      for (let ds of this.servicedesks){
+    this.servicedesks = data;
+    if(!this.IsMylisting)
+        this.servicedesks = this.servicedesks.filter(f => this.ServiceDeskList.includes(f._id));
+    this.serviceDesks.push({ id: '0' , name:'----Select----' });
+     for (let ds of this.servicedesks){
         this.serviceDesks.push({ id: ds._id , name:ds.Name });
-      }
+     }
     });
   }
   getUsers() {
@@ -288,9 +309,9 @@ export class ListingComponent implements OnInit {
   }
   assignTicket(id,SdId){
     this.newAssignusers = this.users.filter(x=> x.ServiceDeskId.includes(SdId));
-    if(this.Ent.RoleId == 2 || this.Ent.RoleId == 1)
+    if(this.RoleId == 2 || this.RoleId == 1)
       this.newAssignusers = this.newAssignusers.filter(x=> x.RoleId == String(RolesEnum.ServiceManager) || x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
-    if(this.Ent.RoleId == 3)
+    if(this.RoleId == 3)
        this.newAssignusers = this.newAssignusers.filter(x=>  x.RoleId == String(RolesEnum.SecondaryAuthorityAssigner) || x.RoleId == String(RolesEnum.PrimaryAuthority));
     this.newAssignedTicketId=id 
   }

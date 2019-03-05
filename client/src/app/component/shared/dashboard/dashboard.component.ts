@@ -7,6 +7,7 @@ import { ServiceDesk } from '../../../model/ServiceDesk';
 import { RolesEnum } from 'src/app/Common/Enum/RolesEnum';
 import { StatusEnum } from '../../../Common/Enum/StatusEnum';
 import { Ticket } from '../../../model/ticket';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -30,9 +31,21 @@ export class DashboardComponent implements OnInit {
   BackgroundColorList =['rgba(100, 99, 132, 1)','rgba(150, 162, 235, 1)','rgba(200, 99, 132, 1)',
                     'rgba(250, 162, 235, 1)','rgba(300, 99, 132, 1)', 'rgba(500, 162, 235, 1)', 
                     'rgba(400, 206, 86, 1)'];
-  BackgroundColor=[];                    
-  constructor(private serviceDescService: ServicedescService, private ticketService: TicketService) { }
+  BackgroundColor=[];        
+  ServiceDeskList = [];     
+  RoleId : Number = 0;       
+  constructor(private serviceDescService: ServicedescService, 
+    private router: Router, private ticketService: TicketService) { }
   ngOnInit() {
+    
+    if(localStorage.getItem('User') == null)
+     return this.router.navigateByUrl('login');
+     this.ServiceDeskList = [];
+     for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
+       this.ServiceDeskList.push(s);
+     } 
+     if(this.RoleId == RolesEnum.Employee || this.RoleId == RolesEnum.SecondaryAuthorityAssigner)
+       this.router.navigateByUrl('/Mylisting/true');
     this.getAllTickets();
     this.getServiceDesks();
   }
@@ -61,9 +74,15 @@ export class DashboardComponent implements OnInit {
    });
   }
   getServiceDesks() {
+   debugger;
+    let ServiceDeskList = [];
+    var Sd = JSON.parse(localStorage.getItem('ServiceDesk'));
+    for(let s of Sd){
+      ServiceDeskList.push(s);
+    }
     this.serviceDescService.getServiceDesks().subscribe(data => {
       this.servicedesks = data;
-      this.servicedesks = this.servicedesks.filter(f => this.Ent.ServiceDeskId.includes(f._id));
+      this.servicedesks = this.servicedesks.filter(f => ServiceDeskList.includes(f._id));
       this.serviceDesks.push({ id: '0' , name:'----Select----' });
       for (let ds of this.servicedesks){
         this.serviceDesks.push({ id: ds._id , name:ds.Name });

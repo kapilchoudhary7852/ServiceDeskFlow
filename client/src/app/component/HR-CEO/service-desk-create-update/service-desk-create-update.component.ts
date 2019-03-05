@@ -27,15 +27,23 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
   selectedItemIRA : User[]=[];
   selectedItemSecondary : User[]=[];
   dropdownSettings = {};
-  CreatedBy = this.Ent.UserId;
+  CreatedBy: string = '';
   Description:string ='NoNeed';
   _id = null;
   userM :  User[];
   userP :  User[];
   userS :  User[];
   isEdit : boolean = false;
+  RoleId : Number = 0;
   constructor(private formBuilder: FormBuilder,private UserAccessService: UserAccessService,private UserService: UserService, private serviceDescService: ServicedescService, private route: Router) { }
   ngOnInit() {
+    if(localStorage.getItem('User') == null)
+      this.route.navigateByUrl('login');
+    var User = JSON.parse(localStorage.getItem('User'));
+    this.CreatedBy = User[0]._id; 
+    this.RoleId = Number(User[0].RoleId); 
+    if(this.RoleId != RolesEnum.HRCEO)
+      this.route.navigateByUrl('dashboard');
     this.createForm = this.formBuilder.group({
       Name: ['', [Validators.required]],
       AssignedReminder: ['', [Validators.required]],
@@ -135,7 +143,7 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
     if(val==0){
        data.IsActive=false;
        this.serviceDescService.updateServiceDesk(this._id, data).subscribe(res => {
-        location.reload();
+          location.reload();
       });
     }
     else{
@@ -198,12 +206,12 @@ export class ServiceDeskCreateUpdateComponent implements OnInit {
       this.Description = 'NoNeed';
       if(this._id == null){
       this.serviceDescService.createServiceDesk(this.createForm.value).subscribe(res => {
-        location.reload();
+         location.reload();
        });
       }
       else{
         this.serviceDescService.updateServiceDesk(this._id, this.createForm.value).subscribe(res => {
-          location.reload();
+            location.reload();
         });
        }
       

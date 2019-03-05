@@ -5,6 +5,7 @@ module.exports = {
     getAll,
     getById,
     getBySId,
+    getByUId,
     create,
     update,
     delete: _delete,
@@ -20,6 +21,10 @@ async function getById(id) {
 }
 async function getBySId(id) {
     return await UserAccess.find({ ServiceDeskId : id });
+}
+
+async function getByUId(id) {
+    return await UserAccess.find({ UserId : id });
 }
 
 async function create(userAccessParam,serviceDeskId) {
