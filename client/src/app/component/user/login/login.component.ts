@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     localStorage.clear();
   }
   onSubmit() {
-    debugger;
     if (this.createForm.invalid) {
       return;
     } else {
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
       for(let n of this.userAccess){
         this.user.ServiceDeskId.push(n.ServiceDeskId);
       }
-      debugger;
+      
       if(this.user.ServiceDeskId.length==0){
         this.user.ServiceDeskId.push('5c78efca7b22c61ff466543d');
         localStorage.setItem('IsEmploye', JSON.stringify('true'));

@@ -76,7 +76,6 @@ export class DashboardComponent implements OnInit {
    });
   }
   getServiceDesks() {
-   debugger;
     let ServiceDeskList = [];
     var Sd = JSON.parse(localStorage.getItem('ServiceDesk'));
     for(let s of Sd){
