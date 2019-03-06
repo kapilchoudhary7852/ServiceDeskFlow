@@ -12,6 +12,8 @@
     text-decoration: none;
     color: aliceblue;
     cursor: pointer;
+    font-family: 'Overlock';
+    font-size: 16px;
 }
 .header>a :hover{
     cursor: pointer;
