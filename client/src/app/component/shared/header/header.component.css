@@ -11,6 +11,7 @@
     padding: 20px;
     text-decoration: none;
     color: aliceblue;
+    cursor: pointer;
 }
 .header>a :hover{
     cursor: pointer;
