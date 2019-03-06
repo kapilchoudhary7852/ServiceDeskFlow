@@ -1,6 +1,6 @@
 .header {
   height: 70px;
-  background: rgb(0, 149, 255);
+  background: rgb(44, 71, 80);
   display: flex;
   flex-flow: row;
 }
