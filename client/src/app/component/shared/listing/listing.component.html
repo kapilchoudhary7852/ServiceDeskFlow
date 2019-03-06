@@ -94,20 +94,19 @@
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
-                <th>
-                  <tr>
-                    <td width="5%">#</td>
-                    <td width="8%">Service Desk</td>
-                    <td width="8%">Issue Title</td>
-                    <td width="10%">Notify To</td>
-                    <td width="8%">Assignee</td>
-                    <td width="10%">Reporter</td>
-                    <td width="6%">Status</td>
-                    <td width="6%">Priority</td>
-                    <td width="10%">Ticket Date</td>
-                    <td width="8%">Resolve Date</td>
-                    <td width="10%">Resolve Duration(Hr)</td>
-                    <td width="10%">Action</td>
+                <tr>
+                    <th width="5%">#</th>
+                    <th width="8%">Service Desk</th>
+                    <th width="8%">Issue Title</th>
+                    <th width="10%">Notify To</th>
+                    <th width="8%">Assignee</th>
+                    <th width="10%">Reporter</th>
+                    <th width="6%">Status</th>
+                    <th width="6%">Priority</th>
+                    <th width="10%">Ticket Date</th>
+                    <th width="8%">Resolve Date</th>
+                    <th width="7%">Resolve Duration(Hr)</th>
+                    <th width="10%">Action</th>
                   </tr>
                   <tr *ngIf="tickets.length==0">
                     <td>NO data found</td>
@@ -127,18 +126,82 @@
                     <td>{{ ticket.ResolvedDate }}</td>
                     <td>{{ ticket.ResolvedDuration }}</td>
                     <td>
-                      <div *ngIf="!IsMylisting ">
-                        <button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Assign</button>
+                      <div class="listing-assign-btn" *ngIf="!IsMylisting ">
+                        <button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal" class="btn btn-primary goBtn">Assign</button>
                       </div>
                       <button *ngIf="RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button>
                       <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,1)'>Delete</button>
-                      <button type="button" routerLink="/ticketdetails/{{ticket._id}}">View</button>
-                      <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)'>Reopen</button>
+                      <button type="button" routerLink="/ticketdetails/{{ticket._id}}" class="btn btn-primary goBtn">View</button>
+                      <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal-reopen" class="btn btn-primary goBtn" style="margin-left:5px;">Reopen</button>
                     </td>
                   </tr>
-                </th>
+                
               </table>
         </div>
+
+        <div class="modal-popup">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="close-icon">&times;</span></button>
+        
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <div class="">
+                        <h3 class="page-title mar-right">Listing Assign</h3>
+                      <label>Assignee:</label>
+                      <select class="input-select" [(ngModel)]='newAssigned'>
+                        <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Comment:</label>
+                      <input class="input-ticketing-list" type="text" [(ngModel)]='newticketComment'>
+                    </div>
+                    <div class="text-center">
+                    <button class="btn btn-primary goBtn" type="button" (click)='funNewAssigned(1)' data-dismiss="modal" style="margin-right:5px;">Assign</button>
+                    <button class="btn btn-primary goBtn" type="button" (click)='funResetAssigned()'>Reset</button>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal-popup-reopen">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal-reopen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="close-icon">&times;</span></button>
+        
+                </div>
+                <div class="modal-body">
+                  <div>
+                      <h3 class="page-title">Listing Reopen</h3>
+                      <div class="form-group">
+                          <label>Comment:</label>
+                          <input class="input-ticketing-list" type="text" [(ngModel)]='newticketComment'>
+                      </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary goBtn" type="button" (click)='funNewAssigned(2)' data-dismiss="modal" style="margin-right:5px;">Reopen</button>
+                        <button class="btn btn-primary goBtn" type="button" (click)='funResetAssigned()'>Reset</button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
 
@@ -157,23 +220,4 @@
   
 
 </div>
-<div>
-  <div>
-    <label>Assignee:</label>
-    <select [(ngModel)]='newAssigned'>
-      <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
-    </select>
-  </div>
-  <label>Comment:</label>
-  <input type="text" [(ngModel)]='newticketComment'>
-  <br>
-  <button type="button" (click)='funNewAssigned(1)'>Assign</button>
-  <button type="button" (click)='funResetAssigned()'>Reset</button>
-</div>
-<div>
-  <label>Comment:</label>
-  <input type="text" [(ngModel)]='newticketComment'>
-  <br>
-  <button type="button" (click)='funNewAssigned(2)'>Reopen</button>
-  <button type="button" (click)='funResetAssigned()'>Reset</button>
-</div>
+

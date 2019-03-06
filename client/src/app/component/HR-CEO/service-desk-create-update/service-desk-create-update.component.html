@@ -85,18 +85,17 @@
         </div>
         <div class="table-responsive">
           <table class="table table-bordered table-hover service-table">
-            <th>
+            
               <tr>
-                <td width="5%">#</td>
-                <td width="10%">Service Name</td>
-                <td width="10%">Service Manager</td>
-                <td width="10%">Primary Authority/IRA</td>
-                <td width="10%">Secondary Authority</td>
-                <td width="10%">Reminder</td>
-                <td width="10%">Is Active</td>
-                <td width="10%">Action</td>
-
-              </tr>
+                <th width="5%">#</th>
+                <th width="10%">Service Name</th>
+                <th width="10%">Service Manager</th>
+                <th width="10%">Primary Authority/IRA</th>
+                <th width="10%">Secondary Authority</th>
+                <th width="10%">Reminder</th>
+                <th width="10%">Is Active</th>
+                <th width="10%">Action</th>
+</tr>
               <tr *ngFor="let servicedesk of servicedesks;let i = index">
                 <td>{{i+1}}</td>
                 <td>{{ servicedesk.Name }}</td>
@@ -116,7 +115,7 @@
                   <button class="btn btn-primary goBtn" type="button" (click)='editRow(servicedesk,0)' style="margin-left:5px;">Deactivate</button>
                 </td>
               </tr>
-            </th>
+            
           </table>
         </div>
       </div>

@@ -40,3 +40,10 @@ body{
     border: none !important;
     border-radius: 0 !important;
 }
+.table tr th{
+    text-align: center;
+    font-weight: 600;
+    background: #2c4750;
+    color: #fff;
+    vertical-align: middle !important;
+  }
