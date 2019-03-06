@@ -4,7 +4,8 @@
       <div class="portlet solid light-grey main-dashboard-page">
         <div class="row">
           <div class="col-md-12">
-            <h3 class="page-title">Listing</h3>
+            <h3 *ngIf="!IsMylisting" class="page-title">Listing</h3>
+            <h3 *ngIf="IsMylisting" class="page-title">My issue</h3>
           </div>
         </div>
         <div class="row">
@@ -94,15 +95,15 @@
                 <th>
                   <tr>
                     <td width="5%">#</td>
-                    <td width="10%">Service Desk</td>
-                    <td width="10%">Issue Title</td>
+                    <td width="8%">Service Desk</td>
+                    <td width="8%">Issue Title</td>
                     <td width="10%">Notify To</td>
-                    <td width="10%">Assignee</td>
+                    <td width="8%">Assignee</td>
                     <td width="10%">Reporter</td>
-                    <td width="10%">Status</td>
-                    <td width="10%">Priority</td>
+                    <td width="6%">Status</td>
+                    <td width="6%">Priority</td>
                     <td width="10%">Ticket Date</td>
-                    <td width="10%">Resolve Date</td>
+                    <td width="8%">Resolve Date</td>
                     <td width="10%">Resolve Duration(Hr)</td>
                     <td width="10%">Action</td>
                   </tr>

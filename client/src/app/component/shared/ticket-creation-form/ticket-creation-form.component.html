@@ -1,15 +1,14 @@
 <div class="page-content-wrapper">
   <div class="page-content">
     <div class="page-contentInn">
-      <div class="portlet solid light-grey main-dashboard-page" id="divMainContainer">
+      <div class="portlet solid light-grey main-dashboard-page ticketing-creation-page" id="divMainContainer">
         <div class="row">
           <div class="col-md-12">
             <h3 class="page-title">Ticket creation form</h3>
           </div>
         </div>
         <div class="row" [formGroup]='ticketForm'>
-
-          <div class="col-sm-4">
+           <div class="col-sm-4">
             <div class="form-group">
               <label>Service Desk</label>
               <select [ngClass]="{ 'is-invalid': submitted && f.ServiceDeskId.errors }" formControlName="ServiceDeskId" name="ServiceDeskId"
@@ -17,7 +16,7 @@
                 <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
               </select>
               <div *ngIf="submitted && f.ServiceDeskId.errors" class="invalid-feedback">
-                <div *ngIf="f.ServiceDeskId.errors.required">Service Name required</div>
+                <div class="error-show" *ngIf="f.ServiceDeskId.errors.required">Service Name required</div>
               </div>
             </div>
           </div>
@@ -29,7 +28,7 @@
                 <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
               </select>
               <div *ngIf="submitted && f.PriorityId.errors" class="invalid-feedback">
-                <div *ngIf="f.PriorityId.errors.required">Priority required</div>
+                <div class="error-show" *ngIf="f.PriorityId.errors.required">Priority required</div>
               </div>
             </div>
           </div>
@@ -40,13 +39,10 @@
               <input [ngClass]="{ 'is-invalid': submitted && f.IssueTitle.errors }" formControlName="IssueTitle" name="IssueTitle" type="text"
                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.IssueTitle.errors }">
               <div *ngIf="submitted && f.IssueTitle.errors" class="invalid-feedback">
-                <div *ngIf="f.IssueTitle.errors.required">Issue title is required</div>
+                <div class="error-show" *ngIf="f.IssueTitle.errors.required">Issue title is required</div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
               <label>Notify To</label>
@@ -55,7 +51,7 @@
                 (onSelectAll)="onSelectAll($event)">
               </ng-multiselect-dropdown>
               <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
-                <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
+                <div class="error-show" *ngIf="f.NotifyTo.errors.required">Required Field</div>
               </div>
             </div>
           </div>
@@ -66,24 +62,23 @@
               <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Description" name="Description" type="text"
                 class="form-control">
               <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-                <div *ngIf="f.Description.errors.required">Description is required</div>
+                <div class="error-show" *ngIf="f.Description.errors.required">Description is required</div>
               </div>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="form-group">
-              <label>Image(Upto 100KB)</label>
+              <label>Image(Upto 50KB)</label>
               <input type="file" accept="image/*" (change)="changeListener($event)">
             </div>
+            </div>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
           </div>
-        </div>
-      </div>
+    </div>
     </div>
   </div>
+</div>
 </div>

@@ -112,8 +112,8 @@
                 <td>{{ servicedesk.AssignedReminder }}</td>
                 <td>{{ servicedesk.IsActive }}</td>
                 <td>
-                  <button type="button" (click)='editRow(servicedesk,1)'>Edit</button>
-                  <button type="button" (click)='editRow(servicedesk,0)'>Deactivate</button>
+                  <button class="btn btn-primary goBtn" type="button" (click)='editRow(servicedesk,1)'>Edit</button>
+                  <button class="btn btn-primary goBtn" type="button" (click)='editRow(servicedesk,0)' style="margin-left:5px;">Deactivate</button>
                 </td>
               </tr>
             </th>

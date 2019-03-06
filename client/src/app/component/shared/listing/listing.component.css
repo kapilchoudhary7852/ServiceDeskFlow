@@ -56,7 +56,9 @@ table, th , td {
   width: 100%;
   height: 34px;
 }
-
+.input-ticketing-list:focus{
+  outline: 0;
+}
 .mar-left{
   margin-left: 5px;
 }
