@@ -102,7 +102,6 @@ export class ListingComponent implements OnInit {
      for(let s of JSON.parse(localStorage.getItem('ServiceDesk'))){
        this.ServiceDeskList.push(s);
      }
-    
     this.getServiceDesks();
     this.getUsers();
     this.status.push({ id: 0 , name:'----Select----' });
@@ -249,7 +248,8 @@ export class ListingComponent implements OnInit {
   getServiceDesks() {
     this.serviceDescService.getServiceDesks().subscribe(data => {
     this.servicedesks = data;
-    if(!this.IsMylisting && this.RoleId !=RolesEnum.HRCEO)
+    this.serviceDesks = [];
+    if(!this.IsMylisting)
         this.servicedesks = this.servicedesks.filter(f => this.ServiceDeskList.includes(f._id));
     this.serviceDesks.push({ id: '0' , name:'----Select----' });
      for (let ds of this.servicedesks){
@@ -272,6 +272,7 @@ export class ListingComponent implements OnInit {
      }
     });
   });
+  
   }
   resetFilters()
   {
@@ -335,7 +336,9 @@ export class ListingComponent implements OnInit {
       this.newticket.Comment=this.newticketComment;  
       this.ticketService.updateAssginee(this.newticket._id,this.newticket).subscribe(data => {
         this.funResetAssigned(); 
-        location.reload();
+        this.getServiceDesks();
+        this.getUsers();
+        this.getAllTickets();
       });
     });
   }

@@ -43,44 +43,44 @@
                 <div *ngIf="f.IssueTitle.errors.required">Issue title is required</div>
               </div>
             </div>
-
           </div>
-
         </div>
 
         <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
-                <label>Notify To</label>
-                <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }"   [placeholder]="'Select users'"  [formControl]="ticketForm.controls['NotifyTo']" 
-                  [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                </ng-multiselect-dropdown>
-                <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
-                  <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
-                </div>
+              <label>Notify To</label>
+              <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }" [placeholder]="'Select users'"
+                [formControl]="ticketForm.controls['NotifyTo']" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+              <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
+                <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
               </div>
-              </div>
-
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <label>Description</label>
-                      <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Description" name="Description" type="text" class="form-control" >
-                      <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-                        <div *ngIf="f.Description.errors.required">Description is required</div>
-                      </div>
-                    </div>
-              </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label>Image</label>
-                    <input  type="file"  accept="image/*" (change)="changeListener($event)">
-                  </div>
             </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Description</label>
+              <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Description" name="Description" type="text"
+                class="form-control">
+              <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                <div *ngIf="f.Description.errors.required">Description is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Image(Upto 100KB)</label>
+              <input type="file" accept="image/*" (change)="changeListener($event)">
+            </div>
+          </div>
         </div>
-        
+
         <div class="row">
           <div class="col-sm-12 text-center">
-              <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
+            <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
           </div>
         </div>
       </div>

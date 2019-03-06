@@ -40,7 +40,7 @@ export class TicketCreationFormComponent implements OnInit {
       this.ticketForm.patchValue({Image: this.image});
       this.ticketService.createTicket(this.ticketForm.value).subscribe(res => 
       this.router.navigateByUrl('/Mylisting/true'), 
-      error=>alert('error'));
+      error=>alert('Some thing went wrong!'));
      }
   }
   constructor(private formBuilder:FormBuilder,private UserService: UserService, private serviceDescService: ServicedescService,private ticketService: TicketService, private router: Router) { 
@@ -103,20 +103,17 @@ export class TicketCreationFormComponent implements OnInit {
       this.Selectedusers= items;
     }
   }
-
   changeListener($event) : void {
     this.readThis($event.target);
   }
-  
   readThis(inputValue: any): void {
     var file:File = inputValue.files[0];
+    this.image = inputValue.files[0];
     var myReader:FileReader = new FileReader();
-  
     myReader.onloadend = (e) => {
       this.image = myReader.result;
     }
     myReader.readAsDataURL(file);
   }
-
   get f() { return this.ticketForm.controls; }
 }
