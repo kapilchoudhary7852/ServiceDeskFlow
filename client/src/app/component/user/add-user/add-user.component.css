@@ -7,10 +7,6 @@
 
 }
 
-h4 {
-  text-align: center;
-  color: rgb(3, 142, 197);
-}
 
 form {
   padding: 10px;
@@ -26,33 +22,57 @@ form {
 
 label {
   font-size: 15px;
-  color: rgb(0, 197, 211);
+  color: #484848 !important;
+  font-family: 'Overlock' !important;
 
 }
 
 .form input {
   font-size: 18px;
-  color: rgb(6, 115, 122);
+  color: #484848 !important;
   padding: 5px;
 }
 
 .form input[type=date] {
   width: 90%;
 }
-
+.user-details .input-select{
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 0;
+  color: #5e6269;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 16px;
+  width: 100%;
+}
+.user-details .input-select:focus{
+  outline: none;
+}
 .form-group>button {
   width: 20%;
   padding: 10px;
-  border: none;
-  background: rgb(0, 238, 255);
-  color: white;
-  margin: 10px auto 0%;
+  margin: 0px auto;
 }
 
 .form-group>button:hover {
   cursor: pointer;
   background: rgb(1, 159, 170);
 
+}
+.user-details .input-ticketing-list{
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 0;
+  color: #5e6269;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 16px;
+  width: 100%;
 }
 
 .invalid-feedback {

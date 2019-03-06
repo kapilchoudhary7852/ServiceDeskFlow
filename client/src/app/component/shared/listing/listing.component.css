@@ -29,7 +29,9 @@ table, th , td {
   .input-select:focus{
     outline: 0;
   }
-
+  .datepick-input:focus{
+    outline: none;
+  }
   .datepick-input{
     width: 44%;
     margin-right: 10px;

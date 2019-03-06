@@ -1,10 +1,10 @@
-<div class="content">  <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+<div class="content user-details">  <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
-  <h4>Add User Details</h4>
+  <h4 class="page-title">Add User Details</h4>
 
     <div class="form-group">
       <label>User Id</label>
-      <input type="text" formControlName="UserId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserId.errors }" />
+      <input type="text" formControlName="UserId" class="form-control input-ticketing-list" [ngClass]="{ 'is-invalid': submitted && f.UserId.errors }" />
       <div *ngIf="submitted && f.UserId.errors" class="invalid-feedback">
         <div *ngIf="f.UserId.errors.required">User Id is required</div>
       </div>
@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <label>First Name</label>
-      <input type="text" formControlName="Fname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Fname.errors }" />
+      <input type="text" formControlName="Fname" class="form-control input-ticketing-list" [ngClass]="{ 'is-invalid': submitted && f.Fname.errors }" />
       <div *ngIf="submitted && f.Fname.errors" class="invalid-feedback">
         <div *ngIf="f.Fname.errors.required">First Name is required</div>
       </div>
@@ -20,7 +20,7 @@
 
     <div class="form-group">
       <label>Last Name</label>
-      <input type="text" formControlName="Lname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Lname.errors }" />
+      <input type="text" formControlName="Lname" class="form-control input-ticketing-list" [ngClass]="{ 'is-invalid': submitted && f.Lname.errors }" />
       <div *ngIf="submitted && f.Lname.errors" class="invalid-feedback">
         <div *ngIf="f.Lname.errors.required">Last Name is required</div>
       </div>
@@ -28,7 +28,7 @@
 
     <div class="form-group">
       <label>Role</label>
-      <select required formControlName="RoleId" [ngClass]="{ 'is-invalid': submitted && f.RoleId.errors }">
+      <select class="input-select" required formControlName="RoleId" [ngClass]="{ 'is-invalid': submitted && f.RoleId.errors }">
         <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
       </select>
       <!-- <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
@@ -36,7 +36,7 @@
       </div> -->
     </div>
     <div class="form-group">
-      <button class="btn">Add</button>
+      <button class="btn btn-primary goBtn">Add</button>
     </div>
   </form>
 </div>
