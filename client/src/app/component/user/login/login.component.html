@@ -1,25 +1,24 @@
-<div class="content login-box">  
-  <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+<div class="content login-box">
+    <form class="form" [formGroup]="createForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+         <h4>Login</h4>
+        <div class="form-group email">
+            <label>User Id</label>
+            <input type="text" formControlName="UserId" placeholder="Username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserId.errors }" />
+            <div *ngIf="submitted && f.UserId.errors" class="invalid-feedback">
+                <div *ngIf="f.UserId.errors.required">User Id is required</div>
+            </div>
+        </div>
 
-  <h4>Login</h4>
-    <div class="form-group email">
-      <label>User Id</label>
-      <input type="text" formControlName="UserId" placeholder="Username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserId.errors }" />
-      <div *ngIf="submitted && f.UserId.errors" class="invalid-feedback">
-        <div *ngIf="f.UserId.errors.required">User Id is required</div>
-      </div>
-    </div>
-
-    <div class="form-group password">
-      <label>Password</label>
-      <input type="text" formControlName="Password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" />
-      <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
-        <div *ngIf="f.Password.errors.required">Password is required</div>
-      </div>
-    </div>
-   <div class="form-group">
-      <button class="btn login-btn">Login</button>
-    </div>
-    <input class="remove-btn" type="button" (click)="Remove()"  name="Remove" id="Remove">
-  </form>
+        <div class="form-group password">
+            <label>Password</label>
+            <input type="text" formControlName="Password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" />
+            <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                <div *ngIf="f.Password.errors.required">Password is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn login-btn">Login</button>
+        </div>
+        <input class="remove-btn" type="button" (click)="Remove()" name="Remove" id="Remove">
+    </form>
 </div>

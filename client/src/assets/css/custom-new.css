@@ -1,21 +1,24 @@
-body{
+body {
     font-family: 'Overlock' !important;
     padding: 0px !important;
     margin: 0px !important;
-    font-size:15px;  
+    font-size: 15px;
 }
 
 .page-content-wrapper {
     background: #f2f3f5;
 }
+
 .page-contentInn {
     padding: 20px;
 }
+
 .portlet.solid {
     padding: 5px 15px 15px 15px;
     background-color: #fff;
     margin-bottom: 15px;
 }
+
 .portlet {
     position: relative;
     box-shadow: 1px 1px 10px #e4e4e4;
@@ -30,9 +33,11 @@ body{
     font-size: 20px;
     margin: 0;
 }
-.form-group{
+
+.form-group {
     margin: 20px 0 20px 0;
 }
+
 .btn-primary {
     background: #484848 !important;
     font-size: 15px !important;
@@ -40,10 +45,11 @@ body{
     border: none !important;
     border-radius: 0 !important;
 }
-.table tr th{
+
+.table tr th {
     text-align: center;
     font-weight: 600;
     background: #2c4750;
     color: #fff;
     vertical-align: middle !important;
-  }
+}

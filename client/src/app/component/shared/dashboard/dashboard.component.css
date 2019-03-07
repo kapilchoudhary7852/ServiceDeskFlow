@@ -1,4 +1,4 @@
-.main-dashboard-page .form-group .input-select{
+.main-dashboard-page .form-group .input-select {
     background: none;
     border: 0;
     border-bottom: 1px solid #e5e5e5;
@@ -11,26 +11,32 @@
     width: 100%;
     height: 34px;
 }
-.main-dashboard-page .form-group .input-select:focus{
+
+.main-dashboard-page .form-group .input-select:focus {
     outline: none;
 }
-.main-dashboard-page .datepick-input{
+
+.main-dashboard-page .datepick-input {
     width: 40%;
     margin-right: 10px;
     border-bottom: 1px solid #e5e5e5 !important;
     border: 0;
     padding: 4px 0;
 }
-.main-dashboard-page .datepick-input:focus{
+
+.main-dashboard-page .datepick-input:focus {
     outline: none;
 }
-.main-dashboard-page .ticket-form{
+
+.main-dashboard-page .ticket-form {
     display: block;
 }
-.main-dashboard-page .ml-5{
+
+.main-dashboard-page .ml-5 {
     margin-right: 5px;
     font-weight: 600;
 }
+
 .main-dashboard-page .inlineBtn {
     padding-top: 20px;
 }

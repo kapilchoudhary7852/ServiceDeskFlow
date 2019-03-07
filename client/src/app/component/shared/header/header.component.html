@@ -1,11 +1,10 @@
 <div class="header">
-
         <a *ngIf="RoleId != 5 && RoleId != 4 " [routerLink]="[ '/dashboard']">Dashboard</a>
         <a *ngIf="RoleId == 1" [routerLink]="[ '/home']">Users</a>
         <a *ngIf="RoleId == 1" [routerLink]="[ '/servicedesk']">Service Desk</a>
         <a *ngIf="RoleId == 1" [routerLink]="[ 'user/create']">Add User</a>
         <a [routerLink]="[ '/ticket']">Ticket</a>
         <a *ngIf="ServiceDeskList.length > 0 " [routerLink]="[ '/listing']">Listing</a>
-        <a (click)="Mylisting()" >My Issues</a>
-        <a (click)="LogOut()" >LogOut</a>
+        <a (click)="Mylisting()">My Issues</a>
+        <a (click)="LogOut()">LogOut</a>
 </div>

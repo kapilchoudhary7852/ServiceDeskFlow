@@ -1,18 +1,20 @@
-table, th , td {
+table,
+th,
+td {
     border: 1px solid grey;
     border-collapse: collapse;
     padding: 5px;
-  }
-  
-  table tr:nth-child(odd) {
+}
+
+table tr:nth-child(odd) {
     background-color: #f1f1f1;
-  }
-  
-  table tr:nth-child(even) {
+}
+
+table tr:nth-child(even) {
     background-color: #ffffff;
-  }
-  
-  .input-select{
+}
+
+.input-select {
     background: none;
     border: 0;
     border-bottom: 1px solid #e5e5e5;
@@ -24,120 +26,138 @@ table, th , td {
     font-size: 16px;
     width: 100%;
     height: 34px;
-  }
+}
 
-  .input-select:focus{
+.input-select:focus {
     outline: 0;
-  }
-  .datepick-input:focus{
+}
+
+.datepick-input:focus {
     outline: none;
-  }
-  .datepick-input{
+}
+
+.datepick-input {
     width: 44%;
     margin-right: 10px;
     border-bottom: 1px solid #e5e5e5 !important;
     border: 0;
     padding: 4px 0;
-  }
-  .ticket-form{
+}
+
+.ticket-form {
     display: block;
-  }
-.ml-5{
+}
+
+.ml-5 {
     margin-right: 5px;
     font-weight: 600;
 }
-.input-ticketing-list{
-  background: none;
-  border: 0;
-  border-bottom: 1px solid #e5e5e5;
-  border-radius: 0;
-  color: #5e6269;
-  box-shadow: none;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 16px;
-  width: 100%;
-  height: 34px;
-}
-.input-ticketing-list:focus{
-  outline: 0;
-}
-.mar-left{
-  margin-left: 5px;
-}
-.mb-20{
-  margin-bottom: 20px;
+
+.input-ticketing-list {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 0;
+    color: #5e6269;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 16px;
+    width: 100%;
+    height: 34px;
 }
 
-.modal-popup-reopen .modal-header{
-  border: 0;
+.input-ticketing-list:focus {
+    outline: 0;
 }
+
+.mar-left {
+    margin-left: 5px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.modal-popup-reopen .modal-header {
+    border: 0;
+}
+
 .modal-popup-reopen .modal-dialog {
-  width: 600px;
-  margin: 300px auto;
+    width: 600px;
+    margin: 300px auto;
 }
 
-.modal-popup-reopen .input-ticketing-list{
-  border: 1px solid #e5e5e5;
-}
-.modal-popup-reopen .close-icon{
-  font-size: 22px;
-  color: #000;
-  position: relative;
-  top: 10px;
-  left: -11px;
-}
-.modal-popup-reopen .close{
-  opacity: 1;
-}
-.modal-popup-reopen .close:focus{
-  outline: 0;
-}
-.modal-popup-reopen .modal-header{
-  padding: 0;
+.modal-popup-reopen .input-ticketing-list {
+    border: 1px solid #e5e5e5;
 }
 
-.mar-right{
-  margin-right: 5px;
+.modal-popup-reopen .close-icon {
+    font-size: 22px;
+    color: #000;
+    position: relative;
+    top: 10px;
+    left: -11px;
+}
+
+.modal-popup-reopen .close {
+    opacity: 1;
+}
+
+.modal-popup-reopen .close:focus {
+    outline: 0;
+}
+
+.modal-popup-reopen .modal-header {
+    padding: 0;
+}
+
+.mar-right {
+    margin-right: 5px;
 }
 
 
 /*------modal-popup-------*/
 
-
-.modal-popup .modal-header{
-  border: 0;
+.modal-popup .modal-header {
+    border: 0;
 }
+
 .modal-popup .modal-dialog {
-  width: 600px;
-  margin: 300px auto;
+    width: 600px;
+    margin: 300px auto;
 }
 
-.modal-popup .input-ticketing-list{
-  height: 100px;
-  border: 1px solid #e5e5e5;
-}
-.modal-popup .close-icon{
-  font-size: 22px;
-  color: #000;
-  position: relative;
-  top: 10px;
-  left: -11px;
-}
-.modal-popup .close{
-  opacity: 1;
-}
-.modal-popup .close:focus{
-  outline: 0;
-}
-.modal-popup .modal-header{
-  padding: 0;
+.modal-popup .input-ticketing-list {
+    height: 100px;
+    border: 1px solid #e5e5e5;
 }
 
-.modal-body .input-select{
-  height: auto;
+.modal-popup .close-icon {
+    font-size: 22px;
+    color: #000;
+    position: relative;
+    top: 10px;
+    left: -11px;
 }
-.main-dashboard-page .listing-assign-btn{
-  float: left;
-  margin-right: 5px;
+
+.modal-popup .close {
+    opacity: 1;
+}
+
+.modal-popup .close:focus {
+    outline: 0;
+}
+
+.modal-popup .modal-header {
+    padding: 0;
+}
+
+.modal-body .input-select {
+    height: auto;
+}
+
+.main-dashboard-page .listing-assign-btn {
+    float: left;
+    margin-right: 5px;
 }

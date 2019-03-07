@@ -1,93 +1,91 @@
 .content {
-    margin: 10px auto 0%;
-    width: 100%;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    border-radius: 10px;
-  
-  }
-  
-  h4 {
-    text-align: center;
-    color: rgb(3, 142, 197);
-  }
-  
-  form {
-    padding: 20px;
-    display: flex;
-    flex-flow: column;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-flow: column;
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-size: 15px;
-  
-  }
-  
-  .form input {
-    font-size: 18px;
-    color: rgb(6, 115, 122);
-    padding: 5px;
-  }
-  
-  .form input[type=date] {
-    width: 90%;
-  }
-  
-  .form-group>button {
-    width: 20%;
-    padding: 10px;
-    border: none;
-    background: rgb(0, 238, 255);
-    color: white;
-    margin: 10px auto 0%;
-  }
-  
-  .form-group>button:hover {
-    cursor: pointer;
-    background: rgb(1, 159, 170);
-  
-  }
-  
-  .invalid-feedback {
-    color: red;
-  }
-  table, th , td {
-    border: 1px solid grey;
-    border-collapse: collapse;
-    padding: 5px;
-    
-  }
-  
-  table tr:nth-child(odd) {
-    background-color: #f1f1f1;
-  }
-  
-  table tr:nth-child(even) {
-    background-color: #ffffff;
-  }
-  .check-box-desk{
-    margin-bottom: 5px;
-  }
+  margin: 10px auto 0%;
+  width: 100%;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+}
 
-  @media (max-width: 767px){
-    .table-responsive {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-y: hidden;
-        overflow-x: scroll;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-        border: 1px solid #ddd;
-        -webkit-overflow-scrolling: touch;
-    }
-    }
-    
-    .service-table tr th{
-      text-align: center;
-    }
-    
-    
+h4 {
+  text-align: center;
+  color: rgb(3, 142, 197);
+}
+
+form {
+  padding: 20px;
+  display: flex;
+  flex-flow: column;
+}
+
+.form-group {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 15px;
+}
+
+.form input {
+  font-size: 18px;
+  color: rgb(6, 115, 122);
+  padding: 5px;
+}
+
+.form input[type=date] {
+  width: 90%;
+}
+
+.form-group>button {
+  width: 20%;
+  padding: 10px;
+  border: none;
+  background: rgb(0, 238, 255);
+  color: white;
+  margin: 10px auto 0%;
+}
+
+.form-group>button:hover {
+  cursor: pointer;
+  background: rgb(1, 159, 170);
+}
+
+.invalid-feedback {
+  color: red;
+}
+
+table,
+th,
+td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.check-box-desk {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 767px) {
+  .table-responsive {
+      width: 100%;
+      margin-bottom: 15px;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+      border: 1px solid #ddd;
+      -webkit-overflow-scrolling: touch;
+  }
+}
+
+.service-table tr th {
+  text-align: center;
+}

@@ -1,223 +1,217 @@
 <div class="page-content-wrapper">
-  <div class="page-content">
-    <div class="page-contentInn">
-      <div class="portlet solid light-grey main-dashboard-page">
-        <div class="row">
-          <div class="col-md-12">
-            <h3 *ngIf="!IsMylisting" class="page-title">Listing</h3>
-            <h3 *ngIf="IsMylisting" class="page-title">My issue</h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label for="">Service Desk:</label>
-              <select class="input-select" [(ngModel)]='serviceDeskInput'>
-                <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Assignee</label>
-              <select class="input-select" [(ngModel)]='AssigneeInput'>
-                <option *ngFor="let d of userAssignee " [value]='d.id'>{{d.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label for="">Ticket:</label>
-              <input class="input-ticketing-list" type="text" [(ngModel)]='ticketInput'>
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-
-            <div class="form-group">
-              <label for="" class="ticket-form">Resolved Date:</label>
-              <span class="ml-5">From</span>
-              <input class="datepick-input" type="date" [(ngModel)]='resolvedDateFromInput'>
-              <span class="ml-5">to</span>
-              <input class="datepick-input" type="date" [(ngModel)]='resolvedDateToInput'>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label for="">Reporter:</label>
-              <select class="input-select" [(ngModel)]='ReporterInput'>
-                <option *ngFor="let d of userReporter " [value]='d.id'>{{d.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label for="">Priority:</label>
-              <select class="input-select" [(ngModel)]='priorityInput'>
-                <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label for="">Status:</label>
-              <select class="input-select" [(ngModel)]='statusInput'>
-                <option *ngFor="let da of status" [value]='da.id'>{{da.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="" class="ticket-form">Ticket Date:</label>
-              <span class="ml-5">From</span>
-              <input class="datepick-input" type="date" [(ngModel)]='ticketDateFromInput'>
-              <span class="ml-5">To</span>
-              <input class="datepick-input" type="date" [(ngModel)]='ticketDateToInput'>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 text-center mb-20">
-              <button class="btn btn-primary goBtn" (click)='filterTickets()'>Search Ticket</button>
-              <button class="btn btn-primary goBtn mar-left" (click)='resetFilters()'>Reset</button>
-          </div>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th width="5%">#</th>
-                    <th width="8%">Service Desk</th>
-                    <th width="8%">Issue Title</th>
-                    <th width="10%">Notify To</th>
-                    <th width="8%">Assignee</th>
-                    <th width="10%">Reporter</th>
-                    <th width="6%">Status</th>
-                    <th width="6%">Priority</th>
-                    <th width="10%">Ticket Date</th>
-                    <th width="8%">Resolve Date</th>
-                    <th width="7%">Resolve Duration(Hr)</th>
-                    <th width="10%">Action</th>
-                  </tr>
-                  <tr *ngIf="tickets.length==0">
-                    <td>NO data found</td>
-                  </tr>
-                  <tr *ngFor="let ticket of tickets ; let i = index">
-                    <td>{{ i+1 }}</td>
-                    <td>{{ ticket.ServiceDeskName }}</td>
-                    <td>{{ ticket.IssueTitle }}</td>
-                    <td>
-                      <div *ngFor="let user of ticket.NotifyToName">{{user}}</div>
-                    </td>
-                    <td>{{ ticket.AssignedName }}</td>
-                    <td>{{ ticket.CreatedName }}</td>
-                    <td>{{ ticket.StatusName }}</td>
-                    <td>{{ ticket.PriorityName }}</td>
-                    <td>{{ ticket.CreatedDate}}</td>
-                    <td>{{ ticket.ResolvedDate }}</td>
-                    <td>{{ ticket.ResolvedDuration }}</td>
-                    <td>
-                      <div class="listing-assign-btn" *ngIf="!IsMylisting ">
-                        <button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal" class="btn btn-primary goBtn">Assign</button>
-                      </div>
-                      <button *ngIf="RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button>
-                      <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,1)'>Delete</button>
-                      <button type="button" routerLink="/ticketdetails/{{ticket._id}}" class="btn btn-primary goBtn">View</button>
-                      <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal-reopen" class="btn btn-primary goBtn" style="margin-left:5px;">Reopen</button>
-                    </td>
-                  </tr>
-                
-              </table>
-        </div>
-
-        <div class="modal-popup">
-          <!-- Modal -->
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="close-icon">&times;</span></button>
-        
-                </div>
-                <div class="modal-body">
-                  <div>
-                    <div class="">
-                        <h3 class="page-title mar-right">Listing Assign</h3>
-                      <label>Assignee:</label>
-                      <select class="input-select" [(ngModel)]='newAssigned'>
-                        <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
-                      </select>
+    <div class="page-content">
+        <div class="page-contentInn">
+            <div class="portlet solid light-grey main-dashboard-page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 *ngIf="!IsMylisting" class="page-title">Listing</h3>
+                        <h3 *ngIf="IsMylisting" class="page-title">My issue</h3>
                     </div>
-                    <div class="form-group">
-                      <label>Comment:</label>
-                      <input class="input-ticketing-list" type="text" [(ngModel)]='newticketComment'>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="">Service Desk:</label>
+                            <select class="input-select" [(ngModel)]='serviceDeskInput'>
+                                <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="text-center">
-                    <button class="btn btn-primary goBtn" type="button" (click)='funNewAssigned(1)' data-dismiss="modal" style="margin-right:5px;">Assign</button>
-                    <button class="btn btn-primary goBtn" type="button" (click)='funResetAssigned()'>Reset</button>
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-
-        <div class="modal-popup-reopen">
-          <!-- Modal -->
-          <div class="modal fade" id="myModal-reopen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="close-icon">&times;</span></button>
-        
-                </div>
-                <div class="modal-body">
-                  <div>
-                      <h3 class="page-title">Listing Reopen</h3>
-                      <div class="form-group">
-                          <label>Comment:</label>
-                          <input class="input-ticketing-list" type="text" [(ngModel)]='newticketComment'>
-                      </div>
-                    <div class="text-center">
-                        <button class="btn btn-primary goBtn" type="button" (click)='funNewAssigned(2)' data-dismiss="modal" style="margin-right:5px;">Reopen</button>
-                        <button class="btn btn-primary goBtn" type="button" (click)='funResetAssigned()'>Reset</button>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Assignee</label>
+                            <select class="input-select" [(ngModel)]='AssigneeInput'>
+                                <option *ngFor="let d of userAssignee " [value]='d.id'>{{d.name}}</option>
+                            </select>
+                        </div>
                     </div>
-                    
-                  </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="">Ticket:</label>
+                            <input class="input-ticketing-list" type="text" [(ngModel)]='ticketInput'>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            <label for="" class="ticket-form">Resolved Date:</label>
+                            <span class="ml-5">From</span>
+                            <input class="datepick-input" type="date" [(ngModel)]='resolvedDateFromInput'>
+                            <span class="ml-5">to</span>
+                            <input class="datepick-input" type="date" [(ngModel)]='resolvedDateToInput'>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="">Reporter:</label>
+                            <select class="input-select" [(ngModel)]='ReporterInput'>
+                                <option *ngFor="let d of userReporter " [value]='d.id'>{{d.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="">Priority:</label>
+                            <select class="input-select" [(ngModel)]='priorityInput'>
+                                <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="">Status:</label>
+                            <select class="input-select" [(ngModel)]='statusInput'>
+                                <option *ngFor="let da of status" [value]='da.id'>{{da.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="" class="ticket-form">Ticket Date:</label>
+                            <span class="ml-5">From</span>
+                            <input class="datepick-input" type="date" [(ngModel)]='ticketDateFromInput'>
+                            <span class="ml-5">To</span>
+                            <input class="datepick-input" type="date" [(ngModel)]='ticketDateToInput'>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 text-center mb-20">
+                        <button class="btn btn-primary goBtn" (click)='filterTickets()'>Search Ticket</button>
+                        <button class="btn btn-primary goBtn mar-left" (click)='resetFilters()'>Reset</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th width="5%">#</th>
+                            <th width="8%">Service Desk</th>
+                            <th width="8%">Issue Title</th>
+                            <th width="10%">Notify To</th>
+                            <th width="8%">Assignee</th>
+                            <th width="10%">Reporter</th>
+                            <th width="6%">Status</th>
+                            <th width="6%">Priority</th>
+                            <th width="10%">Ticket Date</th>
+                            <th width="8%">Resolve Date</th>
+                            <th width="7%">Resolve Duration(Hr)</th>
+                            <th width="10%">Action</th>
+                        </tr>
+                        <tr *ngIf="tickets.length==0">
+                            <td>NO data found</td>
+                        </tr>
+                        <tr *ngFor="let ticket of tickets ; let i = index">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ ticket.ServiceDeskName }}</td>
+                            <td>{{ ticket.IssueTitle }}</td>
+                            <td>
+                                <div *ngFor="let user of ticket.NotifyToName">{{user}}</div>
+                            </td>
+                            <td>{{ ticket.AssignedName }}</td>
+                            <td>{{ ticket.CreatedName }}</td>
+                            <td>{{ ticket.StatusName }}</td>
+                            <td>{{ ticket.PriorityName }}</td>
+                            <td>{{ ticket.CreatedDate}}</td>
+                            <td>{{ ticket.ResolvedDate }}</td>
+                            <td>{{ ticket.ResolvedDuration }}</td>
+                            <td>
+                                <div class="listing-assign-btn" *ngIf="!IsMylisting ">
+                                    <button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal" class="btn btn-primary goBtn">Assign</button>
+                                </div>
+                                <button *ngIf="RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button>
+                                <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,1)'>Delete</button>
+                                <button type="button" routerLink="/ticketdetails/{{ticket._id}}" class="btn btn-primary goBtn">View</button>
+                                <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal-reopen" class="btn btn-primary goBtn" style="margin-left:5px;">Reopen</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="modal-popup">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" class="close-icon">&times;</span></button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <div class="">
+                                            <h3 class="page-title mar-right">Listing Assign</h3>
+                                            <label>Assignee:</label>
+                                            <select class="input-select" [(ngModel)]='newAssigned'>
+                                                <option *ngFor="let d of newAssignusers" [value]='d._id'>{{d.Fname+' '+d.Lname}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Comment:</label>
+                                            <input class="input-ticketing-list" type="text" [(ngModel)]='newticketComment'>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-primary goBtn" type="button" (click)='funNewAssigned(1)' data-dismiss="modal" style="margin-right:5px;">Assign</button>
+                                            <button class="btn btn-primary goBtn" type="button" (click)='funResetAssigned()'>Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-popup-reopen">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal-reopen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="close-icon">&times;</span></button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <h3 class="page-title">Listing Reopen</h3>
+                                        <div class="form-group">
+                                            <label>Comment:</label>
+                                            <input class="input-ticketing-list" type="text" [(ngModel)]='newticketComment'>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-primary goBtn" type="button" (click)='funNewAssigned(2)' data-dismiss="modal" style="margin-right:5px;">Reopen</button>
+                                            <button class="btn btn-primary goBtn" type="button" (click)='funResetAssigned()'>Reset</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-        </div>
 
-      </div>
-
-
-      <!-- <ng-multiselect-dropdown [data]="userAssignee" [(ngModel)]='AssigneeInput'  [placeholder]="'Select users'"  
+            <!-- <ng-multiselect-dropdown [data]="userAssignee" [(ngModel)]='AssigneeInput'  [placeholder]="'Select users'"  
       [settings]="dropdownSettings" (onSelect)="onItemSelect($event,1)" (onSelectAll)="onSelectAll($event,1)">
     </ng-multiselect-dropdown> -->
-    </div>
+        </div>
 
-
-    <!-- <ng-multiselect-dropdown [data]="userReporter" [(ngModel)]='ReporterInput'  [placeholder]="'Select users'"  
+        <!-- <ng-multiselect-dropdown [data]="userReporter" [(ngModel)]='ReporterInput'  [placeholder]="'Select users'"  
       [settings]="dropdownSettings" (onSelect)="onItemSelect($event,2)" (onSelectAll)="onSelectAll($event,2)">
     </ng-multiselect-dropdown> -->
 
-  </div>
-
-  
+    </div>
 
 </div>
-

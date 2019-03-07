@@ -1,43 +1,41 @@
 <div class="page-content-wrapper">
-  <div class="page-content">
-    <div class="page-contentInn">
-      <div id="divMainContainer" class="portlet solid light-grey main-dashboard-page">
-        <div class="row">
-          <div class="col-md-12">
-            <h3 class="page-title">
-              DASHBOARD
-            </h3>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="">Service Desk:</label>
-                  <select class="input-select" [(ngModel)]='serviceDeskInput'>
-                    <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
-                  </select>
-                </div>
-              </div>
+    <div class="page-content">
+        <div class="page-contentInn">
+            <div id="divMainContainer" class="portlet solid light-grey main-dashboard-page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="page-title">DASHBOARD</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Service Desk:</label>
+                                    <select class="input-select" [(ngModel)]='serviceDeskInput'>
+                                        <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="ticket-form" for="">Ticket Date:</label>
-                  <span class="ml-5">From</span>
-                  <input type="date" class="datepick-input" [(ngModel)]='ticketDateFromInput'>
-                  <span class="ml-5">To</span>
-                  <input type="date" class="datepick-input" [(ngModel)]='ticketDateToInput'>
-                </div>
-              </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="ticket-form" for="">Ticket Date:</label>
+                                    <span class="ml-5">From</span>
+                                    <input type="date" class="datepick-input" [(ngModel)]='ticketDateFromInput'>
+                                    <span class="ml-5">To</span>
+                                    <input type="date" class="datepick-input" [(ngModel)]='ticketDateToInput'>
+                                </div>
+                            </div>
 
-              <div class="col-sm-2 inlineBtn">
-                <label></label>
-                <button class="btn btn-primary goBtn" (click)='filterTickets()'>Search Ticket</button>
-              </div>
+                            <div class="col-sm-2 inlineBtn">
+                                <label></label>
+                                <button class="btn btn-primary goBtn" (click)='filterTickets()'>Search Ticket</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Chart">
+                    <canvas id="myChart" width="1000" height="500"></canvas>
+                </div>
             </div>
-          </div>
         </div>
-        <div id="Chart">
-          <canvas id="myChart" width="1000" height="500"></canvas>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

@@ -1,20 +1,24 @@
-<section class="content"  >
-   <div>
-        <dl *ngFor="let user of users"  >
-                <dd>{{user.Fname +' '+ user.Lname}}</dd>
-                <dd>User Id : {{user.UserId}}</dd>
-                <dd>User Id : {{user._id}}</dd>
-                <dd>Role Name :</dd>
-                <dd>{{user.RoleName}}</dd>
-                <dd>Role Id : {{user.RoleId}}</dd>
-                <dd>Service Desk: </dd>
-                <dd><div *ngFor=" let d of user.ServiceDeskName">{{d}}</div></dd>
-                <dd>Service Id</dd>
-                <dd><div *ngFor=" let d of user.ServiceDeskId">{{d}}</div></dd>
-                <div class="button-group">
-                  <button id="updateButton" routerLink="/update/{{user._id}}"> Update</button>
-                  <button id="deleteButton" (click)="deleteUser(user._id)" > Delete</button>
-                </div>
-            </dl>
-   </div>
+<section class="content">
+    <div>
+        <dl *ngFor="let user of users">
+            <dd>{{user.Fname +' '+ user.Lname}}</dd>
+            <dd>User Id : {{user.UserId}}</dd>
+            <dd>User Id : {{user._id}}</dd>
+            <dd>Role Name :</dd>
+            <dd>{{user.RoleName}}</dd>
+            <dd>Role Id : {{user.RoleId}}</dd>
+            <dd>Service Desk: </dd>
+            <dd>
+                <div *ngFor=" let d of user.ServiceDeskName">{{d}}</div>
+            </dd>
+            <dd>Service Id</dd>
+            <dd>
+                <div *ngFor=" let d of user.ServiceDeskId">{{d}}</div>
+            </dd>
+            <div class="button-group">
+                <button id="updateButton" routerLink="/update/{{user._id}}"> Update</button>
+                <button id="deleteButton" (click)="deleteUser(user._id)"> Delete</button>
+            </div>
+        </dl>
+    </div>
 </section>

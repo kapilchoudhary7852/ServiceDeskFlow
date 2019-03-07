@@ -4,9 +4,7 @@
   width: 360px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   border-radius: 10px;
-
 }
-
 
 form {
   padding: 10px;
@@ -24,7 +22,6 @@ label {
   font-size: 15px;
   color: #484848 !important;
   font-family: 'Overlock' !important;
-
 }
 
 .form input {
@@ -36,7 +33,8 @@ label {
 .form input[type=date] {
   width: 90%;
 }
-.user-details .input-select{
+
+.user-details .input-select {
   background: none;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
@@ -48,9 +46,11 @@ label {
   font-size: 16px;
   width: 100%;
 }
-.user-details .input-select:focus{
+
+.user-details .input-select:focus {
   outline: none;
 }
+
 .form-group>button {
   width: 20%;
   padding: 10px;
@@ -60,9 +60,9 @@ label {
 .form-group>button:hover {
   cursor: pointer;
   background: rgb(1, 159, 170);
-
 }
-.user-details .input-ticketing-list{
+
+.user-details .input-ticketing-list {
   background: none;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
