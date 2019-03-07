@@ -1,129 +1,182 @@
-
-<div>
-  <h2>Ticket History</h2>
-  <table>
-    <th>
-      <tr>
-       <td>#</td>
-        <!-- <td>Service Desk</td> -->
-        <td>Issue Title</td>
-        <td>Assignee</td>
-        <td>Reporter</td>
-        <td>Status</td>
-        <td>Priority</td>
-        <!-- <td>Ticket Date</td> -->
-         <td>Resolve Date</td>
-      </tr>
-      <tr *ngFor="let ticket of tickets ; let i = index">
-          <td>{{ i+1 }}</td>
-          <!-- <td>{{ ticket.ServiceDeskId  }}</td> -->
-          <td>{{ ticket.IssueTitle }}</td>
-          <td>{{ getUserNameById(ticket.Assigned) }}</td>
-          <td>{{ getUserNameById(ticket.CreatedBy) }}</td>
-          <td>{{getStatusNameById(ticket.Status)}} </td>
-          <td>{{ getPriorityNameById(ticket.PriorityId)  }}</td>
-          <!-- <td>{{ ticket.CreatedDate}}</td> -->
-           <td>{{ convertDateFormat(ticket.ResolvedDate) }}</td>
-      </tr>
-     </th>
-   </table>
-
-
-
-<form [formGroup]= 'ticketForm'>
-    <h1>Ticket creation form</h1>
-  <div class="from-group">
-    <label>Service Desk</label>
-    <select   [ngClass]="{ 'is-invalid': submitted && f.ServiceDeskId.errors }" formControlName="ServiceDeskId" name="ServiceDeskId" id="" class="form-control" >
-    <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
-    </select>
-    <div *ngIf="submitted && f.ServiceDeskId.errors" class="invalid-feedback">
-      <div *ngIf="f.ServiceDeskId.errors.required">Service Name required</div>
-    </div>
-  </div>
-  
-  <div >
-    <label>Priority</label>
-    <select [ngClass]="{ 'is-invalid': submitted && f.PriorityId.errors }" formControlName="PriorityId" id="" class="form-control">
-    <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
-    </select>
-    <div *ngIf="submitted && f.PriorityId.errors" class="invalid-feedback">
-      <div *ngIf="f.PriorityId.errors.required">Priority required</div>
-    </div>
-  </div>
-  
-    <div class="form-group">
-      <label>Issue Title</label>
-      <input [ngClass]="{ 'is-invalid': submitted && f.IssueTitle.errors }" formControlName="IssueTitle" name="IssueTitle" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.IssueTitle.errors }" >
-      <div *ngIf="submitted && f.IssueTitle.errors" class="invalid-feedback">
-        <div *ngIf="f.IssueTitle.errors.required">Issue title is required</div>
-      </div>
-    </div>
-  
-  
-    <div class="form-group">
-      <label>Notify To</label>
-      <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }"   [placeholder]="'Select users'"  [formControl]="ticketForm.controls['NotifyTo']" 
-        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" >
-      </ng-multiselect-dropdown>
-      <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
-        <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label>Description</label>
-      <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Description" name="Description" type="text" class="form-control" >
-      <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-        <div *ngIf="f.Description.errors.required">Description is required</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-        <label>Assigned To</label>
-        <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }"   [placeholder]="'Select users'"  [formControl]="ticketForm.controls['Assigned']" 
-          [settings]="dropdownSettings2" (onSelect)="onItemSelectAssigned($event)" (onSelectAll)="onSelectAll($event)" >
-        </ng-multiselect-dropdown>
-        <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
-          <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-          <label>Assigned Date Time</label>
-          <input readonly [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="AssignedTime" name="AssignedTime" type="text" class="form-control"  >
-          <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-            <div *ngIf="f.Description.errors.required">Description is required</div>
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <div class="page-contentInn">
+      <div class="portlet solid light-grey ticketing-details-component">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="page-title">Ticket Details</h3>
           </div>
         </div>
+        <div class="row" [formGroup]='ticketForm'>
 
-
-        <div class="form-group">
-            <label>Comment</label>
-            <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Comment" name="Comment" type="text" class="form-control" >
-            <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-              <div *ngIf="f.Description.errors.required">Comment is required</div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Service Desk</label>
+              <select [ngClass]="{ 'is-invalid': submitted && f.ServiceDeskId.errors }" formControlName="ServiceDeskId" name="ServiceDeskId"
+                id="" class="form-control">
+                <option *ngFor="let desk of serviceDesks " [value]='desk.id'>{{desk.name}}</option>
+              </select>
+              <div *ngIf="submitted && f.ServiceDeskId.errors" class="invalid-feedback">
+                <div *ngIf="f.ServiceDeskId.errors.required">Service Name required</div>
+              </div>
             </div>
           </div>
 
-          <div class="form-group">
-              <label for="">Status:</label> 
-              <select [formControl]="ticketForm.controls['Status']">
-                <option *ngFor="let da of status" [value]='da.id'>{{da.name}}</option>
-                </select>
-                <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
-                <div *ngIf="f.Description.errors.required">Status is required</div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Priority</label>
+              <select [ngClass]="{ 'is-invalid': submitted && f.PriorityId.errors }" formControlName="PriorityId" id="" class="form-control">
+                <option *ngFor="let priority of prioritys" [value]='priority.id'>{{priority.name}}</option>
+              </select>
+              <div *ngIf="submitted && f.PriorityId.errors" class="invalid-feedback">
+                <div *ngIf="f.PriorityId.errors.required">Priority required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Issue Title</label>
+              <input [ngClass]="{ 'is-invalid': submitted && f.IssueTitle.errors }" formControlName="IssueTitle" name="IssueTitle" type="text"
+                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.IssueTitle.errors }">
+              <div *ngIf="submitted && f.IssueTitle.errors" class="invalid-feedback">
+                <div *ngIf="f.IssueTitle.errors.required">Issue title is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Notify To</label>
+              <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }" [placeholder]="'Select users'"
+                [formControl]="ticketForm.controls['NotifyTo']" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+              <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
+                <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Description</label>
+              <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Description" name="Description" type="text"
+                class="form-control">
+              <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                <div *ngIf="f.Description.errors.required">Description is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Ticket Authority</a>
+            </li>
+            <li role="presentation">
+              <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ticket History</a>
+            </li>
+
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Assigned To</label>
+                    <ng-multiselect-dropdown [data]="users" [ngClass]="{ 'is-invalid': submitted && f.NotifyTo.errors }" [placeholder]="'Select users'"
+                      [formControl]="ticketForm.controls['Assigned']" [settings]="dropdownSettings2" (onSelect)="onItemSelectAssigned($event)"
+                      (onSelectAll)="onSelectAll($event)">
+                    </ng-multiselect-dropdown>
+                    <div *ngIf="submitted && f.NotifyTo.errors" class="invalid-feedback">
+                      <div *ngIf="f.NotifyTo.errors.required">Required Field</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Assigned Date Time</label>
+                    <input readonly [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="AssignedTime" name="AssignedTime"
+                      type="text" class="form-control">
+                    <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                      <div *ngIf="f.Description.errors.required">Description is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Comment</label>
+                    <input [ngClass]="{ 'is-invalid': submitted && f.Description.errors }" formControlName="Comment" name="Comment" type="text"
+                      class="form-control">
+                    <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                      <div *ngIf="f.Description.errors.required">Comment is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="">Status:</label>
+                    <select class="input-select" [formControl]="ticketForm.controls['Status']">
+                      <option *ngFor="let da of status" [value]='da.id'>{{da.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                      <div *ngIf="f.Description.errors.required">Status is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="">Image(Upto 50KB)</label>
+                    <input type="image" src="{{image}}">
+                    <input type="file" accept="image/*" (change)="changeListener($event)">
+                  </div>
+                </div>
+                <div class="col-sm-4 inlineBtn">
+                  <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
+                </div>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="">Image(Upto 50KB)</label> 
-               <input type="image" src="{{image}}">
-               <input  type="file"  accept="image/*" (change)="changeListener($event)">
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover service-table">
+                      <tr>
+                          <th>#</th>
+                          <!-- <td>Service Desk</td> -->
+                          <th>Issue Title</th>
+                          <th>Assignee</th>
+                          <th>Reporter</th>
+                          <th>Status</th>
+                          <th>Priority</th>
+                          <!-- <td>Ticket Date</td> -->
+                          <th>Resolve Date</th>
+                        </tr>
+                        <tr *ngFor="let ticket of tickets ; let i = index">
+                          <td>{{ i+1 }}</td>
+                          <!-- <td>{{ ticket.ServiceDeskId  }}</td> -->
+                          <td>{{ ticket.IssueTitle }}</td>
+                          <td>{{ getUserNameById(ticket.Assigned) }}</td>
+                          <td>{{ getUserNameById(ticket.CreatedBy) }}</td>
+                          <td>{{getStatusNameById(ticket.Status)}} </td>
+                          <td>{{ getPriorityNameById(ticket.PriorityId) }}</td>
+                          <!-- <td>{{ ticket.CreatedDate}}</td> -->
+                          <td>{{ convertDateFormat(ticket.ResolvedDate) }}</td>
+                        </tr>
+                    </table>
+                    </div>
             </div>
-  
-    <button class="btn btn-primary" type="submit" (click)='generateTicket()'> Submit</button>
-  
-  </form>
+          </div>
+        </div>
 
+      </div>
+    </div>
+  </div>
 </div>
+

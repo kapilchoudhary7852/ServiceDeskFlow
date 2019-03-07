@@ -12,3 +12,45 @@ table, th , td {
     background-color: #ffffff;
   }
   
+  .ticketing-details-component .input-select{
+    display: inline-block;
+    border: 1px solid #adadad;
+    width: 100%;
+    height: 37px;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.52857143;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 4px;
+  }
+
+  .ticketing-details-component .inlineBtn{
+    padding-top: 20px;
+  }
+
+  .ticketing-details-component .nav-tabs li{
+    width: 50%;
+  }
+  .ticketing-details-component .nav-tabs li a{
+    padding: 7px 12px 7px 12px;
+    border: 0px;
+    margin-right: 2px;
+    font-size: 16px;
+    color: #2c4750;
+  }
+  .ticketing-details-component .nav-tabs>li>a:hover {
+    border-color: #eee #eee #ddd;
+    background: #2c4750 !important;
+    color: #fff;
+    border-radius: 0;
+}
+.ticketing-details-component .nav-tabs>li.active>a{
+  font-size: 16px;
+  background: #2c4750 !important;
+  color: #ffffff;
+  border-radius: 0;
+}
