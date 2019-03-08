@@ -1,4 +1,6 @@
 <div class="page-content-wrapper">
+    {{resolvedDateFromInput | json }}
+    {{resolvedDateToInput | json}}
     <div class="page-content">
         <div class="page-contentInn">
             <div class="portlet solid light-grey main-dashboard-page">
@@ -130,7 +132,7 @@
                                     <button *ngIf="RoleId == 2 || RoleId == 3" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal" class="btn btn-primary goBtn">Assign</button>
                                 </div>
                                 <button *ngIf="RoleId == 4" type="button" (click)='updateTicket(ticket,2)'>Self Assign</button>
-                                <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,1)'>Delete</button>
+                                <button *ngIf="ticket.Assigned == null && ticket.CreatedBy== CreatedBy && IsMylisting" type="button" (click)='updateTicket(ticket,1)' class="btn btn-primary goBtn" style="margin-right:5px;">Delete</button>
                                 <button type="button" routerLink="/ticketdetails/{{ticket._id}}" class="btn btn-primary goBtn">View</button>
                                 <button *ngIf="ticket.Status == 5 && ticket.CreatedBy== CreatedBy" type="button" (click)='assignTicket(ticket._id,ticket.ServiceDeskId)' data-toggle="modal" data-target="#myModal-reopen" class="btn btn-primary goBtn" style="margin-left:5px;">Reopen</button>
                             </td>

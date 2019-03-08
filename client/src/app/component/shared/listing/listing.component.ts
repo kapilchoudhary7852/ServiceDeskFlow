@@ -154,7 +154,10 @@ export class ListingComponent implements OnInit {
           this.resolvedDateFromInput = '1000-01-01T08:07:20.717Z';
         if(this.resolvedDateToInput =='')
           this.resolvedDateToInput = '3000-01-01T08:07:20.717Z';
-        arryFiltered =  arryFiltered.filter(item=> new Date(item.ResolvedDate) >= new Date(this.resolvedDateFromInput) && new Date(item.ResolvedDate) <= new Date(this.resolvedDateToInput))
+        arryFiltered =  arryFiltered.filter(item=> { 
+          console.log( item.ResolvedDate);
+          
+          return item.ResolvedDate >= new Date(this.resolvedDateFromInput)} )//&& new Date(item.ResolvedDate) <= new Date(this.resolvedDateToInput))
      }
     this.tickets = arryFiltered;
   }
