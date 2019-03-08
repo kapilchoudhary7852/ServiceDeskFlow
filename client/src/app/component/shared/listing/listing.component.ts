@@ -140,14 +140,24 @@ export class ListingComponent implements OnInit {
         arryFiltered =  arryFiltered.filter(item=> item.Assigned == this.AssigneeInput)
     if (this.ReporterInput!= '0' && this.ReporterInput!= '') 
         arryFiltered =  arryFiltered.filter(item=> item.CreatedBy == this.ReporterInput)
-    if (this.ticketDateFromInput !=''|| this.ticketDateToInput !='') 
+    
+      
+      
+        if (this.ticketDateFromInput !=''|| this.ticketDateToInput !='') 
      {
         if(this.ticketDateFromInput =='')
           this.ticketDateFromInput = '1000-01-01T08:07:20.717Z';
+
         if(this.ticketDateToInput =='')
           this.ticketDateToInput = '3000-01-01T08:07:20.717Z';
-        arryFiltered =  arryFiltered.filter(item=> new Date(item.CreatedDate) >= new Date(this.ticketDateFromInput) && new Date(item.CreatedDate) <= new Date(this.ticketDateToInput))
+          
+
+        arryFiltered =  arryFiltered.filter(item=> new Date(item.CreatedDate).getTime()>= new Date(this.ticketDateFromInput).getTime() && new Date(item.CreatedDate).getTime() <= new Date(this.ticketDateToInput).getTime())
+      
      }
+    
+    
+    
      if (this.resolvedDateFromInput !=''|| this.resolvedDateToInput !='') 
      {
         if(this.resolvedDateFromInput =='')
@@ -155,9 +165,22 @@ export class ListingComponent implements OnInit {
         if(this.resolvedDateToInput =='')
           this.resolvedDateToInput = '3000-01-01T08:07:20.717Z';
         arryFiltered =  arryFiltered.filter(item=> { 
-          console.log( item.ResolvedDate);
+          // console.log('Ticket Resolved Date = '+ new Date(item.ResolvedDate));
+          // console.log('Resolved from date =' + new Date(this.resolvedDateFromInput));
+
+          // if (new Date(item.ResolvedDate) <= new Date(this.resolvedDateFromInput))
+          // {
+          //   console.log("Resoved date is greater");
+            
+          // }
+          // else
+          // {
+          //   console.log("Resoved date is Smaller");
+          // }
+
           
-          return item.ResolvedDate >= new Date(this.resolvedDateFromInput)} )//&& new Date(item.ResolvedDate) <= new Date(this.resolvedDateToInput))
+          
+          return( new Date(item.ResolvedDate) >= new Date(this.resolvedDateFromInput))&& (new Date(item.ResolvedDate) <= new Date(this.resolvedDateToInput)) } )
      }
     this.tickets = arryFiltered;
   }
