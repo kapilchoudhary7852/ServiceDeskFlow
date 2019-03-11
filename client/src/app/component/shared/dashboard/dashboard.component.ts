@@ -105,7 +105,11 @@ export class DashboardComponent implements OnInit {
     }
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
-    let myLineChart = new Chart(this.ctx, {
+
+    if(this.chart != undefined) 
+    this.chart.destroy(); 
+
+    this.chart = new Chart(this.ctx, {
       type: 'pie',
       data: {
           labels: this.Labels,
@@ -121,8 +125,7 @@ export class DashboardComponent implements OnInit {
          display:true,
        }
     });
-    //myLineChart.data.datasets[0].data = this.Data;
-    myLineChart.data[0].data.update();
+    this.chart.data[0].data.update();
     }
   else{
     alert('No data found')
