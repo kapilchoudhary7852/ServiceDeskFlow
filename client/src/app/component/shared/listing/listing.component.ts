@@ -165,21 +165,6 @@ export class ListingComponent implements OnInit {
         if(this.resolvedDateToInput =='')
           this.resolvedDateToInput = '3000-01-01T08:07:20.717Z';
         arryFiltered =  arryFiltered.filter(item=> { 
-          // console.log('Ticket Resolved Date = '+ new Date(item.ResolvedDate));
-          // console.log('Resolved from date =' + new Date(this.resolvedDateFromInput));
-
-          // if (new Date(item.ResolvedDate) <= new Date(this.resolvedDateFromInput))
-          // {
-          //   console.log("Resoved date is greater");
-            
-          // }
-          // else
-          // {
-          //   console.log("Resoved date is Smaller");
-          // }
-
-          
-          
           return( new Date(item.ResolvedDate) >= new Date(this.resolvedDateFromInput))&& (new Date(item.ResolvedDate) <= new Date(this.resolvedDateToInput)) } )
      }
     this.tickets = arryFiltered;
