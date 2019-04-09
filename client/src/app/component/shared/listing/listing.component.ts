@@ -140,9 +140,6 @@ export class ListingComponent implements OnInit {
         arryFiltered =  arryFiltered.filter(item=> item.Assigned == this.AssigneeInput)
     if (this.ReporterInput!= '0' && this.ReporterInput!= '') 
         arryFiltered =  arryFiltered.filter(item=> item.CreatedBy == this.ReporterInput)
-    
-      
-      
         if (this.ticketDateFromInput !=''|| this.ticketDateToInput !='') 
      {
         if(this.ticketDateFromInput =='')
