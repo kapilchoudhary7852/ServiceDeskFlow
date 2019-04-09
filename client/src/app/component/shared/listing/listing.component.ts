@@ -147,14 +147,8 @@ export class ListingComponent implements OnInit {
 
         if(this.ticketDateToInput =='')
           this.ticketDateToInput = '3000-01-01T08:07:20.717Z';
-          
-
         arryFiltered =  arryFiltered.filter(item=> new Date(item.CreatedDate).getTime()>= new Date(this.ticketDateFromInput).getTime() && new Date(item.CreatedDate).getTime() <= new Date(this.ticketDateToInput).getTime())
-      
      }
-    
-    
-    
      if (this.resolvedDateFromInput !=''|| this.resolvedDateToInput !='') 
      {
         if(this.resolvedDateFromInput =='')
